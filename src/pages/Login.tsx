@@ -6,6 +6,6 @@ const Login: React.FC = () => {
     return (
         <UsernameEntry/>
     )
-}
+};
 
 export default Login;
