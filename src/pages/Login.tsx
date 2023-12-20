@@ -13,12 +13,13 @@ const Login: React.FC = () => {
 
     const handleLoginButtonClick = () => {
         // Now you can use the inputValue as needed, e.g., make an API call
-        console.log('Button clicked! Input value:', inputValue)};
+        console.log('Button clicked! Input value:', inputValue);
         setShowSignupButton(true);
+    };
 
-    // const handleSignupButtonClick = () => {
+    const handleSignupButtonClick = () => {
 
-    // };
+    };
 
     return (
         <div>
@@ -27,10 +28,11 @@ const Login: React.FC = () => {
             </div>
 
             <div>
-                <LoginButton onClick={handleLoginButtonClick}/>
-
+                <LoginButton label="Login" onClick={handleLoginButtonClick}/>
+            </div>
+            <div>
                 {showSignupButton && (
-                    <LoginButton onClick={handleLoginButtonClick}/>
+                    <LoginButton label="Signup" onClick={handleSignupButtonClick}/>
                 )}
             </div>
         </div>
