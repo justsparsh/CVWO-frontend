@@ -8,7 +8,7 @@ interface ButtonProps {
 
 const LoginButton: React.FC<ButtonProps> = ({ label, onClick }) => {
   return (
-    <Button variant="contained" color="primary" onClick={onClick}>
+    <Button variant="contained" color="primary" onClick={onClick} style={{margin:"10px"}}>
         {label}
     </Button>
   );
