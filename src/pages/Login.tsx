@@ -13,42 +13,65 @@ const Login: React.FC = () => {
     };
 
     const handleLoginButtonClick = () => {
-        fetch(`http://localhost:3000/users?name=${inputValue}`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                console.log("User data:", data);
-                navigate('/home');
+        if (inputValue !== "" ) {
+            fetch(`http://localhost:3000/users?name=${inputValue}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
             })
-            .catch((error) => {
-                console.error("Error:", error);
-                setShowSignupButton(true);
-            });
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log("User data:", data);
+                    if (data.length > 0) {
+                        navigate('/home');
+                    } else {
+                        setShowSignupButton(true);
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                    //setShowSignupButton(true);
+                });
+        } else {
+            alert("Please enter a valid name.");
+        }
     };
 
     const handleSignupButtonClick = () => {
-        fetch("http://localhost:3000/users", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                name: inputValue,
-            }),
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                console.log("Response from server:", data);
-                navigate('/home');
+        if (inputValue !== "") {
+            fetch("http://localhost:3000/users", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    name: inputValue,
+                }),
             })
-            .catch((error) => {
-                console.error("Error:", error);
-            });
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then((data) => {
+                    console.log("Response from server:", data);
+                    navigate('/home');
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                    if (error.message.includes("422")) {
+                        alert("This username already exists. Please choose a different name.");
+                    } else {
+                        alert("An error occurred while processing your request.");
+                    }
+                });
+        } else {
+            alert("Please enter a valid name.");
+        }
     };
+    
 
     return (
         <div>
