@@ -1,5 +1,5 @@
 import UsernameEntry from "../components/UsernameEntry";
-import LoginButton from "../components/LoginButton";
+import StandardButton from "../components/StandardButton";
 import { useNavigate } from 'react-router-dom';
 import React, { useState } from "react";
 
@@ -80,11 +80,11 @@ const Login: React.FC = () => {
             </div>
 
             <div>
-                <LoginButton label="Login" onClick={handleLoginButtonClick} />
+                <StandardButton label="Login" onClick={handleLoginButtonClick} />
             </div>
             <div>
                 {showSignupButton && (
-                    <LoginButton label="Signup" onClick={handleSignupButtonClick}/>
+                    <StandardButton label="Signup" onClick={handleSignupButtonClick}/>
                 )}
             </div>
         </div>

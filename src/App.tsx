@@ -1,4 +1,3 @@
-import Home from "./pages/Home";
 import HomePage from "./pages/HomePage";
 import BasicThreadView from "./pages/BasicThreadView";
 import StyledThreadView from "./pages/StyledThreadView";
