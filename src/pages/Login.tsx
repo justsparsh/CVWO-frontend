@@ -24,7 +24,7 @@ const Login: React.FC = () => {
                 .then((data) => {
                     console.log("User data:", data);
                     if (data.length > 0) {
-                        navigate(`/home?name=${inputValue}`);
+                        navigate(`/home/${inputValue}`);
                     } else {
                         setShowSignupButton(true);
                     }
@@ -57,7 +57,7 @@ const Login: React.FC = () => {
                 })
                 .then((data) => {
                     console.log("Response from server:", data);
-                    navigate(`/home?name=${inputValue}`);
+                    navigate(`/home/${inputValue}`);
                 })
                 .catch((error) => {
                     console.error("Error:", error);

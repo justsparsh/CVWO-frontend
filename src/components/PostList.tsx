@@ -19,7 +19,7 @@ const PostList: React.FC<PostListProp> = ({ page }) => {
     }, [page]);
 
     return (
-        <Stack>
+        <Stack style={{ width: "50%" }}>
             {posts.map((post) => (
                 <Post
                     key={post.id}

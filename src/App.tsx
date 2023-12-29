@@ -19,7 +19,7 @@ const App: React.FC = () => {
             <ThemeProvider theme={theme}>
                 <BrowserRouter>
                     <Routes>
-                        <Route path="/home" element={<HomePage />} />
+                        <Route path="/home/:name" element={<HomePage />} />
                         <Route path="/" element={<Login />} />
                     </Routes>
                 </BrowserRouter>
