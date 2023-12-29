@@ -1,24 +1,33 @@
 import React from "react";
 
-type PostProps = {
+export type PostProps = {
+    id: number;
     text: string;
-    author: string;
-    timestamp: Date;
+    userName: string;
+    created_at: Date;
 };
 
-const Post: React.FC<PostProps> = ({ text, author, timestamp }) => {
+const Post: React.FC<PostProps> = ({ text, userName, created_at }) => {
     return (
-        <div style={{ borderStyle: "solid", borderWidth: "2px", borderRadius: "5px", marginBottom: "20px", padding: "5px" }}>
+        <div
+            style={{
+                borderStyle: "solid",
+                borderWidth: "2px",
+                borderRadius: "5px",
+                marginBottom: "20px",
+                padding: "5px",
+            }}
+        >
             <div style={{ textAlign: "left" }}>
                 <p>
-                    {"User: "} {author}
+                    {"User: "} {userName}
                 </p>
 
                 <p> {text} </p>
             </div>
             <div style={{ textAlign: "right" }}>
                 <p>
-                    {"Posted on: "} {timestamp.toLocaleDateString()}
+                    {"Posted on: "} {new Date(created_at).toLocaleDateString()}
                 </p>
             </div>
         </div>

@@ -1,6 +1,6 @@
 import UsernameEntry from "../components/UsernameEntry";
 import StandardButton from "../components/StandardButton";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 
 const Login: React.FC = () => {
@@ -13,7 +13,7 @@ const Login: React.FC = () => {
     };
 
     const handleLoginButtonClick = () => {
-        if (inputValue !== "" ) {
+        if (inputValue !== "") {
             fetch(`http://localhost:3000/users?name=${inputValue}`, {
                 method: "GET",
                 headers: {
@@ -24,7 +24,7 @@ const Login: React.FC = () => {
                 .then((data) => {
                     console.log("User data:", data);
                     if (data.length > 0) {
-                        navigate('/home');
+                        navigate(`/home?name=${inputValue}`);
                     } else {
                         setShowSignupButton(true);
                     }
@@ -57,7 +57,7 @@ const Login: React.FC = () => {
                 })
                 .then((data) => {
                     console.log("Response from server:", data);
-                    navigate('/home');
+                    navigate(`/home?name=${inputValue}`);
                 })
                 .catch((error) => {
                     console.error("Error:", error);
@@ -71,7 +71,6 @@ const Login: React.FC = () => {
             alert("Please enter a valid name.");
         }
     };
-    
 
     return (
         <div>
@@ -82,11 +81,7 @@ const Login: React.FC = () => {
             <div>
                 <StandardButton label="Login" onClick={handleLoginButtonClick} />
             </div>
-            <div>
-                {showSignupButton && (
-                    <StandardButton label="Signup" onClick={handleSignupButtonClick}/>
-                )}
-            </div>
+            <div> {showSignupButton && <StandardButton label="Signup" onClick={handleSignupButtonClick} />} </div>
         </div>
     );
 };
