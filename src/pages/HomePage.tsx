@@ -1,10 +1,11 @@
 import PostList from "../components/PostList";
 import NavBar from "../components/NavBar";
 import StandardButton from "../components/StandardButton";
+import SubmitBox from "../components/SubmitBox";
 
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Container, Stack, TextField, Button, Pagination } from "@mui/material";
+import { Container, Pagination } from "@mui/material";
 
 const HomePage: React.FC = () => {
     const navBarWidth = 250;
@@ -46,6 +47,10 @@ const HomePage: React.FC = () => {
 
         fetchData();
     }, []);
+
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setPostText(event.target.value);
+    };
 
     const handleNewPostButtonClick = () => {
         setIsAddingPost(true);
@@ -103,35 +108,12 @@ const HomePage: React.FC = () => {
                 <StandardButton label="New Post" onClick={handleNewPostButtonClick} />
 
                 {isAddingPost && (
-                    <div
-                        style={{
-                            position: "absolute",
-                            top: "20px",
-                            left: "20%",
-                            right: "20%",
-                            bottom: 0,
-                            zIndex: 1,
-                            background: "rgba(255, 255, 255, 0.9)",
-                        }}
-                    >
-                        <TextField
-                            label="Post Text"
-                            variant="outlined"
-                            fullWidth
-                            style={{ marginBottom: "8px" }}
-                            multiline={true}
-                            value={postText}
-                            onChange={(e) => setPostText(e.target.value)}
-                        />
-                        <Stack direction="row" spacing={2} justifyContent="flex-end">
-                            <Button variant="contained" onClick={handlePostSubmit}>
-                                Submit
-                            </Button>
-                            <Button variant="outlined" onClick={handlePostCancel}>
-                                Cancel
-                            </Button>
-                        </Stack>
-                    </div>
+                    <SubmitBox
+                        textFieldValue={postText}
+                        textFieldChange={handleInputChange}
+                        submitPress={handlePostSubmit}
+                        cancelPress={handlePostCancel}
+                    />
                 )}
             </Container>
             <div>
