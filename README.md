@@ -5,7 +5,7 @@ This repo was forked and edited from the provided sample CVWO sample react app
 
 ### Running the app
 
-1. Follow the instructions for the CVWO-backend repository before beginning with this.
+1. Follow the instructions for the [https://github.com/justsparsh/CVWO-backend](CVWO-backend) repository before beginning with this.
 2. [Fork](https://docs.github.com/en/get-started/quickstart/fork-a-repo#forking-a-repository) this repo.
 3. [Clone](https://docs.github.com/en/get-started/quickstart/fork-a-repo#cloning-your-forked-repository) **your** forked repo.
 4. Open your terminal and navigate to the directory containing your cloned project.
