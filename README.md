@@ -1,19 +1,15 @@
-# CVWO Assignment Sample React App
-
-This sample React app is provided to help you experiment and practice web development fundamentals.
-It shows how certain functionality can be implemented.
-However, do note that this is **far from a model example**.
-After all, we want to see how you maximise your learning in web development
-and good software development practices.
+# CVWO Assignment
+This repo was forked and edited from the provided sample CVWO sample react app
 
 ## Getting Started
 
 ### Running the app
 
-1. [Fork](https://docs.github.com/en/get-started/quickstart/fork-a-repo#forking-a-repository) this repo.
-2. [Clone](https://docs.github.com/en/get-started/quickstart/fork-a-repo#cloning-your-forked-repository) **your** forked repo.
-3. Open your terminal and navigate to the directory containing your cloned project.
-4. Install dependencies for the project by entering this command:
+1. Follow the instructions for the CVWO-backend repository before beginning with this.
+2. [Fork](https://docs.github.com/en/get-started/quickstart/fork-a-repo#forking-a-repository) this repo.
+3. [Clone](https://docs.github.com/en/get-started/quickstart/fork-a-repo#cloning-your-forked-repository) **your** forked repo.
+4. Open your terminal and navigate to the directory containing your cloned project.
+5. Install dependencies for the project by entering this command:
 
 ```bash
 yarn install
@@ -25,9 +21,7 @@ yarn install
 yarn start
 ```
 
-6. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-7. You should see a page like this.
-   ![Basic Page](public/images/BasicPage.png)
+6. Open [http://localhost:3001](http://localhost:3001) to view it in the browser. [http://localhost:3000](http://localhost:3000) should be occupied by your rails server.
 
 ### Navigating the code
 
