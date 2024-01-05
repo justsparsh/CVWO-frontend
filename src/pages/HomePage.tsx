@@ -15,6 +15,7 @@ const HomePage: React.FC = () => {
     const [postText, setPostText] = useState("");
     const [numOfPosts, setNumOfPosts] = useState<number>(0);
     const [pageNumber, setPageNumber] = useState<number>(1);
+    const postURL = `http://localhost:3000/posts?page=${pageNumber}`;
 
     const findUserID = async () => {
         try {
@@ -82,6 +83,9 @@ const HomePage: React.FC = () => {
 
                 const data = await response.json();
                 console.log("Response from server:", data);
+
+                const updatedNumOfPosts = await findNumOfPosts();
+                setNumOfPosts(updatedNumOfPosts);
                 setIsAddingPost(false);
                 setPostListKey((prevKey) => prevKey + 1);
                 setPostText("");
@@ -104,7 +108,7 @@ const HomePage: React.FC = () => {
             >
                 {!isAddingPost && <NavBar setWidth={navBarWidth} />}
 
-                <PostList key={postListKey} page={Number(pageNumber)} />
+                <PostList key={postListKey} url={postURL} />
                 <StandardButton label="New Post" onClick={handleNewPostButtonClick} />
 
                 {isAddingPost && (

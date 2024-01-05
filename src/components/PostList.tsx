@@ -4,19 +4,19 @@ import { Stack } from "@mui/material";
 import React, { useState, useEffect } from "react";
 
 type PostListProp = {
-    page: number;
+    url: string;
 };
 
-const PostList: React.FC<PostListProp> = ({ page }) => {
+const PostList: React.FC<PostListProp> = ({ url }) => {
     const [posts, setPosts] = useState<PostProps[]>([]);
 
     useEffect(() => {
         // Fetch data when the component mounts or page changes
-        fetch(`http://localhost:3000/posts?page=${page}`)
+        fetch(url)
             .then((response) => response.json())
             .then((data) => setPosts(data))
             .catch((error) => console.log(error));
-    }, [page]);
+    }, [url]);
 
     return (
         <Stack style={{ width: "50%" }}>
