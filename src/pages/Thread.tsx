@@ -7,15 +7,15 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Container, Pagination } from "@mui/material";
 
-const HomePage: React.FC = () => {
+const Thread: React.FC = () => {
     const navBarWidth = 250;
-    const { name } = useParams();
-    const [isAddingThread, setIsAddingThread] = useState(false);
+    const { name, threadID } = useParams();
+    const [isAddingPost, setIsAddingPost] = useState(false);
     const [postListKey, setPostListKey] = useState(0);
-    const [threadText, setThreadText] = useState("");
-    const [numOfThreads, setNumOfThreads] = useState<number>(0);
+    const [postText, setPostText] = useState("");
+    const [numOfPosts, setNumOfPosts] = useState<number>(0);
     const [pageNumber, setPageNumber] = useState<number>(1);
-    const postURL = `http://localhost:3000/threads?page=${pageNumber}`;
+    const postURL = `http://localhost:3000/posts?page=${pageNumber}&threadID=${threadID}`;
 
     const findUserID = async () => {
         try {
@@ -29,18 +29,18 @@ const HomePage: React.FC = () => {
         }
     };
 
-    const findNumOfThreads = async () => {
-        const response = await fetch("http://localhost:3000/threads/count");
+    const findNumOfPosts = async () => {
+        const response = await fetch(`http://localhost:3000/posts/count?threadID=${threadID}`);
         const data = await response.json();
-        console.log("Number of threads:", data);
+        console.log("Number of posts:", data);
         return data.total_threads;
     };
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const count = await findNumOfThreads();
-                setNumOfThreads(count);
+                const count = await findNumOfPosts();
+                setNumOfPosts(count);
             } catch (error) {
                 console.error("Error fetching post count:", error);
             }
@@ -50,15 +50,15 @@ const HomePage: React.FC = () => {
     }, []);
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setThreadText(event.target.value);
+        setPostText(event.target.value);
     };
 
     const handleNewPostButtonClick = () => {
-        setIsAddingThread(true);
+        setIsAddingPost(true);
     };
 
     const handlePostCancel = () => {
-        setIsAddingThread(false);
+        setIsAddingPost(false);
     };
 
     const handlePostSubmit = async () => {
@@ -66,7 +66,7 @@ const HomePage: React.FC = () => {
             const userId = await findUserID();
 
             if (userId) {
-                const response = await fetch("http://localhost:3000/threads", {
+                const response = await fetch("http://localhost:3000/posts", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -74,19 +74,19 @@ const HomePage: React.FC = () => {
                     body: JSON.stringify({
                         userID: userId,
                         userName: name,
-                        text: threadText,
-                        threadTitle: "Testing this",
+                        text: postText,
+                        threadID: threadID,
                     }),
                 });
 
                 const data = await response.json();
                 console.log("Response from server:", data);
 
-                const updatedNumOfThreads = await findNumOfThreads();
-                setNumOfThreads(updatedNumOfThreads);
-                setIsAddingThread(false);
+                const updatedNumOfPosts = await findNumOfPosts();
+                setNumOfPosts(updatedNumOfPosts);
+                setIsAddingPost(false);
                 setPostListKey((prevKey) => prevKey + 1);
-                setThreadText("");
+                setPostText("");
             }
         } catch (error) {
             console.error("Error:", error);
@@ -104,14 +104,14 @@ const HomePage: React.FC = () => {
                     marginTop: "20px",
                 }}
             >
-                {!isAddingThread && <NavBar setWidth={navBarWidth} />}
+                {!isAddingPost && <NavBar setWidth={navBarWidth} />}
 
                 <PostList key={postListKey} url={postURL} name={name} />
                 <StandardButton label="New Post" onClick={handleNewPostButtonClick} />
 
-                {isAddingThread && (
+                {isAddingPost && (
                     <SubmitBox
-                        textFieldValue={threadText}
+                        textFieldValue={postText}
                         textFieldChange={handleInputChange}
                         submitPress={handlePostSubmit}
                         cancelPress={handlePostCancel}
@@ -120,7 +120,7 @@ const HomePage: React.FC = () => {
             </Container>
             <div>
                 <Pagination
-                    count={Math.ceil(numOfThreads / 5)}
+                    count={Math.ceil(numOfPosts / 5)}
                     style={{ marginLeft: navBarWidth }}
                     onChange={(e, page) => setPageNumber(page)}
                 />
@@ -129,4 +129,4 @@ const HomePage: React.FC = () => {
     );
 };
 
-export default HomePage;
+export default Thread;

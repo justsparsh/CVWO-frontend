@@ -5,9 +5,10 @@ import React, { useState, useEffect } from "react";
 
 type PostListProp = {
     url: string;
+    name: string | undefined;
 };
 
-const PostList: React.FC<PostListProp> = ({ url }) => {
+const PostList: React.FC<PostListProp> = ({ url, name }) => {
     const [posts, setPosts] = useState<PostProps[]>([]);
 
     useEffect(() => {
@@ -27,6 +28,7 @@ const PostList: React.FC<PostListProp> = ({ url }) => {
                     text={post.text}
                     userName={post.userName}
                     created_at={post.created_at}
+                    name={name}
                 />
             ))}
         </Stack>

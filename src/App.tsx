@@ -1,5 +1,6 @@
 import HomePage from "./pages/HomePage";
 import Login from "./pages/Login";
+import Thread from "./pages/Thread";
 import React from "react";
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -20,6 +21,7 @@ const App: React.FC = () => {
                 <BrowserRouter>
                     <Routes>
                         <Route path="/home/:name" element={<HomePage />} />
+                        <Route path="/thread/:name/:threadID" element={<Thread />} />
                         <Route path="/" element={<Login />} />
                     </Routes>
                 </BrowserRouter>

@@ -5,9 +5,10 @@ export type PostProps = {
     text: string;
     userName: string;
     created_at: Date;
+    name: string | undefined;
 };
 
-const Post: React.FC<PostProps> = ({ text, userName, created_at }) => {
+const Post: React.FC<PostProps> = ({ id, text, userName, created_at, name }) => {
     return (
         <div
             style={{
@@ -18,11 +19,15 @@ const Post: React.FC<PostProps> = ({ text, userName, created_at }) => {
                 padding: "5px",
             }}
         >
-            <div style={{ textAlign: "left" }}>
+            <div style={{ textAlign: "left", display: "flex", alignItems: "center" }}>
                 <p>
                     {"User: "} {userName}
                 </p>
-
+                <a href={`/thread/${name}/${id}`} style={{ marginLeft: "auto" }}>
+                    View Thread
+                </a>
+            </div>
+            <div style={{ textAlign: "left" }}>
                 <p> {text} </p>
             </div>
             <div style={{ textAlign: "right" }}>
