@@ -6,9 +6,10 @@ export type PostProps = {
     userName: string;
     created_at: Date;
     name: string | undefined;
+    colorCode?: string;
 };
 
-const Post: React.FC<PostProps> = ({ id, text, userName, created_at, name }) => {
+const Post: React.FC<PostProps> = ({ id, text, userName, created_at, name, colorCode }) => {
     return (
         <div
             style={{
@@ -17,6 +18,7 @@ const Post: React.FC<PostProps> = ({ id, text, userName, created_at, name }) => 
                 borderRadius: "5px",
                 marginBottom: "20px",
                 padding: "5px",
+                backgroundColor: colorCode || "white",
             }}
         >
             <div style={{ textAlign: "left", display: "flex", alignItems: "center" }}>

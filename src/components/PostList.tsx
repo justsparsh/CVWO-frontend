@@ -6,9 +6,11 @@ import React, { useState, useEffect } from "react";
 type PostListProp = {
     url: string;
     name: string | undefined;
+    boxWidth?: string;
+    colorCode?: string;
 };
 
-const PostList: React.FC<PostListProp> = ({ url, name }) => {
+const PostList: React.FC<PostListProp> = ({ url, name, boxWidth, colorCode }) => {
     const [posts, setPosts] = useState<PostProps[]>([]);
 
     useEffect(() => {
@@ -20,7 +22,7 @@ const PostList: React.FC<PostListProp> = ({ url, name }) => {
     }, [url]);
 
     return (
-        <Stack style={{ width: "50%" }}>
+        <Stack style={{ width: boxWidth || "100%" }}>
             {posts.map((post) => (
                 <Post
                     key={post.id}
@@ -29,6 +31,7 @@ const PostList: React.FC<PostListProp> = ({ url, name }) => {
                     userName={post.userName}
                     created_at={post.created_at}
                     name={name}
+                    colorCode={colorCode}
                 />
             ))}
         </Stack>

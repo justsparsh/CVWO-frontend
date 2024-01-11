@@ -15,6 +15,7 @@ const Thread: React.FC = () => {
     const [postText, setPostText] = useState("");
     const [numOfPosts, setNumOfPosts] = useState<number>(0);
     const [pageNumber, setPageNumber] = useState<number>(1);
+    const threadURL = `http://localhost:3000/threads/${threadID}`;
     const postURL = `http://localhost:3000/posts?page=${pageNumber}&threadID=${threadID}`;
 
     const findUserID = async () => {
@@ -33,7 +34,7 @@ const Thread: React.FC = () => {
         const response = await fetch(`http://localhost:3000/posts/count?threadID=${threadID}`);
         const data = await response.json();
         console.log("Number of posts:", data);
-        return data.total_threads;
+        return data.total_posts;
     };
 
     useEffect(() => {
@@ -106,8 +107,12 @@ const Thread: React.FC = () => {
             >
                 {!isAddingPost && <NavBar setWidth={navBarWidth} />}
 
-                <PostList key={postListKey} url={postURL} name={name} />
-                <StandardButton label="New Post" onClick={handleNewPostButtonClick} />
+                <div style={{ width: "50%" }}>
+                    <PostList url={threadURL} name={name} colorCode="#CBFFFC" />
+                    <PostList key={postListKey} url={postURL} name={name} />
+                </div>
+
+                <StandardButton label="Reply" onClick={handleNewPostButtonClick} />
 
                 {isAddingPost && (
                     <SubmitBox
