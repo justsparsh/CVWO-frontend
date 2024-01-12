@@ -6,9 +6,20 @@ interface submitBoxProps {
     textFieldChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
     submitPress: () => void;
     cancelPress: () => void;
+    withTitle: boolean;
+    titleFieldValue?: string;
+    titleFieldChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const SubmitBox: React.FC<submitBoxProps> = ({ textFieldValue, textFieldChange, submitPress, cancelPress }) => {
+const SubmitBox: React.FC<submitBoxProps> = ({
+    textFieldValue,
+    textFieldChange,
+    submitPress,
+    cancelPress,
+    withTitle,
+    titleFieldValue,
+    titleFieldChange,
+}) => {
     return (
         <div
             style={{
@@ -21,6 +32,17 @@ const SubmitBox: React.FC<submitBoxProps> = ({ textFieldValue, textFieldChange, 
                 background: "rgba(255, 255, 255, 0.9)",
             }}
         >
+            {withTitle && (
+                <TextField
+                    label="Post Title"
+                    variant="outlined"
+                    fullWidth
+                    style={{ marginBottom: "8px" }}
+                    multiline={true}
+                    value={titleFieldValue}
+                    onChange={titleFieldChange}
+                />
+            )}
             <TextField
                 label="Post Text"
                 variant="outlined"

@@ -12,7 +12,8 @@ const HomePage: React.FC = () => {
     const { name } = useParams();
     const [isAddingThread, setIsAddingThread] = useState(false);
     const [postListKey, setPostListKey] = useState(0);
-    const [threadText, setThreadText] = useState("");
+    const [threadText, setThreadText] = useState<string>("");
+    const [threadTitle, setThreadTitle] = useState<string>("");
     const [numOfThreads, setNumOfThreads] = useState<number>(0);
     const [pageNumber, setPageNumber] = useState<number>(1);
     const postURL = `http://localhost:3000/threads?page=${pageNumber}`;
@@ -53,6 +54,10 @@ const HomePage: React.FC = () => {
         setThreadText(event.target.value);
     };
 
+    const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setThreadTitle(event.target.value);
+    };
+
     const handleNewPostButtonClick = () => {
         setIsAddingThread(true);
     };
@@ -75,7 +80,7 @@ const HomePage: React.FC = () => {
                         userID: userId,
                         userName: name,
                         text: threadText,
-                        threadTitle: "Testing this",
+                        threadTitle: threadTitle,
                     }),
                 });
 
@@ -106,7 +111,14 @@ const HomePage: React.FC = () => {
             >
                 {!isAddingThread && <NavBar setWidth={navBarWidth} />}
 
-                <PostList key={postListKey} url={postURL} name={name} boxWidth="50%" linkToThread={true} />
+                <PostList
+                    key={postListKey}
+                    url={postURL}
+                    name={name}
+                    boxWidth="50%"
+                    linkToThread={true}
+                    isThread={true}
+                />
                 <StandardButton label="New Thread" onClick={handleNewPostButtonClick} />
 
                 {isAddingThread && (
@@ -115,6 +127,9 @@ const HomePage: React.FC = () => {
                         textFieldChange={handleInputChange}
                         submitPress={handlePostSubmit}
                         cancelPress={handlePostCancel}
+                        withTitle={true}
+                        titleFieldValue={threadTitle}
+                        titleFieldChange={handleTitleChange}
                     />
                 )}
             </Container>

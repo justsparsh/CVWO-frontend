@@ -1,16 +1,18 @@
 import React from "react";
 
 export type PostProps = {
-    id: number;
+    id: number | undefined;
+    threadID?: number;
     text: string;
     userName: string;
     created_at: Date;
     name: string | undefined;
     colorCode?: string;
     linkToThread: boolean;
+    threadTitle?: string;
 };
 
-const Post: React.FC<PostProps> = ({ id, text, userName, created_at, name, colorCode, linkToThread }) => {
+const Post: React.FC<PostProps> = ({ id, text, userName, created_at, name, colorCode, linkToThread, threadTitle }) => {
     return (
         <div
             style={{
@@ -22,21 +24,26 @@ const Post: React.FC<PostProps> = ({ id, text, userName, created_at, name, color
                 backgroundColor: colorCode || "white",
             }}
         >
+            {threadTitle && (
+                <div style={{ fontWeight: "bold", textAlign: "left" }}>
+                    <p> {threadTitle} </p>
+                </div>
+            )}
             <div style={{ textAlign: "left", display: "flex", alignItems: "center" }}>
                 <p>
                     {"User: "} {userName}
                 </p>
-                {linkToThread && (
-                    <a href={`/thread/${name}/${id}`} style={{ marginLeft: "auto" }}>
-                        View Thread
-                    </a>
-                )}
             </div>
             <div style={{ textAlign: "left" }}>
                 <p> {text} </p>
             </div>
-            <div style={{ textAlign: "right" }}>
-                <p>
+            <div style={{ textAlign: "left", display: "flex", alignItems: "center" }}>
+                {linkToThread && (
+                    <a href={`/thread/${name}/${id}`} style={{ marginRight: "auto" }}>
+                        View Thread
+                    </a>
+                )}
+                <p style={{ marginLeft: "auto" }}>
                     {"Posted on: "} {new Date(created_at).toLocaleDateString()}
                 </p>
             </div>

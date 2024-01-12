@@ -108,8 +108,8 @@ const Thread: React.FC = () => {
                 {!isAddingPost && <NavBar setWidth={navBarWidth} />}
 
                 <div style={{ width: "50%" }}>
-                    <PostList url={threadURL} name={name} colorCode="#CBFFFC" linkToThread={false} />
-                    <PostList key={postListKey} url={postURL} name={name} linkToThread={false} />
+                    <PostList url={threadURL} name={name} colorCode="#CBFFFC" linkToThread={false} isThread={true} />
+                    <PostList key={postListKey} url={postURL} name={name} linkToThread={false} isThread={false} />
                 </div>
 
                 <StandardButton label="Reply" onClick={handleNewPostButtonClick} />
@@ -120,6 +120,7 @@ const Thread: React.FC = () => {
                         textFieldChange={handleInputChange}
                         submitPress={handlePostSubmit}
                         cancelPress={handlePostCancel}
+                        withTitle={false}
                     />
                 )}
             </Container>

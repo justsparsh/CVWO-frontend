@@ -9,9 +9,10 @@ type PostListProp = {
     boxWidth?: string;
     colorCode?: string;
     linkToThread: boolean;
+    isThread: boolean;
 };
 
-const PostList: React.FC<PostListProp> = ({ url, name, boxWidth, colorCode, linkToThread }) => {
+const PostList: React.FC<PostListProp> = ({ url, name, boxWidth, colorCode, linkToThread, isThread }) => {
     const [posts, setPosts] = useState<PostProps[]>([]);
 
     useEffect(() => {
@@ -27,13 +28,14 @@ const PostList: React.FC<PostListProp> = ({ url, name, boxWidth, colorCode, link
             {posts.map((post) => (
                 <Post
                     key={post.id}
-                    id={post.id}
+                    id={isThread ? post.id : post.threadID}
                     text={post.text}
                     userName={post.userName}
                     created_at={post.created_at}
                     name={name}
                     colorCode={colorCode}
                     linkToThread={linkToThread}
+                    threadTitle={isThread ? post.threadTitle : undefined}
                 />
             ))}
         </Stack>
