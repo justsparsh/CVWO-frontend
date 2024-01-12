@@ -1,8 +1,5 @@
 import PostList from "../components/PostList";
 import NavBar from "../components/NavBar";
-// import StandardButton from "../components/StandardButton";
-// import SubmitBox from "../components/SubmitBox";
-
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Container, Pagination } from "@mui/material";
@@ -10,9 +7,7 @@ import { Container, Pagination } from "@mui/material";
 const MyComments: React.FC = () => {
     const navBarWidth = 250;
     const { name } = useParams();
-    // const [isAddingThread, setIsAddingThread] = useState(false);
     const [postListKey] = useState(0);
-    // const [threadText, setThreadText] = useState("");
     const [numOfThreads, setNumOfThreads] = useState<number>(0);
     const [userID, setUserID] = useState<number | undefined>(undefined);
     const [pageNumber, setPageNumber] = useState<number>(1);
@@ -68,48 +63,6 @@ const MyComments: React.FC = () => {
         fetchData();
     }, [userID]);
 
-    // const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    //     setThreadText(event.target.value);
-    // };
-
-    // const handleNewPostButtonClick = () => {
-    //     setIsAddingThread(true);
-    // };
-
-    // const handlePostCancel = () => {
-    //     setIsAddingThread(false);
-    // };
-
-    // const handlePostSubmit = async () => {
-    //     try {
-    //         if (userID) {
-    //             const response = await fetch("http://localhost:3000/threads", {
-    //                 method: "POST",
-    //                 headers: {
-    //                     "Content-Type": "application/json",
-    //                 },
-    //                 body: JSON.stringify({
-    //                     userID: userID,
-    //                     userName: name,
-    //                     text: threadText,
-    //                     threadTitle: "Testing this",
-    //                 }),
-    //             });
-
-    //             const data = await response.json();
-    //             console.log("Response from server:", data);
-
-    //             const updatedNumOfThreads = await findNumOfThreads();
-    //             setNumOfThreads(updatedNumOfThreads);
-    //             setIsAddingThread(false);
-    //             setPostListKey((prevKey) => prevKey + 1);
-    //             setThreadText("");
-    //         }
-    //     } catch (error) {
-    //         console.error("Error:", error);
-    //     }
-    // };
-
     return (
         <div>
             <Container
@@ -121,7 +74,6 @@ const MyComments: React.FC = () => {
                     marginTop: "20px",
                 }}
             >
-                {/* {!isAddingThread && <NavBar setWidth={navBarWidth} />} */}
                 <NavBar setWidth={navBarWidth} />
 
                 <PostList
@@ -132,16 +84,6 @@ const MyComments: React.FC = () => {
                     linkToThread={true}
                     isThread={false}
                 />
-                {/* <StandardButton label="New Thread" onClick={handleNewPostButtonClick} />
-
-                {isAddingThread && (
-                    <SubmitBox
-                        textFieldValue={threadText}
-                        textFieldChange={handleInputChange}
-                        submitPress={handlePostSubmit}
-                        cancelPress={handlePostCancel}
-                    />
-                )} */}
             </Container>
             <div>
                 <Pagination
