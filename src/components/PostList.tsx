@@ -8,9 +8,10 @@ type PostListProp = {
     name: string | undefined;
     boxWidth?: string;
     colorCode?: string;
+    linkToThread: boolean;
 };
 
-const PostList: React.FC<PostListProp> = ({ url, name, boxWidth, colorCode }) => {
+const PostList: React.FC<PostListProp> = ({ url, name, boxWidth, colorCode, linkToThread }) => {
     const [posts, setPosts] = useState<PostProps[]>([]);
 
     useEffect(() => {
@@ -32,6 +33,7 @@ const PostList: React.FC<PostListProp> = ({ url, name, boxWidth, colorCode }) =>
                     created_at={post.created_at}
                     name={name}
                     colorCode={colorCode}
+                    linkToThread={linkToThread}
                 />
             ))}
         </Stack>

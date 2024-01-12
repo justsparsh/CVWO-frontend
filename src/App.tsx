@@ -1,6 +1,7 @@
 import HomePage from "./pages/HomePage";
 import Login from "./pages/Login";
 import Thread from "./pages/Thread";
+import MyThreads from "./pages/MyThreads";
 import React from "react";
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -22,6 +23,7 @@ const App: React.FC = () => {
                     <Routes>
                         <Route path="/home/:name" element={<HomePage />} />
                         <Route path="/thread/:name/:threadID" element={<Thread />} />
+                        <Route path="/mythreads/:name" element={<MyThreads />} />
                         <Route path="/" element={<Login />} />
                     </Routes>
                 </BrowserRouter>

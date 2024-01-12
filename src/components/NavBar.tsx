@@ -16,7 +16,8 @@ const NavBar: React.FC<NavBarProps> = ({ setWidth }) => {
                 <Box sx={{ width: setWidth }}>
                     <Stack>
                         <Button onClick={() => navigate(`/home/${name}`)}> Home </Button>
-                        <Button onClick={() => navigate(`/home/${name}`)}> My Profile </Button>
+                        <Button onClick={() => navigate(`/mythreads/${name}`)}> My Threads </Button>
+                        <Button onClick={() => navigate(`/home/${name}`)}> My Comments </Button>
                     </Stack>
                 </Box>
             </Drawer>

@@ -106,7 +106,7 @@ const HomePage: React.FC = () => {
             >
                 {!isAddingThread && <NavBar setWidth={navBarWidth} />}
 
-                <PostList key={postListKey} url={postURL} name={name} boxWidth="50%" />
+                <PostList key={postListKey} url={postURL} name={name} boxWidth="50%" linkToThread={true} />
                 <StandardButton label="New Thread" onClick={handleNewPostButtonClick} />
 
                 {isAddingThread && (

@@ -7,9 +7,10 @@ export type PostProps = {
     created_at: Date;
     name: string | undefined;
     colorCode?: string;
+    linkToThread: boolean;
 };
 
-const Post: React.FC<PostProps> = ({ id, text, userName, created_at, name, colorCode }) => {
+const Post: React.FC<PostProps> = ({ id, text, userName, created_at, name, colorCode, linkToThread }) => {
     return (
         <div
             style={{
@@ -25,9 +26,11 @@ const Post: React.FC<PostProps> = ({ id, text, userName, created_at, name, color
                 <p>
                     {"User: "} {userName}
                 </p>
-                <a href={`/thread/${name}/${id}`} style={{ marginLeft: "auto" }}>
-                    View Thread
-                </a>
+                {linkToThread && (
+                    <a href={`/thread/${name}/${id}`} style={{ marginLeft: "auto" }}>
+                        View Thread
+                    </a>
+                )}
             </div>
             <div style={{ textAlign: "left" }}>
                 <p> {text} </p>
