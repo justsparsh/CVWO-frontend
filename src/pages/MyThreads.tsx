@@ -3,8 +3,10 @@ import NavBar from "../components/NavBar";
 import StandardButton from "../components/StandardButton";
 import SubmitBox from "../components/SubmitBox";
 import TagFilter from "../components/TagFilter";
+import { fetchUserData } from "../components/fetchUserID";
+import { fetchThreadCount } from "../components/fetchThreadCount";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Pagination } from "@mui/material";
 
@@ -15,60 +17,12 @@ const MyThreads: React.FC = () => {
     const [postListKey, setPostListKey] = useState(0);
     const [threadText, setThreadText] = useState("");
     const [threadTitle, setThreadTitle] = useState<string>("");
-    const [numOfThreads, setNumOfThreads] = useState<number>(0);
-    const [userID, setUserID] = useState<number | undefined>(undefined);
     const [pageNumber, setPageNumber] = useState<number>(1);
+
+    const userID = fetchUserData(name).userID;
+    const { numOfThreads, updateThreadCount } = fetchThreadCount(userID);
+
     const postURL = `http://localhost:3000/threads?page=${pageNumber}&userID=${userID}`;
-
-    const findUserID = async () => {
-        try {
-            const response = await fetch(`http://localhost:3000/users?name=${name}`);
-            const data = await response.json();
-            // console.log("User data:", data);
-            return data[0]?.id || null;
-        } catch (error) {
-            console.error("Error:", error);
-            return null;
-        }
-    };
-
-    useEffect(() => {
-        const fetchUserID = async () => {
-            try {
-                const id = await findUserID();
-                console.log("Fetched userID:", id);
-                setUserID(() => {
-                    console.log("Updated userID:", id);
-                    return id;
-                });
-            } catch (error) {
-                console.error("Error fetching userID:", error);
-            }
-        };
-        fetchUserID();
-    }, []);
-
-    const findNumOfThreads = async () => {
-        const response = await fetch(`http://localhost:3000/threads/count?userID=${userID}`);
-        const data = await response.json();
-        // console.log("Number of threads:", data);
-        return data.total_threads;
-    };
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                if (userID !== undefined) {
-                    const count = await findNumOfThreads();
-                    setNumOfThreads(count);
-                }
-            } catch (error) {
-                console.error("Error fetching post count:", error);
-            }
-        };
-
-        fetchData();
-    }, [userID]);
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setThreadText(event.target.value);
@@ -105,10 +59,10 @@ const MyThreads: React.FC = () => {
                 const data = await response.json();
                 console.log("Response from server:", data);
 
-                const updatedNumOfThreads = await findNumOfThreads();
-                setNumOfThreads(updatedNumOfThreads);
+                updateThreadCount();
                 setIsAddingThread(false);
                 setPostListKey((prevKey) => prevKey + 1);
+                setThreadTitle("");
                 setThreadText("");
             }
         } catch (error) {
@@ -164,3 +118,31 @@ const MyThreads: React.FC = () => {
 };
 
 export default MyThreads;
+
+// const findUserID = async () => {
+//     try {
+//         const response = await fetch(`http://localhost:3000/users?name=${name}`);
+//         const data = await response.json();
+//         // console.log("User data:", data);
+//         return data[0]?.id || null;
+//     } catch (error) {
+//         console.error("Error:", error);
+//         return null;
+//     }
+// };
+
+// useEffect(() => {
+//     const fetchUserID = async () => {
+//         try {
+//             const id = await findUserID();
+//             console.log("Fetched userID:", id);
+//             setUserID(() => {
+//                 console.log("Updated userID:", id);
+//                 return id;
+//             });
+//         } catch (error) {
+//             console.error("Error fetching userID:", error);
+//         }
+//     };
+//     fetchUserID();
+// }, []);

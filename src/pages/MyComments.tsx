@@ -1,5 +1,6 @@
 import PostList from "../components/PostList";
 import NavBar from "../components/NavBar";
+import { fetchUserData } from "../components/fetchUserID";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Pagination } from "@mui/material";
@@ -9,37 +10,9 @@ const MyComments: React.FC = () => {
     const { name } = useParams();
     const [postListKey] = useState(0);
     const [numOfThreads, setNumOfThreads] = useState<number>(0);
-    const [userID, setUserID] = useState<number | undefined>(undefined);
     const [pageNumber, setPageNumber] = useState<number>(1);
+    const userID = fetchUserData(name).userID;
     const postURL = `http://localhost:3000/posts?page=${pageNumber}&userID=${userID}`;
-
-    const findUserID = async () => {
-        try {
-            const response = await fetch(`http://localhost:3000/users?name=${name}`);
-            const data = await response.json();
-            // console.log("User data:", data);
-            return data[0]?.id || null;
-        } catch (error) {
-            console.error("Error:", error);
-            return null;
-        }
-    };
-
-    useEffect(() => {
-        const fetchUserID = async () => {
-            try {
-                const id = await findUserID();
-                console.log("Fetched userID:", id);
-                setUserID(() => {
-                    console.log("Updated userID:", id);
-                    return id;
-                });
-            } catch (error) {
-                console.error("Error fetching userID:", error);
-            }
-        };
-        fetchUserID();
-    }, []);
 
     const findNumOfThreads = async () => {
         const response = await fetch(`http://localhost:3000/posts/count?userID=${userID}`);

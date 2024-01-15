@@ -3,53 +3,25 @@ import NavBar from "../components/NavBar";
 import StandardButton from "../components/StandardButton";
 import SubmitBox from "../components/SubmitBox";
 import TagFilter from "../components/TagFilter";
+import { fetchUserData } from "../components/fetchUserID";
+import { fetchThreadCount } from "../components/fetchThreadCount";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Pagination } from "@mui/material";
 
 const HomePage: React.FC = () => {
     const navBarWidth = 200;
     const { name } = useParams();
-    const [isAddingThread, setIsAddingThread] = useState(false);
+    const [isAddingThread, setIsAddingThread] = useState<boolean>(false);
     const [postListKey, setPostListKey] = useState(0);
     const [threadText, setThreadText] = useState<string>("");
     const [threadTitle, setThreadTitle] = useState<string>("");
-    const [numOfThreads, setNumOfThreads] = useState<number>(0);
     const [pageNumber, setPageNumber] = useState<number>(1);
     const postURL = `http://localhost:3000/threads?page=${pageNumber}`;
 
-    const findUserID = async () => {
-        try {
-            const response = await fetch(`http://localhost:3000/users?name=${name}`);
-            const data = await response.json();
-            console.log("User data:", data);
-            return data[0]?.id || null;
-        } catch (error) {
-            console.error("Error:", error);
-            return null;
-        }
-    };
-
-    const findNumOfThreads = async () => {
-        const response = await fetch("http://localhost:3000/threads/count");
-        const data = await response.json();
-        console.log("Number of threads:", data);
-        return data.total_threads;
-    };
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const count = await findNumOfThreads();
-                setNumOfThreads(count);
-            } catch (error) {
-                console.error("Error fetching post count:", error);
-            }
-        };
-
-        fetchData();
-    }, []);
+    const userID = fetchUserData(name).userID;
+    const { numOfThreads, updateThreadCount } = fetchThreadCount();
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setThreadText(event.target.value);
@@ -69,16 +41,14 @@ const HomePage: React.FC = () => {
 
     const handlePostSubmit = async () => {
         try {
-            const userId = await findUserID();
-
-            if (userId) {
+            if (userID) {
                 const response = await fetch("http://localhost:3000/threads", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
-                        userID: userId,
+                        userID: userID,
                         userName: name,
                         text: threadText,
                         threadTitle: threadTitle,
@@ -88,10 +58,10 @@ const HomePage: React.FC = () => {
                 const data = await response.json();
                 console.log("Response from server:", data);
 
-                const updatedNumOfThreads = await findNumOfThreads();
-                setNumOfThreads(updatedNumOfThreads);
+                updateThreadCount();
                 setIsAddingThread(false);
                 setPostListKey((prevKey) => prevKey + 1);
+                setThreadTitle("");
                 setThreadText("");
             }
         } catch (error) {
@@ -147,3 +117,24 @@ const HomePage: React.FC = () => {
 };
 
 export default HomePage;
+
+// const numOfThreads = fetchThreadCount().numOfThreads;
+// const findNumOfThreads = async () => {
+//     const response = await fetch("http://localhost:3000/threads/count");
+//     const data = await response.json();
+//     console.log("Number of threads:", data);
+//     return data.total_threads;
+// };
+
+// useEffect(() => {
+//     const fetchData = async () => {
+//         try {
+//             const count = await findNumOfThreads();
+//             setNumOfThreads(count);
+//         } catch (error) {
+//             console.error("Error fetching post count:", error);
+//         }
+//     };
+
+//     fetchData();
+// }, []);

@@ -2,6 +2,7 @@ import PostList from "../components/PostList";
 import NavBar from "../components/NavBar";
 import StandardButton from "../components/StandardButton";
 import SubmitBox from "../components/SubmitBox";
+import { fetchUserData } from "../components/fetchUserID";
 
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
@@ -18,17 +19,7 @@ const Thread: React.FC = () => {
     const threadURL = `http://localhost:3000/threads/${threadID}`;
     const postURL = `http://localhost:3000/posts?page=${pageNumber}&threadID=${threadID}`;
 
-    const findUserID = async () => {
-        try {
-            const response = await fetch(`http://localhost:3000/users?name=${name}`);
-            const data = await response.json();
-            console.log("User data:", data);
-            return data[0]?.id || null;
-        } catch (error) {
-            console.error("Error:", error);
-            return null;
-        }
-    };
+    const userID = fetchUserData(name).userID;
 
     const findNumOfPosts = async () => {
         const response = await fetch(`http://localhost:3000/posts/count?threadID=${threadID}`);
@@ -64,16 +55,14 @@ const Thread: React.FC = () => {
 
     const handlePostSubmit = async () => {
         try {
-            const userId = await findUserID();
-
-            if (userId) {
+            if (userID) {
                 const response = await fetch("http://localhost:3000/posts", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
-                        userID: userId,
+                        userID: userID,
                         userName: name,
                         text: postText,
                         threadID: threadID,
