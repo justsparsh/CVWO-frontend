@@ -2,7 +2,7 @@ import PostList from "../components/PostList";
 import NavBar from "../components/NavBar";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Container, Pagination } from "@mui/material";
+import { Pagination } from "@mui/material";
 
 const MyComments: React.FC = () => {
     const navBarWidth = 250;
@@ -45,7 +45,7 @@ const MyComments: React.FC = () => {
         const response = await fetch(`http://localhost:3000/posts/count?userID=${userID}`);
         const data = await response.json();
         // console.log("Number of threads:", data);
-        return data.total_threads;
+        return data.total_posts;
     };
 
     useEffect(() => {
@@ -65,7 +65,7 @@ const MyComments: React.FC = () => {
 
     return (
         <div>
-            <Container
+            <div
                 style={{
                     display: "flex",
                     flexDirection: "row",
@@ -84,7 +84,7 @@ const MyComments: React.FC = () => {
                     linkToThread={true}
                     isThread={false}
                 />
-            </Container>
+            </div>
             <div>
                 <Pagination
                     count={Math.ceil(numOfThreads / 5)}

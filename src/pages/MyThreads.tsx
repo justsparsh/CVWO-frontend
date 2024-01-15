@@ -2,10 +2,11 @@ import PostList from "../components/PostList";
 import NavBar from "../components/NavBar";
 import StandardButton from "../components/StandardButton";
 import SubmitBox from "../components/SubmitBox";
+import TagFilter from "../components/TagFilter";
 
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Container, Pagination } from "@mui/material";
+import { Pagination } from "@mui/material";
 
 const MyThreads: React.FC = () => {
     const navBarWidth = 250;
@@ -117,7 +118,7 @@ const MyThreads: React.FC = () => {
 
     return (
         <div>
-            <Container
+            <div
                 style={{
                     display: "flex",
                     flexDirection: "row",
@@ -149,7 +150,8 @@ const MyThreads: React.FC = () => {
                         titleFieldChange={handleTitleChange}
                     />
                 )}
-            </Container>
+                <TagFilter />
+            </div>
             <div>
                 <Pagination
                     count={Math.ceil(numOfThreads / 5)}
