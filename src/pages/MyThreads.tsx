@@ -5,13 +5,14 @@ import SubmitBox from "../components/SubmitBox";
 import TagFilter from "../components/TagFilter";
 import { fetchUserData } from "../components/fetchUserID";
 import { fetchThreadCount } from "../components/fetchThreadCount";
+import "./styles.css";
 
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Pagination } from "@mui/material";
 
 const MyThreads: React.FC = () => {
-    const navBarWidth = 250;
+    const navBarWidth = 200;
     const { name } = useParams();
     const [isAddingThread, setIsAddingThread] = useState(false);
     const [postListKey, setPostListKey] = useState(0);
@@ -72,15 +73,7 @@ const MyThreads: React.FC = () => {
 
     return (
         <div>
-            <div
-                style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    marginLeft: navBarWidth,
-                    justifyContent: "center",
-                    marginTop: "20px",
-                }}
-            >
+            <div className="main-container">
                 {!isAddingThread && <NavBar setWidth={navBarWidth} />}
 
                 <PostList
@@ -109,7 +102,7 @@ const MyThreads: React.FC = () => {
             <div>
                 <Pagination
                     count={Math.ceil(numOfThreads / 5)}
-                    style={{ marginLeft: navBarWidth }}
+                    className="pagination"
                     onChange={(e, page) => setPageNumber(page)}
                 />
             </div>

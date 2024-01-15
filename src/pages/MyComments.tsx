@@ -1,12 +1,13 @@
 import PostList from "../components/PostList";
 import NavBar from "../components/NavBar";
 import { fetchUserData } from "../components/fetchUserID";
+import "./styles.css";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Pagination } from "@mui/material";
 
 const MyComments: React.FC = () => {
-    const navBarWidth = 250;
+    const navBarWidth = 200;
     const { name } = useParams();
     const [postListKey] = useState(0);
     const [numOfThreads, setNumOfThreads] = useState<number>(0);
@@ -38,15 +39,7 @@ const MyComments: React.FC = () => {
 
     return (
         <div>
-            <div
-                style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    marginLeft: navBarWidth,
-                    justifyContent: "center",
-                    marginTop: "20px",
-                }}
-            >
+            <div className="main-container">
                 <NavBar setWidth={navBarWidth} />
 
                 <PostList
@@ -61,7 +54,7 @@ const MyComments: React.FC = () => {
             <div>
                 <Pagination
                     count={Math.ceil(numOfThreads / 5)}
-                    style={{ marginLeft: navBarWidth }}
+                    className="pagination"
                     onChange={(e, page) => setPageNumber(page)}
                 />
             </div>

@@ -3,13 +3,14 @@ import NavBar from "../components/NavBar";
 import StandardButton from "../components/StandardButton";
 import SubmitBox from "../components/SubmitBox";
 import { fetchUserData } from "../components/fetchUserID";
+import "./styles.css";
 
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Container, Pagination } from "@mui/material";
+import { Pagination } from "@mui/material";
 
 const Thread: React.FC = () => {
-    const navBarWidth = 250;
+    const navBarWidth = 200;
     const { name, threadID } = useParams();
     const [isAddingPost, setIsAddingPost] = useState(false);
     const [postListKey, setPostListKey] = useState(0);
@@ -85,15 +86,7 @@ const Thread: React.FC = () => {
 
     return (
         <div>
-            <Container
-                style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    marginLeft: navBarWidth,
-                    justifyContent: "center",
-                    marginTop: "20px",
-                }}
-            >
+            <div className="main-container">
                 {!isAddingPost && <NavBar setWidth={navBarWidth} />}
 
                 <div style={{ width: "50%" }}>
@@ -112,11 +105,11 @@ const Thread: React.FC = () => {
                         withTitle={false}
                     />
                 )}
-            </Container>
+            </div>
             <div>
                 <Pagination
                     count={Math.ceil(numOfPosts / 5)}
-                    style={{ marginLeft: navBarWidth }}
+                    className="pagination"
                     onChange={(e, page) => setPageNumber(page)}
                 />
             </div>

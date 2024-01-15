@@ -5,6 +5,7 @@ import SubmitBox from "../components/SubmitBox";
 import TagFilter from "../components/TagFilter";
 import { fetchUserData } from "../components/fetchUserID";
 import { fetchThreadCount } from "../components/fetchThreadCount";
+import "./styles.css";
 
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
@@ -71,15 +72,7 @@ const HomePage: React.FC = () => {
 
     return (
         <div>
-            <div
-                style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    marginLeft: navBarWidth,
-                    justifyContent: "center",
-                    marginTop: "20px",
-                }}
-            >
+            <div className="main-container">
                 {!isAddingThread && <NavBar setWidth={navBarWidth} />}
 
                 <PostList
@@ -108,7 +101,7 @@ const HomePage: React.FC = () => {
             <div>
                 <Pagination
                     count={Math.ceil(numOfThreads / 5)}
-                    style={{ marginLeft: navBarWidth }}
+                    className="pagination"
                     onChange={(e, page) => setPageNumber(page)}
                 />
             </div>
