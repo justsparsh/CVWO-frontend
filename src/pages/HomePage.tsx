@@ -3,6 +3,7 @@ import NavBar from "../components/NavBar";
 import StandardButton from "../components/StandardButton";
 import SubmitBox from "../components/SubmitBox";
 import TagFilter from "../components/TagFilter";
+import { Stock, Sentiment } from "../components/TagFilter";
 import { fetchUserData } from "../components/fetchUserID";
 import { fetchThreadCount } from "../components/fetchThreadCount";
 import "./styles.css";
@@ -19,7 +20,11 @@ const HomePage: React.FC = () => {
     const [threadText, setThreadText] = useState<string>("");
     const [threadTitle, setThreadTitle] = useState<string>("");
     const [pageNumber, setPageNumber] = useState<number>(1);
-    const postURL = `http://localhost:3000/threads?page=${pageNumber}`;
+    const [tickers, setTickers] = useState<string[]>([]);
+    const [sentiments, setSentiments] = useState<string[]>([]);
+    const postURL = `http://localhost:3000/threads?page=${pageNumber}&tickers=${encodeURIComponent(
+        JSON.stringify(tickers),
+    )}&sentiments=${encodeURIComponent(JSON.stringify(sentiments))}`;
 
     const userID = fetchUserData(name).userID;
     const { numOfThreads, updateThreadCount } = fetchThreadCount();
@@ -53,6 +58,8 @@ const HomePage: React.FC = () => {
                         userName: name,
                         text: threadText,
                         threadTitle: threadTitle,
+                        ticker_list: "TSLA",
+                        sentiment_list: "Bullish",
                     }),
                 });
 
@@ -68,6 +75,16 @@ const HomePage: React.FC = () => {
         } catch (error) {
             console.error("Error:", error);
         }
+    };
+
+    // const handleFilter = () => {
+    //     setTickers(["TSLA"]);
+    //     setPostListKey((prevKey) => prevKey + 1);
+    // };
+    const handleTagFilter = (selectedStocks: Stock[], selectedSentiments: Sentiment[]) => {
+        setTickers(selectedStocks.map((stock) => stock.name));
+        setSentiments(selectedSentiments.map((sentiment) => sentiment.name));
+        setPostListKey((prevKey) => prevKey + 1);
     };
 
     return (
@@ -96,7 +113,9 @@ const HomePage: React.FC = () => {
                         titleFieldChange={handleTitleChange}
                     />
                 )}
-                <TagFilter />
+                <div>
+                    <TagFilter onTagFilter={handleTagFilter} />
+                </div>
             </div>
             <div>
                 <Pagination

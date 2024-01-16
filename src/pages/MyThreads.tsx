@@ -3,6 +3,7 @@ import NavBar from "../components/NavBar";
 import StandardButton from "../components/StandardButton";
 import SubmitBox from "../components/SubmitBox";
 import TagFilter from "../components/TagFilter";
+import { Stock } from "../components/TagFilter";
 import { fetchUserData } from "../components/fetchUserID";
 import { fetchThreadCount } from "../components/fetchThreadCount";
 import "./styles.css";
@@ -19,11 +20,14 @@ const MyThreads: React.FC = () => {
     const [threadText, setThreadText] = useState("");
     const [threadTitle, setThreadTitle] = useState<string>("");
     const [pageNumber, setPageNumber] = useState<number>(1);
-
     const userID = fetchUserData(name).userID;
     const { numOfThreads, updateThreadCount } = fetchThreadCount(userID);
+    const [tickers, setTickers] = useState<string[]>([]);
+    const postURL = `http://localhost:3000/threads?page=${pageNumber}&&userID=${userID}&tickers=${encodeURIComponent(
+        JSON.stringify(tickers),
+    )}`;
 
-    const postURL = `http://localhost:3000/threads?page=${pageNumber}&userID=${userID}`;
+    // const postURL = `http://localhost:3000/threads?page=${pageNumber}&userID=${userID}`;
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setThreadText(event.target.value);
@@ -71,19 +75,26 @@ const MyThreads: React.FC = () => {
         }
     };
 
+    const handleTagFilter = (selectedStocks: Stock[]) => {
+        setTickers(selectedStocks.map((stock) => stock.name));
+        setPostListKey((prevKey) => prevKey + 1);
+    };
+
     return (
         <div>
             <div className="main-container">
                 {!isAddingThread && <NavBar setWidth={navBarWidth} />}
 
-                <PostList
-                    key={postListKey}
-                    url={postURL}
-                    name={name}
-                    boxWidth="50%"
-                    linkToThread={true}
-                    isThread={true}
-                />
+                {userID !== null && (
+                    <PostList
+                        key={postListKey}
+                        url={postURL}
+                        name={name}
+                        boxWidth="50%"
+                        linkToThread={true}
+                        isThread={true}
+                    />
+                )}
                 <StandardButton label="New Thread" onClick={handleNewPostButtonClick} />
 
                 {isAddingThread && (
@@ -97,7 +108,7 @@ const MyThreads: React.FC = () => {
                         titleFieldChange={handleTitleChange}
                     />
                 )}
-                <TagFilter />
+                <TagFilter onTagFilter={handleTagFilter} />
             </div>
             <div>
                 <Pagination

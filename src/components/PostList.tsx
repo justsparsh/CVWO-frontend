@@ -14,7 +14,6 @@ type PostListProp = {
 
 const PostList: React.FC<PostListProp> = ({ url, name, boxWidth, colorCode, linkToThread, isThread }) => {
     const [posts, setPosts] = useState<PostProps[]>([]);
-
     useEffect(() => {
         // Fetch data when the component mounts or page changes
         fetch(url)

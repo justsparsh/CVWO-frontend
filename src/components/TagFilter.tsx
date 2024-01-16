@@ -1,45 +1,82 @@
+import StandardButton from "./StandardButton";
 import React, { useState } from "react";
 import { Autocomplete, TextField } from "@mui/material";
 import { createFilterOptions } from "@mui/material/Autocomplete";
 
-interface Stock {
+export interface Stock {
+    name: string;
+}
+export interface Sentiment {
     name: string;
 }
 
-const TagFilter: React.FC = () => {
-    const dataSource: Stock[] = [
-        { name: "TSLA" },
-        { name: "AAPL" },
-        { name: "SPY" },
-        { name: "VOO" },
-        { name: "JPM" },
-        { name: "AMZN" },
-    ];
+const stocks: Stock[] = [
+    { name: "TSLA" },
+    { name: "AAPL" },
+    { name: "SPY" },
+    { name: "VOO" },
+    { name: "JPM" },
+    { name: "AMZN" },
+];
+const dataSource: Sentiment[] = [{ name: "Bullish" }, { name: "Neutral" }, { name: "Bearish" }];
 
-    const [value, setValue] = useState<Stock[]>([]);
-    const [inputValue, setInputValue] = useState("");
+const TagFilter: React.FC<{
+    onTagFilter: (selectedStocks: Stock[], selectedSentiments: Sentiment[]) => void;
+}> = ({ onTagFilter }) => {
+    const [stockValue, setStockValue] = useState<Stock[]>([]);
+    const [stockInput, setStockInput] = useState("");
     const [optionList, setOptionList] = useState<Stock[]>([]);
 
+    const [sentimentValue, setSentimentValue] = useState<Sentiment[]>([]);
+    const [sentimentInput, setSentimentInput] = useState("");
+
+    const handleFilterClick = () => {
+        onTagFilter(stockValue, sentimentValue);
+    };
+
     return (
-        <div style={{ width: "250px" }}>
-            <div>{value.map((stock) => stock.name).join(", ")}</div>
-            <Autocomplete
-                multiple
-                options={optionList}
-                value={value}
-                onChange={(event, newValue) => {
-                    setValue(newValue as Stock[]);
-                }}
-                getOptionLabel={(option) => option.name}
-                inputValue={inputValue}
-                onInputChange={(event, newInputValue) => {
-                    setOptionList(newInputValue !== "" ? dataSource : []);
-                    setInputValue(newInputValue);
-                }}
-                renderInput={(params) => <TextField {...params} label="Stock Ticker" variant="outlined" />}
-                filterOptions={createFilterOptions({ matchFrom: "start" })}
-                noOptionsText=""
-            />
+        <div>
+            <div style={{ width: "250px", margin: "10px" }}>
+                <div>{stockValue.map((stock) => stock.name).join(", ")}</div>
+                <Autocomplete
+                    multiple
+                    options={optionList}
+                    value={stockValue}
+                    onChange={(event, newValue) => {
+                        setStockValue(newValue as Stock[]);
+                    }}
+                    getOptionLabel={(option) => option.name}
+                    inputValue={stockInput}
+                    onInputChange={(event, newInputValue) => {
+                        setOptionList(newInputValue !== "" ? stocks : []);
+                        setStockInput(newInputValue);
+                    }}
+                    renderInput={(params) => <TextField {...params} label="Stock Ticker" variant="outlined" />}
+                    filterOptions={createFilterOptions({ matchFrom: "start" })}
+                    noOptionsText=""
+                />
+            </div>
+
+            <div style={{ width: "250px", margin: "10px" }}>
+                <div>{sentimentValue.map((sentiment) => sentiment.name).join(", ")}</div>
+                <Autocomplete
+                    multiple
+                    options={dataSource}
+                    value={sentimentValue}
+                    onChange={(event, newValue) => {
+                        setSentimentValue(newValue as Sentiment[]);
+                    }}
+                    getOptionLabel={(option) => option.name}
+                    inputValue={sentimentInput}
+                    onInputChange={(event, newInputValue) => {
+                        setSentimentInput(newInputValue);
+                    }}
+                    renderInput={(params) => <TextField {...params} label="Sentiment" variant="outlined" />}
+                    filterOptions={createFilterOptions({ matchFrom: "start" })}
+                    noOptionsText=""
+                />
+            </div>
+            <StandardButton label={"Filter"} onClick={handleFilterClick} />
         </div>
     );
 };

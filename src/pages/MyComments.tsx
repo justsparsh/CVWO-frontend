@@ -42,14 +42,16 @@ const MyComments: React.FC = () => {
             <div className="main-container">
                 <NavBar setWidth={navBarWidth} />
 
-                <PostList
-                    key={postListKey}
-                    url={postURL}
-                    name={name}
-                    boxWidth="50%"
-                    linkToThread={true}
-                    isThread={false}
-                />
+                {userID !== null && (
+                    <PostList
+                        key={postListKey}
+                        url={postURL}
+                        name={name}
+                        boxWidth="50%"
+                        linkToThread={true}
+                        isThread={false}
+                    />
+                )}
             </div>
             <div>
                 <Pagination
