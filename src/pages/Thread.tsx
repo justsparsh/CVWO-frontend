@@ -14,7 +14,6 @@ const Thread: React.FC = () => {
     const { name, threadID } = useParams();
     const [isAddingPost, setIsAddingPost] = useState(false);
     const [postListKey, setPostListKey] = useState(0);
-    const [postText, setPostText] = useState("");
     const [numOfPosts, setNumOfPosts] = useState<number>(0);
     const [pageNumber, setPageNumber] = useState<number>(1);
     const threadURL = `http://localhost:3000/threads/${threadID}`;
@@ -42,10 +41,6 @@ const Thread: React.FC = () => {
         fetchData();
     }, []);
 
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setPostText(event.target.value);
-    };
-
     const handleNewPostButtonClick = () => {
         setIsAddingPost(true);
     };
@@ -54,7 +49,7 @@ const Thread: React.FC = () => {
         setIsAddingPost(false);
     };
 
-    const handlePostSubmit = async () => {
+    const handlePostSubmit = async (postText: string) => {
         try {
             if (userID) {
                 const response = await fetch("http://localhost:3000/posts", {
@@ -77,7 +72,6 @@ const Thread: React.FC = () => {
                 setNumOfPosts(updatedNumOfPosts);
                 setIsAddingPost(false);
                 setPostListKey((prevKey) => prevKey + 1);
-                setPostText("");
             }
         } catch (error) {
             console.error("Error:", error);
@@ -97,13 +91,7 @@ const Thread: React.FC = () => {
                 <StandardButton label="Reply" onClick={handleNewPostButtonClick} />
 
                 {isAddingPost && (
-                    <SubmitBox
-                        textFieldValue={postText}
-                        textFieldChange={handleInputChange}
-                        submitPress={handlePostSubmit}
-                        cancelPress={handlePostCancel}
-                        withTitle={false}
-                    />
+                    <SubmitBox submitPress={handlePostSubmit} cancelPress={handlePostCancel} isThread={false} />
                 )}
             </div>
             <div>

@@ -10,6 +10,11 @@ export interface Sentiment {
     name: string;
 }
 
+interface tagFilterProps {
+    isThreadPost: boolean;
+    onTagFilter: (selectedStocks: Stock[], selectedSentiments: Sentiment[]) => void;
+}
+
 const stocks: Stock[] = [
     { name: "TSLA" },
     { name: "AAPL" },
@@ -20,9 +25,7 @@ const stocks: Stock[] = [
 ];
 const dataSource: Sentiment[] = [{ name: "Bullish" }, { name: "Neutral" }, { name: "Bearish" }];
 
-const TagFilter: React.FC<{
-    onTagFilter: (selectedStocks: Stock[], selectedSentiments: Sentiment[]) => void;
-}> = ({ onTagFilter }) => {
+const TagFilter: React.FC<tagFilterProps> = ({ onTagFilter, isThreadPost }) => {
     const [stockValue, setStockValue] = useState<Stock[]>([]);
     const [stockInput, setStockInput] = useState("");
     const [optionList, setOptionList] = useState<Stock[]>([]);
@@ -56,7 +59,6 @@ const TagFilter: React.FC<{
                     noOptionsText=""
                 />
             </div>
-
             <div style={{ width: "250px", margin: "10px" }}>
                 <div>{sentimentValue.map((sentiment) => sentiment.name).join(", ")}</div>
                 <Autocomplete
@@ -76,7 +78,7 @@ const TagFilter: React.FC<{
                     noOptionsText=""
                 />
             </div>
-            <StandardButton label={"Filter"} onClick={handleFilterClick} />
+            {!isThreadPost && <StandardButton label={"Filter"} onClick={handleFilterClick} />};
         </div>
     );
 };

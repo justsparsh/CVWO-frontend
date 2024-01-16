@@ -17,8 +17,6 @@ const HomePage: React.FC = () => {
     const { name } = useParams();
     const [isAddingThread, setIsAddingThread] = useState<boolean>(false);
     const [postListKey, setPostListKey] = useState(0);
-    const [threadText, setThreadText] = useState<string>("");
-    const [threadTitle, setThreadTitle] = useState<string>("");
     const [pageNumber, setPageNumber] = useState<number>(1);
     const [tickers, setTickers] = useState<string[]>([]);
     const [sentiments, setSentiments] = useState<string[]>([]);
@@ -29,14 +27,6 @@ const HomePage: React.FC = () => {
     const userID = fetchUserData(name).userID;
     const { numOfThreads, updateThreadCount } = fetchThreadCount();
 
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setThreadText(event.target.value);
-    };
-
-    const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setThreadTitle(event.target.value);
-    };
-
     const handleNewPostButtonClick = () => {
         setIsAddingThread(true);
     };
@@ -45,7 +35,7 @@ const HomePage: React.FC = () => {
         setIsAddingThread(false);
     };
 
-    const handlePostSubmit = async () => {
+    const handlePostSubmit = async (threadText: string, threadTitle: string | undefined) => {
         try {
             if (userID) {
                 const response = await fetch("http://localhost:3000/threads", {
@@ -69,18 +59,12 @@ const HomePage: React.FC = () => {
                 updateThreadCount();
                 setIsAddingThread(false);
                 setPostListKey((prevKey) => prevKey + 1);
-                setThreadTitle("");
-                setThreadText("");
             }
         } catch (error) {
             console.error("Error:", error);
         }
     };
 
-    // const handleFilter = () => {
-    //     setTickers(["TSLA"]);
-    //     setPostListKey((prevKey) => prevKey + 1);
-    // };
     const handleTagFilter = (selectedStocks: Stock[], selectedSentiments: Sentiment[]) => {
         setTickers(selectedStocks.map((stock) => stock.name));
         setSentiments(selectedSentiments.map((sentiment) => sentiment.name));
@@ -103,18 +87,10 @@ const HomePage: React.FC = () => {
                 <StandardButton label="New Thread" onClick={handleNewPostButtonClick} />
 
                 {isAddingThread && (
-                    <SubmitBox
-                        textFieldValue={threadText}
-                        textFieldChange={handleInputChange}
-                        submitPress={handlePostSubmit}
-                        cancelPress={handlePostCancel}
-                        withTitle={true}
-                        titleFieldValue={threadTitle}
-                        titleFieldChange={handleTitleChange}
-                    />
+                    <SubmitBox submitPress={handlePostSubmit} cancelPress={handlePostCancel} isThread={true} />
                 )}
                 <div>
-                    <TagFilter onTagFilter={handleTagFilter} />
+                    <TagFilter onTagFilter={handleTagFilter} isThreadPost={false} />
                 </div>
             </div>
             <div>

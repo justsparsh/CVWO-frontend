@@ -1,25 +1,23 @@
-import React from "react";
+// import TagFilter from "./TagFilter";
+import React, { useRef } from "react";
 import { TextField, Stack, Button } from "@mui/material";
 
 interface submitBoxProps {
-    textFieldValue: string;
-    textFieldChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    submitPress: () => void;
+    submitPress: (threadText: string, threadTitle?: string) => void;
     cancelPress: () => void;
-    withTitle: boolean;
-    titleFieldValue?: string;
-    titleFieldChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    isThread: boolean;
 }
 
-const SubmitBox: React.FC<submitBoxProps> = ({
-    textFieldValue,
-    textFieldChange,
-    submitPress,
-    cancelPress,
-    withTitle,
-    titleFieldValue,
-    titleFieldChange,
-}) => {
+const SubmitBox: React.FC<submitBoxProps> = ({ submitPress, cancelPress, isThread }) => {
+    const titleInputRef = useRef<HTMLInputElement>(null);
+    const textInputRef = useRef<HTMLInputElement>(null);
+
+    const handleSubmit = () => {
+        const titleValue = titleInputRef.current?.value || "";
+        const textValue = textInputRef.current?.value || "";
+        submitPress(textValue, isThread ? titleValue : undefined);
+    };
+
     return (
         <div
             style={{
@@ -32,15 +30,14 @@ const SubmitBox: React.FC<submitBoxProps> = ({
                 background: "rgba(255, 255, 255, 0.9)",
             }}
         >
-            {withTitle && (
+            {isThread && (
                 <TextField
                     label="Post Title"
                     variant="outlined"
                     fullWidth
                     style={{ marginBottom: "8px" }}
                     multiline={true}
-                    value={titleFieldValue}
-                    onChange={titleFieldChange}
+                    inputRef={titleInputRef}
                 />
             )}
             <TextField
@@ -49,11 +46,10 @@ const SubmitBox: React.FC<submitBoxProps> = ({
                 fullWidth
                 style={{ marginBottom: "8px" }}
                 multiline={true}
-                value={textFieldValue}
-                onChange={textFieldChange}
+                inputRef={textInputRef}
             />
             <Stack direction="row" spacing={2} justifyContent="flex-end">
-                <Button variant="contained" onClick={submitPress}>
+                <Button variant="contained" onClick={handleSubmit}>
                     Submit
                 </Button>
                 <Button variant="outlined" onClick={cancelPress}>

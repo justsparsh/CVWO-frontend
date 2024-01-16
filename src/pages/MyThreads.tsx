@@ -3,7 +3,7 @@ import NavBar from "../components/NavBar";
 import StandardButton from "../components/StandardButton";
 import SubmitBox from "../components/SubmitBox";
 import TagFilter from "../components/TagFilter";
-import { Stock } from "../components/TagFilter";
+import { Stock, Sentiment } from "../components/TagFilter";
 import { fetchUserData } from "../components/fetchUserID";
 import { fetchThreadCount } from "../components/fetchThreadCount";
 import "./styles.css";
@@ -17,25 +17,14 @@ const MyThreads: React.FC = () => {
     const { name } = useParams();
     const [isAddingThread, setIsAddingThread] = useState(false);
     const [postListKey, setPostListKey] = useState(0);
-    const [threadText, setThreadText] = useState("");
-    const [threadTitle, setThreadTitle] = useState<string>("");
     const [pageNumber, setPageNumber] = useState<number>(1);
     const userID = fetchUserData(name).userID;
     const { numOfThreads, updateThreadCount } = fetchThreadCount(userID);
     const [tickers, setTickers] = useState<string[]>([]);
+    const [sentiments, setSentiments] = useState<string[]>([]);
     const postURL = `http://localhost:3000/threads?page=${pageNumber}&&userID=${userID}&tickers=${encodeURIComponent(
         JSON.stringify(tickers),
-    )}`;
-
-    // const postURL = `http://localhost:3000/threads?page=${pageNumber}&userID=${userID}`;
-
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setThreadText(event.target.value);
-    };
-
-    const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setThreadTitle(event.target.value);
-    };
+    )}&sentiments=${encodeURIComponent(JSON.stringify(sentiments))}`;
 
     const handleNewPostButtonClick = () => {
         setIsAddingThread(true);
@@ -45,7 +34,7 @@ const MyThreads: React.FC = () => {
         setIsAddingThread(false);
     };
 
-    const handlePostSubmit = async () => {
+    const handlePostSubmit = async (threadText: string, threadTitle: string | undefined) => {
         try {
             if (userID) {
                 const response = await fetch("http://localhost:3000/threads", {
@@ -58,6 +47,8 @@ const MyThreads: React.FC = () => {
                         userName: name,
                         text: threadText,
                         threadTitle: threadTitle,
+                        ticker_list: "TSLA",
+                        sentiment_list: "Bullish",
                     }),
                 });
 
@@ -67,16 +58,15 @@ const MyThreads: React.FC = () => {
                 updateThreadCount();
                 setIsAddingThread(false);
                 setPostListKey((prevKey) => prevKey + 1);
-                setThreadTitle("");
-                setThreadText("");
             }
         } catch (error) {
             console.error("Error:", error);
         }
     };
 
-    const handleTagFilter = (selectedStocks: Stock[]) => {
+    const handleTagFilter = (selectedStocks: Stock[], selectedSentiments: Sentiment[]) => {
         setTickers(selectedStocks.map((stock) => stock.name));
+        setSentiments(selectedSentiments.map((sentiment) => sentiment.name));
         setPostListKey((prevKey) => prevKey + 1);
     };
 
@@ -98,17 +88,9 @@ const MyThreads: React.FC = () => {
                 <StandardButton label="New Thread" onClick={handleNewPostButtonClick} />
 
                 {isAddingThread && (
-                    <SubmitBox
-                        textFieldValue={threadText}
-                        textFieldChange={handleInputChange}
-                        submitPress={handlePostSubmit}
-                        cancelPress={handlePostCancel}
-                        withTitle={true}
-                        titleFieldValue={threadTitle}
-                        titleFieldChange={handleTitleChange}
-                    />
+                    <SubmitBox submitPress={handlePostSubmit} cancelPress={handlePostCancel} isThread={true} />
                 )}
-                <TagFilter onTagFilter={handleTagFilter} />
+                <TagFilter onTagFilter={handleTagFilter} isThreadPost={false} />
             </div>
             <div>
                 <Pagination

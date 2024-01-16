@@ -29,7 +29,7 @@ const Post: React.FC<PostProps> = ({ id, text, userName, created_at, name, color
                     <p> {threadTitle} </p>
                 </div>
             )}
-            <div style={{ textAlign: "left", display: "flex", alignItems: "center" }}>
+            <div style={{ textAlign: "left", alignItems: "center" }}>
                 <p>
                     {"User: "} {userName}
                 </p>
