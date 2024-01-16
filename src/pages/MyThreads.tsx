@@ -34,7 +34,12 @@ const MyThreads: React.FC = () => {
         setIsAddingThread(false);
     };
 
-    const handlePostSubmit = async (threadText: string, threadTitle: string | undefined) => {
+    const handlePostSubmit = async (
+        threadText: string,
+        threadTitle: string | undefined,
+        ticker: string | undefined,
+        sentiment: string | undefined,
+    ) => {
         try {
             if (userID) {
                 const response = await fetch("http://localhost:3000/threads", {
@@ -47,8 +52,8 @@ const MyThreads: React.FC = () => {
                         userName: name,
                         text: threadText,
                         threadTitle: threadTitle,
-                        ticker_list: "TSLA",
-                        sentiment_list: "Bullish",
+                        ticker_list: ticker,
+                        sentiment_list: sentiment,
                     }),
                 });
 
@@ -90,7 +95,7 @@ const MyThreads: React.FC = () => {
                 {isAddingThread && (
                     <SubmitBox submitPress={handlePostSubmit} cancelPress={handlePostCancel} isThread={true} />
                 )}
-                <TagFilter onTagFilter={handleTagFilter} isThreadPost={false} />
+                {!isAddingThread && <TagFilter onTagFilter={handleTagFilter} />}
             </div>
             <div>
                 <Pagination
