@@ -3,7 +3,7 @@ import NavBar from "../components/NavBar";
 import StandardButton from "../components/StandardButton";
 import SubmitBox from "../components/SubmitBox";
 import TagFilter from "../components/TagFilter";
-import { Stock, Sentiment } from "../components/TagFilter";
+import { StockProp, SentimentProp } from "../types/FilterDataProps";
 import { fetchUserData } from "../components/fetchUserID";
 import { fetchThreadCount } from "../components/fetchThreadCount";
 import "./styles.css";
@@ -69,7 +69,7 @@ const MyThreads: React.FC = () => {
         }
     };
 
-    const handleTagFilter = (selectedStocks: Stock[], selectedSentiments: Sentiment[]) => {
+    const handleTagFilter = (selectedStocks: StockProp[], selectedSentiments: SentimentProp[]) => {
         setTickers(selectedStocks.map((stock) => stock.name));
         setSentiments(selectedSentiments.map((sentiment) => sentiment.name));
         setPostListKey((prevKey) => prevKey + 1);

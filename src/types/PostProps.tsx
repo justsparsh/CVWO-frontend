@@ -1,0 +1,11 @@
+export type PostProps = {
+    id: number | undefined;
+    threadID?: number;
+    text: string;
+    userName: string;
+    created_at: Date;
+    name: string | undefined;
+    colorCode?: string;
+    linkToThread: boolean;
+    threadTitle?: string;
+};

@@ -1,35 +1,20 @@
 import StandardButton from "./StandardButton";
+import { StockProp, SentimentProp } from "../types/FilterDataProps";
+import { stocks, sentiments } from "../data/FilterData";
 import React, { useState } from "react";
 import { Autocomplete, TextField } from "@mui/material";
 import { createFilterOptions } from "@mui/material/Autocomplete";
 
-export interface Stock {
-    name: string;
-}
-export interface Sentiment {
-    name: string;
-}
-
 interface tagFilterProps {
-    onTagFilter: (selectedStocks: Stock[], selectedSentiments: Sentiment[]) => void;
+    onTagFilter: (selectedStocks: StockProp[], selectedSentiments: SentimentProp[]) => void;
 }
-
-const stocks: Stock[] = [
-    { name: "TSLA" },
-    { name: "AAPL" },
-    { name: "SPY" },
-    { name: "VOO" },
-    { name: "JPM" },
-    { name: "AMZN" },
-];
-const dataSource: Sentiment[] = [{ name: "Bullish" }, { name: "Neutral" }, { name: "Bearish" }];
 
 const TagFilter: React.FC<tagFilterProps> = ({ onTagFilter }) => {
-    const [stockValue, setStockValue] = useState<Stock[]>([]);
+    const [stockValue, setStockValue] = useState<StockProp[]>([]);
     const [stockInput, setStockInput] = useState("");
-    const [optionList, setOptionList] = useState<Stock[]>([]);
+    const [optionList, setOptionList] = useState<StockProp[]>([]);
 
-    const [sentimentValue, setSentimentValue] = useState<Sentiment[]>([]);
+    const [sentimentValue, setSentimentValue] = useState<SentimentProp[]>([]);
     const [sentimentInput, setSentimentInput] = useState("");
 
     const handleFilterClick = () => {
@@ -44,7 +29,7 @@ const TagFilter: React.FC<tagFilterProps> = ({ onTagFilter }) => {
                     options={optionList}
                     value={stockValue}
                     onChange={(event, newValue) => {
-                        setStockValue(newValue as Stock[]);
+                        setStockValue(newValue as StockProp[]);
                     }}
                     getOptionLabel={(option) => option.name}
                     inputValue={stockInput}
@@ -60,10 +45,10 @@ const TagFilter: React.FC<tagFilterProps> = ({ onTagFilter }) => {
             <div style={{ width: "250px", margin: "10px" }}>
                 <Autocomplete
                     multiple
-                    options={dataSource}
+                    options={sentiments}
                     value={sentimentValue}
                     onChange={(event, newValue) => {
-                        setSentimentValue(newValue as Sentiment[]);
+                        setSentimentValue(newValue as SentimentProp[]);
                     }}
                     getOptionLabel={(option) => option.name}
                     inputValue={sentimentInput}

@@ -1,4 +1,5 @@
-import { Stock, Sentiment } from "./TagFilter";
+import { StockProp, SentimentProp } from "../types/FilterDataProps";
+import { stocks, sentiments } from "../data/FilterData";
 import React, { useRef, useState } from "react";
 import { TextField, Stack, Button, Autocomplete } from "@mui/material";
 import { createFilterOptions } from "@mui/material";
@@ -9,25 +10,15 @@ interface submitBoxProps {
     isThread: boolean;
 }
 
-const stocks: Stock[] = [
-    { name: "TSLA" },
-    { name: "AAPL" },
-    { name: "SPY" },
-    { name: "VOO" },
-    { name: "JPM" },
-    { name: "AMZN" },
-];
-const dataSource: Sentiment[] = [{ name: "Bullish" }, { name: "Neutral" }, { name: "Bearish" }];
-
 const SubmitBox: React.FC<submitBoxProps> = ({ submitPress, cancelPress, isThread }) => {
     const titleInputRef = useRef<HTMLInputElement>(null);
     const textInputRef = useRef<HTMLInputElement>(null);
 
-    const [stockValue, setStockValue] = useState<Stock | null>(null);
+    const [stockValue, setStockValue] = useState<StockProp | null>(null);
     const [stockInput, setStockInput] = useState("");
-    const [optionList, setOptionList] = useState<Stock[]>([]);
+    const [optionList, setOptionList] = useState<StockProp[]>([]);
 
-    const [sentimentValue, setSentimentValue] = useState<Sentiment | null>(null);
+    const [sentimentValue, setSentimentValue] = useState<SentimentProp | null>(null);
     const [sentimentInput, setSentimentInput] = useState("");
 
     const handleSubmit = () => {
@@ -78,7 +69,7 @@ const SubmitBox: React.FC<submitBoxProps> = ({ submitPress, cancelPress, isThrea
                             options={optionList}
                             value={stockValue}
                             onChange={(event, newValue) => {
-                                setStockValue(newValue as Stock);
+                                setStockValue(newValue as StockProp);
                             }}
                             getOptionLabel={(option) => option.name}
                             inputValue={stockInput}
@@ -93,10 +84,10 @@ const SubmitBox: React.FC<submitBoxProps> = ({ submitPress, cancelPress, isThrea
                     </div>
                     <div style={{ width: "250px", margin: "10px" }}>
                         <Autocomplete
-                            options={dataSource}
+                            options={sentiments}
                             value={sentimentValue}
                             onChange={(event, newValue) => {
-                                setSentimentValue(newValue as Sentiment);
+                                setSentimentValue(newValue as SentimentProp);
                             }}
                             getOptionLabel={(option) => option.name}
                             inputValue={sentimentInput}

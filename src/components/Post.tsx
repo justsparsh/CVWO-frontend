@@ -1,16 +1,17 @@
+import { PostProps } from "../types/PostProps";
 import React from "react";
 
-export type PostProps = {
-    id: number | undefined;
-    threadID?: number;
-    text: string;
-    userName: string;
-    created_at: Date;
-    name: string | undefined;
-    colorCode?: string;
-    linkToThread: boolean;
-    threadTitle?: string;
-};
+// export type PostProps = {
+//     id: number | undefined;
+//     threadID?: number;
+//     text: string;
+//     userName: string;
+//     created_at: Date;
+//     name: string | undefined;
+//     colorCode?: string;
+//     linkToThread: boolean;
+//     threadTitle?: string;
+// };
 
 const Post: React.FC<PostProps> = ({ id, text, userName, created_at, name, colorCode, linkToThread, threadTitle }) => {
     return (
