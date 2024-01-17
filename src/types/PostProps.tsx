@@ -8,4 +8,6 @@ export type PostProps = {
     colorCode?: string;
     linkToThread: boolean;
     threadTitle?: string;
+    ticker_list?: string[];
+    sentiment_list?: string[];
 };

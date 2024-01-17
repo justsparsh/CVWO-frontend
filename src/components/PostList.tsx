@@ -36,6 +36,8 @@ const PostList: React.FC<PostListProp> = ({ url, name, boxWidth, colorCode, link
                     colorCode={colorCode}
                     linkToThread={linkToThread}
                     threadTitle={isThread ? post.threadTitle : undefined}
+                    ticker_list={isThread ? post.ticker_list : undefined}
+                    sentiment_list={isThread ? post.sentiment_list : undefined}
                 />
             ))}
         </Stack>

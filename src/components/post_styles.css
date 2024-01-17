@@ -1,0 +1,32 @@
+.post-card {
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    padding: 5px;
+}
+
+.title{
+    font-weight: bold;
+    text-align: left;
+    font-size: large;
+}
+
+.username {
+    text-align: left;
+    align-items: center;
+    font-size: small;
+    border-bottom: 1px solid rgba(0,0,0,0.5);
+    color: gray;
+    display: flex;
+}
+
+.text {
+    text-align: left;
+}
+.bottom-div {
+    text-align: left;
+    display: flex;
+    align-items: center;
+    font-size: small;
+}

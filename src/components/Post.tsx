@@ -1,44 +1,38 @@
 import { PostProps } from "../types/PostProps";
 import React from "react";
+import "./post_styles.css";
 
-// export type PostProps = {
-//     id: number | undefined;
-//     threadID?: number;
-//     text: string;
-//     userName: string;
-//     created_at: Date;
-//     name: string | undefined;
-//     colorCode?: string;
-//     linkToThread: boolean;
-//     threadTitle?: string;
-// };
-
-const Post: React.FC<PostProps> = ({ id, text, userName, created_at, name, colorCode, linkToThread, threadTitle }) => {
+const Post: React.FC<PostProps> = ({
+    id,
+    text,
+    userName,
+    created_at,
+    name,
+    colorCode,
+    linkToThread,
+    threadTitle,
+    ticker_list,
+    sentiment_list,
+}) => {
     return (
-        <div
-            style={{
-                borderStyle: "solid",
-                borderWidth: "2px",
-                borderRadius: "5px",
-                marginBottom: "20px",
-                padding: "5px",
-                backgroundColor: colorCode || "white",
-            }}
-        >
+        <div className="post-card" style={{ backgroundColor: colorCode || "white" }}>
             {threadTitle && (
-                <div style={{ fontWeight: "bold", textAlign: "left" }}>
+                <div className="title">
                     <p> {threadTitle} </p>
                 </div>
             )}
-            <div style={{ textAlign: "left", alignItems: "center" }}>
-                <p>
-                    {"User: "} {userName}
+            <div className="username">
+                {"Posted by: "} {userName}
+                <p style={{ marginLeft: "auto" }}>
+                    {"Tags: "} {ticker_list ? ticker_list[0] : undefined}
+                    {", "}
+                    {sentiment_list ? sentiment_list[0] : undefined}
                 </p>
             </div>
-            <div style={{ textAlign: "left" }}>
+            <div className="text">
                 <p> {text} </p>
             </div>
-            <div style={{ textAlign: "left", display: "flex", alignItems: "center" }}>
+            <div className="bottom-div">
                 {linkToThread && (
                     <a href={`/thread/${name}/${id}`} style={{ marginRight: "auto" }}>
                         View Thread

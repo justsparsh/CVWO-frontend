@@ -1,8 +1,7 @@
 import { StockProp, SentimentProp } from "../types/FilterDataProps";
 import { stocks, sentiments } from "../data/FilterData";
 import React, { useRef, useState } from "react";
-import { TextField, Stack, Button, Autocomplete } from "@mui/material";
-import { createFilterOptions } from "@mui/material";
+import { TextField, Stack, Button, Autocomplete, createFilterOptions } from "@mui/material";
 
 interface submitBoxProps {
     submitPress: (threadText: string, threadTitle?: string, stock?: string, sentiment?: string) => void;
