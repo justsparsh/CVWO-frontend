@@ -38,7 +38,7 @@ const MyComments: React.FC = () => {
     }, [userID]);
 
     return (
-        <div>
+        <div className="background">
             <div className="main-container">
                 <NavBar setWidth={navBarWidth} />
 

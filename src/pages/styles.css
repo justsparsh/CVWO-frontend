@@ -8,3 +8,7 @@
 .main-container, .pagination {
     margin-left: 200px;
 }
+
+.background {
+    background-color: "white";
+}

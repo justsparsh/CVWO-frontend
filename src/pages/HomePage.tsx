@@ -77,7 +77,7 @@ const HomePage: React.FC = () => {
     };
 
     return (
-        <div>
+        <div className="background">
             <div className="main-container">
                 {!isAddingThread && <NavBar setWidth={navBarWidth} />}
 

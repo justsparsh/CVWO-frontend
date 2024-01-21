@@ -79,12 +79,12 @@ const Thread: React.FC = () => {
     };
 
     return (
-        <div>
+        <div className="background">
             <div className="main-container">
                 {!isAddingPost && <NavBar setWidth={navBarWidth} />}
 
                 <div style={{ width: "50%" }}>
-                    <PostList url={threadURL} name={name} colorCode="#CBFFFC" linkToThread={false} isThread={true} />
+                    <PostList url={threadURL} name={name} colorCode="#7FC7D9" linkToThread={false} isThread={true} />
                     <PostList key={postListKey} url={postURL} name={name} linkToThread={false} isThread={false} />
                 </div>
 

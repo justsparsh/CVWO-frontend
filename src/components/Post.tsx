@@ -15,7 +15,7 @@ const Post: React.FC<PostProps> = ({
     sentiment_list,
 }) => {
     return (
-        <div className="post-card" style={{ backgroundColor: colorCode || "white" }}>
+        <div className="post-card" style={{ backgroundColor: colorCode || "#DCF2F1" }}>
             {threadTitle && (
                 <div className="title">
                     <p> {threadTitle} </p>
