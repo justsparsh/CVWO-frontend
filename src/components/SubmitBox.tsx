@@ -23,12 +23,19 @@ const SubmitBox: React.FC<submitBoxProps> = ({ submitPress, cancelPress, isThrea
     const handleSubmit = () => {
         const titleValue = titleInputRef.current?.value || "";
         const textValue = textInputRef.current?.value || "";
-        submitPress(
-            textValue,
-            isThread ? titleValue : undefined,
-            isThread ? stockValue?.name : undefined,
-            isThread ? sentimentValue?.name : undefined,
-        );
+        if (
+            textValue === "" ||
+            (isThread && (titleValue === "" || stockValue?.name === undefined || sentimentValue?.name === undefined))
+        ) {
+            alert("Please full up all fields");
+        } else {
+            submitPress(
+                textValue,
+                isThread ? titleValue : undefined,
+                isThread ? stockValue?.name : undefined,
+                isThread ? sentimentValue?.name : undefined,
+            );
+        }
     };
 
     return (
@@ -51,6 +58,7 @@ const SubmitBox: React.FC<submitBoxProps> = ({ submitPress, cancelPress, isThrea
                     style={{ marginBottom: "8px" }}
                     multiline={true}
                     inputRef={titleInputRef}
+                    required
                 />
             )}
             <TextField
@@ -60,6 +68,7 @@ const SubmitBox: React.FC<submitBoxProps> = ({ submitPress, cancelPress, isThrea
                 style={{ marginBottom: "8px" }}
                 multiline={true}
                 inputRef={textInputRef}
+                required
             />
             {isThread && (
                 <div>
@@ -76,7 +85,9 @@ const SubmitBox: React.FC<submitBoxProps> = ({ submitPress, cancelPress, isThrea
                                 setOptionList(newInputValue !== "" ? stocks : []);
                                 setStockInput(newInputValue);
                             }}
-                            renderInput={(params) => <TextField {...params} label="Stock Ticker" variant="outlined" />}
+                            renderInput={(params) => (
+                                <TextField {...params} label="Stock Ticker" variant="outlined" required />
+                            )}
                             filterOptions={createFilterOptions({ matchFrom: "start" })}
                             noOptionsText=""
                         />
@@ -93,7 +104,9 @@ const SubmitBox: React.FC<submitBoxProps> = ({ submitPress, cancelPress, isThrea
                             onInputChange={(event, newInputValue) => {
                                 setSentimentInput(newInputValue);
                             }}
-                            renderInput={(params) => <TextField {...params} label="Sentiment" variant="outlined" />}
+                            renderInput={(params) => (
+                                <TextField {...params} label="Sentiment" variant="outlined" required />
+                            )}
                             filterOptions={createFilterOptions({ matchFrom: "start" })}
                             noOptionsText=""
                         />

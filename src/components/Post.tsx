@@ -1,6 +1,8 @@
 import { PostProps } from "../types/PostProps";
 import React from "react";
 import "./post_styles.css";
+import { DeleteOutline } from "@mui/icons-material";
+import { Button } from "@mui/material";
 
 const Post: React.FC<PostProps> = ({
     id,
@@ -23,11 +25,13 @@ const Post: React.FC<PostProps> = ({
             )}
             <div className="username">
                 {"Posted by: "} {userName}
-                <p style={{ marginLeft: "auto" }}>
-                    {"Tags: "} {ticker_list ? ticker_list[0] : undefined}
-                    {", "}
-                    {sentiment_list ? sentiment_list[0] : undefined}
-                </p>
+                {threadTitle && (
+                    <p style={{ marginLeft: "auto" }}>
+                        {"Tags: "} {ticker_list ? ticker_list[0] : undefined}
+                        {", "}
+                        {sentiment_list ? sentiment_list[0] : undefined}
+                    </p>
+                )}
             </div>
             <div className="text">
                 <p> {text} </p>
@@ -41,6 +45,9 @@ const Post: React.FC<PostProps> = ({
                 <p style={{ marginLeft: "auto" }}>
                     {"Posted on: "} {new Date(created_at).toLocaleDateString()}
                 </p>
+                <Button>
+                    <DeleteOutline fontSize="small" />
+                </Button>
             </div>
         </div>
     );

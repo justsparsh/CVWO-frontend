@@ -1139,10 +1139,10 @@
     core-js-pure "^3.30.2"
     regenerator-runtime "^0.14.0"
 
-"@babel/runtime@^7.10.2", "@babel/runtime@^7.11.2", "@babel/runtime@^7.12.5", "@babel/runtime@^7.16.3", "@babel/runtime@^7.18.3", "@babel/runtime@^7.23.2", "@babel/runtime@^7.23.4", "@babel/runtime@^7.3.1", "@babel/runtime@^7.5.5", "@babel/runtime@^7.8.3", "@babel/runtime@^7.8.4", "@babel/runtime@^7.8.7", "@babel/runtime@^7.9.2":
-  version "7.23.5"
-  resolved "https://registry.npmjs.org/@babel/runtime/-/runtime-7.23.5.tgz"
-  integrity sha512-NdUTHcPe4C99WxPub+K9l9tK5/lV4UXIoaHSYgzco9BCyjKAAwzdBI+wWtYqHt7LJdbo74ZjRPJgzVweq1sz0w==
+"@babel/runtime@^7.10.2", "@babel/runtime@^7.11.2", "@babel/runtime@^7.12.5", "@babel/runtime@^7.16.3", "@babel/runtime@^7.18.3", "@babel/runtime@^7.23.2", "@babel/runtime@^7.23.4", "@babel/runtime@^7.23.8", "@babel/runtime@^7.3.1", "@babel/runtime@^7.5.5", "@babel/runtime@^7.8.3", "@babel/runtime@^7.8.4", "@babel/runtime@^7.8.7", "@babel/runtime@^7.9.2":
+  version "7.23.8"
+  resolved "https://registry.npmjs.org/@babel/runtime/-/runtime-7.23.8.tgz"
+  integrity sha512-Y7KbAP984rn1VGMbGqKmBLio9V7y5Je9GvU4rQPCPinCyNfUcToxIXl06d59URp/F3LwinvODxab5N/G6qggkw==
   dependencies:
     regenerator-runtime "^0.14.0"
 
@@ -1809,6 +1809,13 @@
   version "5.14.19"
   resolved "https://registry.npmjs.org/@mui/core-downloads-tracker/-/core-downloads-tracker-5.14.19.tgz"
   integrity sha512-y4JseIen5pmZs1n9hHy95HKKioKco8f6N2lford2AmjJigVJOv0KsU0qryiCpyuEUZmi/xCduVilHsK9DSkPcA==
+
+"@mui/icons-material@^5.15.5":
+  version "5.15.5"
+  resolved "https://registry.npmjs.org/@mui/icons-material/-/icons-material-5.15.5.tgz"
+  integrity sha512-qiql0fd1JY7TZ1wm1RldvU7sL8QUatE9OC12i/qm5rnm/caTFyAfOyTIR7qqxorsJvoZGyrzwoMkal6Ij9kM0A==
+  dependencies:
+    "@babel/runtime" "^7.23.8"
 
 "@mui/material@^5.14.19":
   version "5.14.19"
