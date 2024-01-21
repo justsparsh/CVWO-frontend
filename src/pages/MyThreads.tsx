@@ -7,6 +7,7 @@ import { StockProp, SentimentProp } from "../types/FilterDataProps";
 import { fetchUserData } from "../components/fetchUserID";
 import { fetchThreadCount } from "../components/fetchThreadCount";
 import { handleDeleteClick } from "../components/deleteData";
+import { handleEditClick } from "../components/editData";
 import "./styles.css";
 
 import React, { useState } from "react";
@@ -82,6 +83,11 @@ const MyThreads: React.FC = () => {
         setPostListKey((prevKey) => prevKey + 1);
     };
 
+    const editFuncWrapper = async (ID: number, textInput: string) => {
+        handleEditClick(ID, textInput, true);
+        setPostListKey((prevKey) => prevKey + 1);
+    };
+
     return (
         <div className="background">
             <div className="main-container">
@@ -96,6 +102,7 @@ const MyThreads: React.FC = () => {
                         linkToThread={true}
                         isThread={true}
                         deletePress={deleteFuncWrapper}
+                        editPress={editFuncWrapper}
                     />
                 )}
                 <StandardButton label="New Thread" onClick={handleNewPostButtonClick} />

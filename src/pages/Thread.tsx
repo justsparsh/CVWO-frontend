@@ -5,6 +5,7 @@ import SubmitBox from "../components/SubmitBox";
 import { fetchUserData } from "../components/fetchUserID";
 import { fetchThreadCount } from "../components/fetchThreadCount";
 import { handleDeleteClick } from "../components/deleteData";
+import { handleEditClick } from "../components/editData";
 import "./styles.css";
 
 import React, { useState } from "react";
@@ -76,6 +77,16 @@ const Thread: React.FC = () => {
         setPostListKey((prevKey) => prevKey + 1);
     };
 
+    const editThread = async (ID: number, textInput: string) => {
+        handleEditClick(ID, textInput, true);
+        setPostListKey((prevKey) => prevKey + 1);
+    };
+
+    const editPost = async (ID: number, textInput: string) => {
+        handleEditClick(ID, textInput, false);
+        setPostListKey((prevKey) => prevKey + 1);
+    };
+
     return (
         <div className="background">
             <div className="main-container">
@@ -91,6 +102,7 @@ const Thread: React.FC = () => {
                         linkToThread={false}
                         isThread={true}
                         deletePress={deleteThread}
+                        editPress={editThread}
                     />
                     <PostList
                         key={postListKey}
@@ -99,6 +111,7 @@ const Thread: React.FC = () => {
                         linkToThread={false}
                         isThread={false}
                         deletePress={deletePost}
+                        editPress={editPost}
                     />
                 </div>
 

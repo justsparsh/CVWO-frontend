@@ -3,6 +3,7 @@ import NavBar from "../components/NavBar";
 import { fetchUserData } from "../components/fetchUserID";
 import { fetchThreadCount } from "../components/fetchThreadCount";
 import { handleDeleteClick } from "../components/deleteData";
+import { handleEditClick } from "../components/editData";
 import "./styles.css";
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
@@ -23,6 +24,11 @@ const MyComments: React.FC = () => {
         setPostListKey((prevKey) => prevKey + 1);
     };
 
+    const editFuncWrapper = async (ID: number, textInput: string) => {
+        handleEditClick(ID, textInput, false);
+        setPostListKey((prevKey) => prevKey + 1);
+    };
+
     return (
         <div className="background">
             <div className="main-container">
@@ -37,6 +43,7 @@ const MyComments: React.FC = () => {
                         linkToThread={true}
                         isThread={false}
                         deletePress={deleteFuncWrapper}
+                        editPress={editFuncWrapper}
                     />
                 )}
             </div>
