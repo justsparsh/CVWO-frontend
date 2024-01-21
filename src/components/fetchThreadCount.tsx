@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 
-export const fetchThreadCount = (userID?: number | null) => {
+export const fetchThreadCount = (isThread: boolean, userID?: number | null) => {
     const [numOfThreads, setNumOfThreads] = useState<number>(0);
 
     const updateThreadCount = async () => {
         try {
-            const response = await fetch(`http://localhost:3000/threads/count?userID=${userID}`);
+            const response = await fetch(
+                `http://localhost:3000/${isThread ? "threads" : "posts"}/count?userID=${userID}`,
+            );
             const data = await response.json();
             setNumOfThreads(data.total_threads);
         } catch (error) {

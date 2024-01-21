@@ -19,7 +19,7 @@ const MyThreads: React.FC = () => {
     const [postListKey, setPostListKey] = useState(0);
     const [pageNumber, setPageNumber] = useState<number>(1);
     const userID = fetchUserData(name).userID;
-    const { numOfThreads, updateThreadCount } = fetchThreadCount(userID);
+    const { numOfThreads, updateThreadCount } = fetchThreadCount(true, userID);
     const [tickers, setTickers] = useState<string[]>([]);
     const [sentiments, setSentiments] = useState<string[]>([]);
     const postURL = `http://localhost:3000/threads?page=${pageNumber}&&userID=${userID}&tickers=${encodeURIComponent(

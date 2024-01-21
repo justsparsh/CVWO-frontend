@@ -3,9 +3,10 @@ import NavBar from "../components/NavBar";
 import StandardButton from "../components/StandardButton";
 import SubmitBox from "../components/SubmitBox";
 import { fetchUserData } from "../components/fetchUserID";
+import { fetchThreadCount } from "../components/fetchThreadCount";
 import "./styles.css";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Pagination } from "@mui/material";
 
@@ -14,32 +15,32 @@ const Thread: React.FC = () => {
     const { name, threadID } = useParams();
     const [isAddingPost, setIsAddingPost] = useState(false);
     const [postListKey, setPostListKey] = useState(0);
-    const [numOfPosts, setNumOfPosts] = useState<number>(0);
     const [pageNumber, setPageNumber] = useState<number>(1);
     const threadURL = `http://localhost:3000/threads/${threadID}`;
     const postURL = `http://localhost:3000/posts?page=${pageNumber}&threadID=${threadID}`;
 
     const userID = fetchUserData(name).userID;
+    const { numOfThreads, updateThreadCount } = fetchThreadCount(false, userID);
 
-    const findNumOfPosts = async () => {
-        const response = await fetch(`http://localhost:3000/posts/count?threadID=${threadID}`);
-        const data = await response.json();
-        console.log("Number of posts:", data);
-        return data.total_posts;
-    };
+    // const findNumOfPosts = async () => {
+    //     const response = await fetch(`http://localhost:3000/posts/count?threadID=${threadID}`);
+    //     const data = await response.json();
+    //     console.log("Number of posts:", data);
+    //     return data.total_posts;
+    // };
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const count = await findNumOfPosts();
-                setNumOfPosts(count);
-            } catch (error) {
-                console.error("Error fetching post count:", error);
-            }
-        };
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         try {
+    //             const count = await findNumOfPosts();
+    //             setNumOfPosts(count);
+    //         } catch (error) {
+    //             console.error("Error fetching post count:", error);
+    //         }
+    //     };
 
-        fetchData();
-    }, []);
+    //     fetchData();
+    // }, []);
 
     const handleNewPostButtonClick = () => {
         setIsAddingPost(true);
@@ -68,8 +69,7 @@ const Thread: React.FC = () => {
                 const data = await response.json();
                 console.log("Response from server:", data);
 
-                const updatedNumOfPosts = await findNumOfPosts();
-                setNumOfPosts(updatedNumOfPosts);
+                updateThreadCount();
                 setIsAddingPost(false);
                 setPostListKey((prevKey) => prevKey + 1);
             }
@@ -91,7 +91,7 @@ const Thread: React.FC = () => {
                 const data = await response.json();
                 console.log("Response from server:", data);
 
-                // updateThreadCount();
+                updateThreadCount();
                 setPostListKey((prevKey) => prevKey + 1);
             }
         } catch (error) {
@@ -131,7 +131,7 @@ const Thread: React.FC = () => {
             </div>
             <div>
                 <Pagination
-                    count={Math.ceil(numOfPosts / 5)}
+                    count={Math.ceil(numOfThreads / 5)}
                     className="pagination"
                     onChange={(e, page) => setPageNumber(page)}
                 />

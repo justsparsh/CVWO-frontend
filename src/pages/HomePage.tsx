@@ -25,7 +25,7 @@ const HomePage: React.FC = () => {
     )}&sentiments=${encodeURIComponent(JSON.stringify(sentiments))}`;
 
     const userID = fetchUserData(name).userID;
-    const { numOfThreads, updateThreadCount } = fetchThreadCount();
+    const { numOfThreads, updateThreadCount } = fetchThreadCount(true);
 
     const handleNewPostButtonClick = () => {
         setIsAddingThread(true);
