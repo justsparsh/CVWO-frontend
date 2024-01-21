@@ -21,29 +21,34 @@ const PostList: React.FC<PostListProp> = ({ url, name, boxWidth, colorCode, link
         fetch(url)
             .then((response) => response.json())
             .then((data) => setPosts(data))
-            .catch((error) => console.log(error));
+            .catch((error) => {
+                console.log(error);
+            });
     }, [url]);
 
     return (
-        <Stack style={{ width: boxWidth || "100%" }}>
-            {posts.map((post) => (
-                <Post
-                    key={post.id}
-                    id={post.id}
-                    threadID={isThread ? undefined : post.threadID}
-                    text={post.text}
-                    userName={post.userName}
-                    created_at={post.created_at}
-                    name={name}
-                    colorCode={colorCode}
-                    linkToThread={linkToThread}
-                    threadTitle={isThread ? post.threadTitle : undefined}
-                    ticker_list={isThread ? post.ticker_list : undefined}
-                    sentiment_list={isThread ? post.sentiment_list : undefined}
-                    deletePress={deletePress}
-                />
-            ))}
-        </Stack>
+        posts !== null &&
+        posts.length > 0 && (
+            <Stack style={{ width: boxWidth || "100%" }}>
+                {posts.map((post: PostProps) => (
+                    <Post
+                        key={post.id}
+                        id={post.id}
+                        threadID={isThread ? undefined : post.threadID}
+                        text={post.text}
+                        userName={post.userName}
+                        created_at={post.created_at}
+                        name={name}
+                        colorCode={colorCode}
+                        linkToThread={linkToThread}
+                        threadTitle={isThread ? post.threadTitle : undefined}
+                        ticker_list={isThread ? post.ticker_list : undefined}
+                        sentiment_list={isThread ? post.sentiment_list : undefined}
+                        deletePress={deletePress}
+                    />
+                ))}
+            </Stack>
+        )
     );
 };
 

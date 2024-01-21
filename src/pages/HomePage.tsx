@@ -130,24 +130,3 @@ const HomePage: React.FC = () => {
 };
 
 export default HomePage;
-
-// const numOfThreads = fetchThreadCount().numOfThreads;
-// const findNumOfThreads = async () => {
-//     const response = await fetch("http://localhost:3000/threads/count");
-//     const data = await response.json();
-//     console.log("Number of threads:", data);
-//     return data.total_threads;
-// };
-
-// useEffect(() => {
-//     const fetchData = async () => {
-//         try {
-//             const count = await findNumOfThreads();
-//             setNumOfThreads(count);
-//         } catch (error) {
-//             console.error("Error fetching post count:", error);
-//         }
-//     };
-
-//     fetchData();
-// }, []);

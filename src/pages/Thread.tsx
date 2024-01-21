@@ -20,27 +20,11 @@ const Thread: React.FC = () => {
     const postURL = `http://localhost:3000/posts?page=${pageNumber}&threadID=${threadID}`;
 
     const userID = fetchUserData(name).userID;
-    const { numOfThreads, updateThreadCount } = fetchThreadCount(false, userID);
-
-    // const findNumOfPosts = async () => {
-    //     const response = await fetch(`http://localhost:3000/posts/count?threadID=${threadID}`);
-    //     const data = await response.json();
-    //     console.log("Number of posts:", data);
-    //     return data.total_posts;
-    // };
-
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         try {
-    //             const count = await findNumOfPosts();
-    //             setNumOfPosts(count);
-    //         } catch (error) {
-    //             console.error("Error fetching post count:", error);
-    //         }
-    //     };
-
-    //     fetchData();
-    // }, []);
+    const { numOfThreads, updateThreadCount } = fetchThreadCount(
+        false,
+        undefined,
+        threadID ? parseInt(threadID) : undefined,
+    );
 
     const handleNewPostButtonClick = () => {
         setIsAddingPost(true);
@@ -74,6 +58,7 @@ const Thread: React.FC = () => {
                 setPostListKey((prevKey) => prevKey + 1);
             }
         } catch (error) {
+            alert("Unable to post to this thread.");
             console.error("Error:", error);
         }
     };

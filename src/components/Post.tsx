@@ -50,9 +50,11 @@ const Post: React.FC<PostProps> = ({
                 <p style={{ marginLeft: "auto" }}>
                     {"Posted on: "} {new Date(created_at).toLocaleDateString()}
                 </p>
-                <Button onClick={onDeletePress}>
-                    <DeleteOutline fontSize="small" />
-                </Button>
+                {name === userName && (
+                    <Button onClick={onDeletePress}>
+                        <DeleteOutline fontSize="small" />
+                    </Button>
+                )}
             </div>
         </div>
     );
