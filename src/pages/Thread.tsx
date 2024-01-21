@@ -86,7 +86,8 @@ const Thread: React.FC = () => {
                         key={threadKey}
                         url={threadURL}
                         name={name}
-                        colorCode="#7FC7D9"
+                        // colorCode="#7FC7D9"
+                        colorCode="#d9e0a6"
                         linkToThread={false}
                         isThread={true}
                         deletePress={deleteThread}

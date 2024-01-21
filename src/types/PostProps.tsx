@@ -11,4 +11,5 @@ export type PostProps = {
     ticker_list?: string[];
     sentiment_list?: string[];
     deletePress: (ID: number) => void;
+    editPress: (ID: number, textInput: string) => void;
 };

@@ -12,9 +12,19 @@ type PostListProp = {
     linkToThread: boolean;
     isThread: boolean;
     deletePress: (ID: number) => void;
+    editPress: (ID: number, textInput: string) => void;
 };
 
-const PostList: React.FC<PostListProp> = ({ url, name, boxWidth, colorCode, linkToThread, isThread, deletePress }) => {
+const PostList: React.FC<PostListProp> = ({
+    url,
+    name,
+    boxWidth,
+    colorCode,
+    linkToThread,
+    isThread,
+    deletePress,
+    editPress,
+}) => {
     const [posts, setPosts] = useState<PostProps[]>([]);
     useEffect(() => {
         // Fetch data when the component mounts or page changes
@@ -45,6 +55,7 @@ const PostList: React.FC<PostListProp> = ({ url, name, boxWidth, colorCode, link
                         ticker_list={isThread ? post.ticker_list : undefined}
                         sentiment_list={isThread ? post.sentiment_list : undefined}
                         deletePress={deletePress}
+                        editPress={editPress}
                     />
                 ))}
             </Stack>

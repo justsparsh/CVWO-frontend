@@ -70,6 +70,7 @@ const SubmitBox: React.FC<submitBoxProps> = ({ submitPress, cancelPress, isThrea
                 multiline={true}
                 inputRef={textInputRef}
                 required
+                inputProps={{ maxLength: 1000 }}
             />
             {isThread && (
                 <div>

@@ -22,14 +22,17 @@
     border-bottom: 1px solid rgba(0,0,0,0.5);
     color: gray;
     display: flex;
+    max-height: 15px;
 }
 
 .text {
     text-align: left;
+    overflow: hidden;
 }
 .bottom-div {
-    text-align: left;
+    /* text-align: left; */
     display: flex;
     align-items: center;
     font-size: small;
+    max-height: 15px;
 }
