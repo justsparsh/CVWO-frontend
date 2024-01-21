@@ -1,5 +1,5 @@
 export type PostProps = {
-    id: number | undefined;
+    id: number;
     threadID?: number;
     text: string;
     userName: string;
@@ -10,4 +10,5 @@ export type PostProps = {
     threadTitle?: string;
     ticker_list?: string[];
     sentiment_list?: string[];
+    deletePress: (ID: number) => void;
 };

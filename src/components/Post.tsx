@@ -6,6 +6,7 @@ import { Button } from "@mui/material";
 
 const Post: React.FC<PostProps> = ({
     id,
+    threadID,
     text,
     userName,
     created_at,
@@ -15,7 +16,11 @@ const Post: React.FC<PostProps> = ({
     threadTitle,
     ticker_list,
     sentiment_list,
+    deletePress,
 }) => {
+    const onDeletePress = () => {
+        deletePress(id);
+    };
     return (
         <div className="post-card" style={{ backgroundColor: colorCode || "#DCF2F1" }}>
             {threadTitle && (
@@ -38,14 +43,14 @@ const Post: React.FC<PostProps> = ({
             </div>
             <div className="bottom-div">
                 {linkToThread && (
-                    <a href={`/thread/${name}/${id}`} style={{ marginRight: "auto" }}>
+                    <a href={`/thread/${name}/${threadID ? threadID : id}`} style={{ marginRight: "auto" }}>
                         View Thread
                     </a>
                 )}
                 <p style={{ marginLeft: "auto" }}>
                     {"Posted on: "} {new Date(created_at).toLocaleDateString()}
                 </p>
-                <Button>
+                <Button onClick={onDeletePress}>
                     <DeleteOutline fontSize="small" />
                 </Button>
             </div>

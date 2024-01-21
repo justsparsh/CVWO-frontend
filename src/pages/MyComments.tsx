@@ -9,7 +9,7 @@ import { Pagination } from "@mui/material";
 const MyComments: React.FC = () => {
     const navBarWidth = 200;
     const { name } = useParams();
-    const [postListKey] = useState(0);
+    const [postListKey, setPostListKey] = useState(0);
     const [numOfThreads, setNumOfThreads] = useState<number>(0);
     const [pageNumber, setPageNumber] = useState<number>(1);
     const userID = fetchUserData(name).userID;
@@ -37,6 +37,28 @@ const MyComments: React.FC = () => {
         fetchData();
     }, [userID]);
 
+    const handleDeleteClick = async (ID: number) => {
+        try {
+            if (userID) {
+                const response = await fetch(`http://localhost:3000/posts/${ID}`, {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                });
+
+                const data = await response.json();
+                console.log("Response from server:", data);
+
+                const count = await findNumOfThreads();
+                setNumOfThreads(count);
+                setPostListKey((prevKey) => prevKey + 1);
+            }
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    };
+
     return (
         <div className="background">
             <div className="main-container">
@@ -50,6 +72,7 @@ const MyComments: React.FC = () => {
                         boxWidth="50%"
                         linkToThread={true}
                         isThread={false}
+                        deletePress={handleDeleteClick}
                     />
                 )}
             </div>

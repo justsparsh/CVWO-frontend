@@ -76,6 +76,27 @@ const HomePage: React.FC = () => {
         setPostListKey((prevKey) => prevKey + 1);
     };
 
+    const handleDeleteClick = async (ID: number) => {
+        try {
+            if (userID) {
+                const response = await fetch(`http://localhost:3000/threads/${ID}`, {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                });
+
+                const data = await response.json();
+                console.log("Response from server:", data);
+
+                updateThreadCount();
+                setPostListKey((prevKey) => prevKey + 1);
+            }
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    };
+
     return (
         <div className="background">
             <div className="main-container">
@@ -88,6 +109,7 @@ const HomePage: React.FC = () => {
                     boxWidth="50%"
                     linkToThread={true}
                     isThread={true}
+                    deletePress={handleDeleteClick}
                 />
                 <StandardButton label="New Thread" onClick={handleNewPostButtonClick} />
 

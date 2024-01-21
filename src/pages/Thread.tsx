@@ -78,14 +78,49 @@ const Thread: React.FC = () => {
         }
     };
 
+    const handleDeleteClick = async (ID: number) => {
+        try {
+            if (userID) {
+                const response = await fetch(`http://localhost:3000/posts/${ID}`, {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                });
+
+                const data = await response.json();
+                console.log("Response from server:", data);
+
+                // updateThreadCount();
+                setPostListKey((prevKey) => prevKey + 1);
+            }
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    };
+
     return (
         <div className="background">
             <div className="main-container">
                 {!isAddingPost && <NavBar setWidth={navBarWidth} />}
 
                 <div style={{ width: "50%" }}>
-                    <PostList url={threadURL} name={name} colorCode="#7FC7D9" linkToThread={false} isThread={true} />
-                    <PostList key={postListKey} url={postURL} name={name} linkToThread={false} isThread={false} />
+                    <PostList
+                        url={threadURL}
+                        name={name}
+                        colorCode="#7FC7D9"
+                        linkToThread={false}
+                        isThread={true}
+                        deletePress={handleDeleteClick}
+                    />
+                    <PostList
+                        key={postListKey}
+                        url={postURL}
+                        name={name}
+                        linkToThread={false}
+                        isThread={false}
+                        deletePress={handleDeleteClick}
+                    />
                 </div>
 
                 <StandardButton label="Reply" onClick={handleNewPostButtonClick} />
