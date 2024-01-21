@@ -59,6 +59,7 @@ const SubmitBox: React.FC<submitBoxProps> = ({ submitPress, cancelPress, isThrea
                     multiline={true}
                     inputRef={titleInputRef}
                     required
+                    inputProps={{ maxLength: 150 }}
                 />
             )}
             <TextField

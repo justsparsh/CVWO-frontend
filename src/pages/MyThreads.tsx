@@ -6,6 +6,7 @@ import TagFilter from "../components/TagFilter";
 import { StockProp, SentimentProp } from "../types/FilterDataProps";
 import { fetchUserData } from "../components/fetchUserID";
 import { fetchThreadCount } from "../components/fetchThreadCount";
+import { handleDeleteClick } from "../components/deleteData";
 import "./styles.css";
 
 import React, { useState } from "react";
@@ -75,25 +76,10 @@ const MyThreads: React.FC = () => {
         setPostListKey((prevKey) => prevKey + 1);
     };
 
-    const handleDeleteClick = async (ID: number) => {
-        try {
-            if (userID) {
-                const response = await fetch(`http://localhost:3000/threads/${ID}`, {
-                    method: "DELETE",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                });
-
-                const data = await response.json();
-                console.log("Response from server:", data);
-
-                updateThreadCount();
-                setPostListKey((prevKey) => prevKey + 1);
-            }
-        } catch (error) {
-            console.error("Error:", error);
-        }
+    const deleteFuncWrapper = async (ID: number) => {
+        handleDeleteClick(ID, true);
+        updateThreadCount();
+        setPostListKey((prevKey) => prevKey + 1);
     };
 
     return (
@@ -109,7 +95,7 @@ const MyThreads: React.FC = () => {
                         boxWidth="50%"
                         linkToThread={true}
                         isThread={true}
-                        deletePress={handleDeleteClick}
+                        deletePress={deleteFuncWrapper}
                     />
                 )}
                 <StandardButton label="New Thread" onClick={handleNewPostButtonClick} />

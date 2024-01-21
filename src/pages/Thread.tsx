@@ -4,6 +4,7 @@ import StandardButton from "../components/StandardButton";
 import SubmitBox from "../components/SubmitBox";
 import { fetchUserData } from "../components/fetchUserID";
 import { fetchThreadCount } from "../components/fetchThreadCount";
+import { handleDeleteClick } from "../components/deleteData";
 import "./styles.css";
 
 import React, { useState } from "react";
@@ -15,6 +16,7 @@ const Thread: React.FC = () => {
     const { name, threadID } = useParams();
     const [isAddingPost, setIsAddingPost] = useState(false);
     const [postListKey, setPostListKey] = useState(0);
+    const [threadKey, setThreadKey] = useState(0);
     const [pageNumber, setPageNumber] = useState<number>(1);
     const threadURL = `http://localhost:3000/threads/${threadID}`;
     const postURL = `http://localhost:3000/posts?page=${pageNumber}&threadID=${threadID}`;
@@ -63,25 +65,15 @@ const Thread: React.FC = () => {
         }
     };
 
-    const handleDeleteClick = async (ID: number) => {
-        try {
-            if (userID) {
-                const response = await fetch(`http://localhost:3000/posts/${ID}`, {
-                    method: "DELETE",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                });
+    const deleteThread = async (ID: number) => {
+        handleDeleteClick(ID, true);
+        setThreadKey((prevKey) => prevKey + 1);
+    };
 
-                const data = await response.json();
-                console.log("Response from server:", data);
-
-                updateThreadCount();
-                setPostListKey((prevKey) => prevKey + 1);
-            }
-        } catch (error) {
-            console.error("Error:", error);
-        }
+    const deletePost = async (ID: number) => {
+        handleDeleteClick(ID, false);
+        updateThreadCount();
+        setPostListKey((prevKey) => prevKey + 1);
     };
 
     return (
@@ -91,12 +83,13 @@ const Thread: React.FC = () => {
 
                 <div style={{ width: "50%" }}>
                     <PostList
+                        key={threadKey}
                         url={threadURL}
                         name={name}
                         colorCode="#7FC7D9"
                         linkToThread={false}
                         isThread={true}
-                        deletePress={handleDeleteClick}
+                        deletePress={deleteThread}
                     />
                     <PostList
                         key={postListKey}
@@ -104,7 +97,7 @@ const Thread: React.FC = () => {
                         name={name}
                         linkToThread={false}
                         isThread={false}
-                        deletePress={handleDeleteClick}
+                        deletePress={deletePost}
                     />
                 </div>
 

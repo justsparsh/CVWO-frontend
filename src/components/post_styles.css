@@ -4,12 +4,15 @@
     border-radius: 5px;
     margin-bottom: 20px;
     padding: 5px;
+    width: auto;
 }
 
 .title{
     font-weight: bold;
     text-align: left;
     font-size: large;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .username {
