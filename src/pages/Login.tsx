@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 
 const Login: React.FC = () => {
+    console.log("Login activated");
     const [inputValue, setInputValue] = useState<string>("");
     const [showSignupButton, setShowSignupButton] = useState<boolean>(true);
     const navigate = useNavigate();
