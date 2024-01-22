@@ -1,6 +1,7 @@
 {
     "name": "sample",
     "version": "0.1.0",
+    "homepage": "https://justsparsh.github.io/CVWO-frontend",
     "private": true,
     "dependencies": {
         "@emotion/react": "^11.11.1",
@@ -21,6 +22,8 @@
         "web-vitals": "^2.1.2"
     },
     "scripts": {
+	    "predeploy": "npm run build",
+        "deploy": "gh-pages -d build",
         "start": "react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test",
@@ -61,6 +64,7 @@
         "eslint-config-prettier": "^8.3.0",
         "eslint-config-react-app": "^6.0.0",
         "eslint-plugin-prettier": "^4.0.0",
+        "gh-pages": "^6.1.1",
         "prettier": "^2.4.1",
         "typescript": "^5.3.2"
     }

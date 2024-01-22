@@ -26,7 +26,7 @@ const App: React.FC = () => {
                         <Route path="/thread/:name/:threadID" element={<Thread />} />
                         <Route path="/mythreads/:name" element={<MyThreads />} />
                         <Route path="/myposts/:name" element={<MyComments />} />
-                        <Route path="/" element={<Login />} />
+                        <Route path="/CVWO-frontend" element={<Login />} />
                     </Routes>
                 </BrowserRouter>
             </ThemeProvider>
