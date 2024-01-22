@@ -6,7 +6,7 @@ export const fetchThreadCount = (isThread: boolean, userID?: number | null, thre
     const updateThreadCount = async () => {
         try {
             const response = await fetch(
-                `http://localhost:3000/${isThread ? "threads" : "posts"}/count?userID=${userID}${
+                `https://cvwo-backend-f3sl.onrender.com/${isThread ? "threads" : "posts"}/count?userID=${userID}${
                     isThread ? "" : `&threadID=${threadID}`
                 }`,
             );

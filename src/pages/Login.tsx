@@ -1,11 +1,11 @@
-import UsernameEntry from "../components/UsernameEntry";
 import StandardButton from "../components/StandardButton";
+import { TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 
 const Login: React.FC = () => {
     const [inputValue, setInputValue] = useState<string>("");
-    const [showSignupButton, setShowSignupButton] = useState<boolean>(false);
+    const [showSignupButton, setShowSignupButton] = useState<boolean>(true);
     const navigate = useNavigate();
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -14,8 +14,8 @@ const Login: React.FC = () => {
 
     const handleLoginButtonClick = () => {
         if (inputValue !== "") {
-            fetch(`http://localhost:3000/users?name=${inputValue}`, {
-                // fetch(`https://cvwo-backend-f3sl.onrender.com/users?name=${inputValue}`, {
+            // fetch(`http://localhost:3000/users?name=${inputValue}`, {
+            fetch(`https://cvwo-backend-f3sl.onrender.com/users?name=${inputValue}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -41,7 +41,7 @@ const Login: React.FC = () => {
 
     const handleSignupButtonClick = () => {
         if (inputValue !== "") {
-            fetch("http://localhost:3000/users", {
+            fetch("https://cvwo-backend-f3sl.onrender.com/users", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -76,7 +76,7 @@ const Login: React.FC = () => {
     return (
         <div>
             <div style={{ padding: "25px" }}>
-                <UsernameEntry value={inputValue} onChange={handleInputChange} />
+                <TextField value={inputValue} onChange={handleInputChange} label="Username" variant="outlined" />
             </div>
 
             <div>

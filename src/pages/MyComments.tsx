@@ -16,7 +16,7 @@ const MyComments: React.FC = () => {
     const [pageNumber, setPageNumber] = useState<number>(1);
     const userID = fetchUserData(name).userID;
     const { numOfThreads, updateThreadCount } = fetchThreadCount(false, userID);
-    const postURL = `http://localhost:3000/posts?page=${pageNumber}&userID=${userID}`;
+    const postURL = `https://cvwo-backend-f3sl.onrender.com/posts?page=${pageNumber}&userID=${userID}`;
 
     const deleteFuncWrapper = async (ID: number) => {
         handleDeleteClick(ID, false);

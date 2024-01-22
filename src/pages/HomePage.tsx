@@ -22,7 +22,7 @@ const HomePage: React.FC = () => {
     const [pageNumber, setPageNumber] = useState<number>(1);
     const [tickers, setTickers] = useState<string[]>([]);
     const [sentiments, setSentiments] = useState<string[]>([]);
-    const postURL = `http://localhost:3000/threads?page=${pageNumber}&tickers=${encodeURIComponent(
+    const postURL = `https://cvwo-backend-f3sl.onrender.com/threads?page=${pageNumber}&tickers=${encodeURIComponent(
         JSON.stringify(tickers),
     )}&sentiments=${encodeURIComponent(JSON.stringify(sentiments))}`;
 
@@ -45,7 +45,7 @@ const HomePage: React.FC = () => {
     ) => {
         try {
             if (userID) {
-                const response = await fetch("http://localhost:3000/threads", {
+                const response = await fetch("https://cvwo-backend-f3sl.onrender.com/threads", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",

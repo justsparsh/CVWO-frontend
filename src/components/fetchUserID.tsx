@@ -6,7 +6,7 @@ export const fetchUserData = (name: string | undefined) => {
     useEffect(() => {
         const fetchUserID = async () => {
             try {
-                const response = await fetch(`http://localhost:3000/users?name=${name}`);
+                const response = await fetch(`https://cvwo-backend-f3sl.onrender.com/users?name=${name}`);
                 const data = await response.json();
                 const fetchedUserID = data[0]?.id || null;
                 setUserID(fetchedUserID);

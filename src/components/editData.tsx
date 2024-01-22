@@ -1,6 +1,6 @@
 export const handleEditClick = async (ID: number, textInput: string, isThread: boolean) => {
     try {
-        const response = await fetch(`http://localhost:3000/${isThread ? "threads" : "posts"}/${ID}`, {
+        const response = await fetch(`https://cvwo-backend-f3sl.onrender.com/${isThread ? "threads" : "posts"}/${ID}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
