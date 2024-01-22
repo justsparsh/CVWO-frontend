@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/CVWO-frontend/static/css/main.e573d1b3.css",
-    "main.js": "/CVWO-frontend/static/js/main.9b980397.js",
+    "main.js": "/CVWO-frontend/static/js/main.cd02b9b6.js",
     "index.html": "/CVWO-frontend/index.html",
     "main.e573d1b3.css.map": "/CVWO-frontend/static/css/main.e573d1b3.css.map",
-    "main.9b980397.js.map": "/CVWO-frontend/static/js/main.9b980397.js.map"
+    "main.cd02b9b6.js.map": "/CVWO-frontend/static/js/main.cd02b9b6.js.map"
   },
   "entrypoints": [
     "static/css/main.e573d1b3.css",
-    "static/js/main.9b980397.js"
+    "static/js/main.cd02b9b6.js"
   ]
 }
