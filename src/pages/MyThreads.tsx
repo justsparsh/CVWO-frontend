@@ -24,7 +24,7 @@ const MyThreads: React.FC = () => {
     const { numOfThreads, updateThreadCount } = fetchThreadCount(true, userID);
     const [tickers, setTickers] = useState<string[]>([]);
     const [sentiments, setSentiments] = useState<string[]>([]);
-    const postURL = `http://localhost:3000/threads?page=${pageNumber}&&userID=${userID}&tickers=${encodeURIComponent(
+    const postURL = `https://cvwo-backend-f3sl.onrender.com/threads?page=${pageNumber}&&userID=${userID}&tickers=${encodeURIComponent(
         JSON.stringify(tickers),
     )}&sentiments=${encodeURIComponent(JSON.stringify(sentiments))}`;
 
@@ -44,7 +44,7 @@ const MyThreads: React.FC = () => {
     ) => {
         try {
             if (userID) {
-                const response = await fetch("http://localhost:3000/threads", {
+                const response = await fetch("https://cvwo-backend-f3sl.onrender.com/threads", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",

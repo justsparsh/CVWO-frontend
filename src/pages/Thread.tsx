@@ -19,8 +19,8 @@ const Thread: React.FC = () => {
     const [postListKey, setPostListKey] = useState(0);
     const [threadKey, setThreadKey] = useState(0);
     const [pageNumber, setPageNumber] = useState<number>(1);
-    const threadURL = `http://localhost:3000/threads/${threadID}`;
-    const postURL = `http://localhost:3000/posts?page=${pageNumber}&threadID=${threadID}`;
+    const threadURL = `https://cvwo-backend-f3sl.onrender.com/threads/${threadID}`;
+    const postURL = `https://cvwo-backend-f3sl.onrender.com/posts?page=${pageNumber}&threadID=${threadID}`;
 
     const userID = fetchUserData(name).userID;
     const { numOfThreads, updateThreadCount } = fetchThreadCount(
@@ -40,7 +40,7 @@ const Thread: React.FC = () => {
     const handlePostSubmit = async (postText: string) => {
         try {
             if (userID) {
-                const response = await fetch("http://localhost:3000/posts", {
+                const response = await fetch("https://cvwo-backend-f3sl.onrender.com/posts", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
