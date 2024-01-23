@@ -1,3 +1,4 @@
+import { apiURL } from "../data/API_URL";
 import { useEffect, useState } from "react";
 
 export const fetchUserData = (name: string | undefined) => {
@@ -6,7 +7,7 @@ export const fetchUserData = (name: string | undefined) => {
     useEffect(() => {
         const fetchUserID = async () => {
             try {
-                const response = await fetch(`https://cvwo-backend-f3sl.onrender.com/users?name=${name}`);
+                const response = await fetch(`${apiURL}/users?name=${name}`);
                 const data = await response.json();
                 const fetchedUserID = data[0]?.id || null;
                 setUserID(fetchedUserID);
@@ -27,7 +28,7 @@ export const fetchThreadCount = (isThread: boolean, userID?: number | null, thre
     const updateThreadCount = async () => {
         try {
             const response = await fetch(
-                `https://cvwo-backend-f3sl.onrender.com/${isThread ? "threads" : "posts"}/count?userID=${userID}${
+                `${apiURL}/${isThread ? "threads" : "posts"}/count?userID=${userID}${
                     isThread ? "" : `&threadID=${threadID}`
                 }`,
             );
@@ -47,7 +48,7 @@ export const fetchThreadCount = (isThread: boolean, userID?: number | null, thre
 
 export const handleDeleteClick = async (ID: number, isThread: boolean) => {
     try {
-        const response = await fetch(`https://cvwo-backend-f3sl.onrender.com/${isThread ? "threads" : "posts"}/${ID}`, {
+        const response = await fetch(`${apiURL}/${isThread ? "threads" : "posts"}/${ID}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
@@ -63,7 +64,7 @@ export const handleDeleteClick = async (ID: number, isThread: boolean) => {
 
 export const handleEditClick = async (ID: number, textInput: string, isThread: boolean) => {
     try {
-        const response = await fetch(`https://cvwo-backend-f3sl.onrender.com/${isThread ? "threads" : "posts"}/${ID}`, {
+        const response = await fetch(`${apiURL}/${isThread ? "threads" : "posts"}/${ID}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",

@@ -1,11 +1,11 @@
+import { apiURL } from "../data/API_URL";
 import StandardButton from "../components/StandardButton";
+import React, { useState } from "react";
 import { TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import React, { useState } from "react";
 
 const Login: React.FC = () => {
     const [inputValue, setInputValue] = useState<string>("");
-    const [showSignupButton, setShowSignupButton] = useState<boolean>(true);
     const navigate = useNavigate();
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -14,8 +14,7 @@ const Login: React.FC = () => {
 
     const handleLoginButtonClick = () => {
         if (inputValue !== "") {
-            // fetch(`http://localhost:3000/users?name=${inputValue}`, {
-            fetch(`https://cvwo-backend-f3sl.onrender.com/users?name=${inputValue}`, {
+            fetch(`${apiURL}/users?name=${inputValue}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -27,12 +26,12 @@ const Login: React.FC = () => {
                     if (data.length > 0) {
                         navigate(`/home/${inputValue}`);
                     } else {
-                        setShowSignupButton(true);
+                        alert("It seems you do not have an account. Please sign up.");
                     }
                 })
                 .catch((error) => {
+                    alert("There was an error in retrieving your info. Please refresh and try again.");
                     console.error("Error:", error);
-                    //setShowSignupButton(true);
                 });
         } else {
             alert("Please enter a valid name.");
@@ -41,7 +40,7 @@ const Login: React.FC = () => {
 
     const handleSignupButtonClick = () => {
         if (inputValue !== "") {
-            fetch("https://cvwo-backend-f3sl.onrender.com/users", {
+            fetch(`${apiURL}/users`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -82,7 +81,9 @@ const Login: React.FC = () => {
             <div>
                 <StandardButton label="Login" onClick={handleLoginButtonClick} />
             </div>
-            <div> {showSignupButton && <StandardButton label="Signup" onClick={handleSignupButtonClick} />} </div>
+            <div>
+                <StandardButton label="Signup" onClick={handleSignupButtonClick} />
+            </div>
         </div>
     );
 };

@@ -64,6 +64,7 @@ const MyThreads: React.FC = () => {
                 setPostListKey((prevKey) => prevKey + 1);
             }
         } catch (error) {
+            alert("Could not submit.");
             console.error("Error:", error);
         }
     };
