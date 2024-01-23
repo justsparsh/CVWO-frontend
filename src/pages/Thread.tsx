@@ -2,10 +2,11 @@ import PostList from "../components/PostList";
 import NavBar from "../components/NavBar";
 import StandardButton from "../components/StandardButton";
 import SubmitBox from "../components/SubmitBox";
-import { fetchUserData } from "../components/fetchUserID";
-import { fetchThreadCount } from "../components/fetchThreadCount";
-import { handleDeleteClick } from "../components/deleteData";
-import { handleEditClick } from "../components/editData";
+import { fetchUserData, fetchThreadCount, handleDeleteClick, handleEditClick } from "../components/DataMethods";
+// import { fetchUserData } from "../components/fetchUserID";
+// import { fetchThreadCount } from "../components/fetchThreadCount";
+// import { handleDeleteClick } from "../components/deleteData";
+// import { handleEditClick } from "../components/editData";
 import "./styles.css";
 
 import React, { useState } from "react";
