@@ -15,7 +15,6 @@ const theme = createTheme({
         secondary: orange,
     },
 });
-console.log("App activated");
 const App: React.FC = () => {
     return (
         <div className="App">
