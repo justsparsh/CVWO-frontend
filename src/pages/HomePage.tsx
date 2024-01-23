@@ -13,7 +13,6 @@ import { useParams } from "react-router-dom";
 import { Pagination } from "@mui/material";
 
 const HomePage: React.FC = () => {
-    console.log("Home activated");
     const navBarWidth = 200;
     const { name } = useParams();
     const [isAddingThread, setIsAddingThread] = useState<boolean>(false);
