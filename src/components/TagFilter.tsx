@@ -1,6 +1,7 @@
 import StandardButton from "./StandardButton";
 import { StockProp, SentimentProp } from "../types/FilterDataProps";
 import { stocks, sentiments } from "../data/FilterData";
+
 import React, { useState } from "react";
 import { Autocomplete, TextField } from "@mui/material";
 import { createFilterOptions } from "@mui/material/Autocomplete";

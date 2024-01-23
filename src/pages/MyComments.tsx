@@ -1,11 +1,8 @@
 import PostList from "../components/PostList";
 import NavBar from "../components/NavBar";
 import { fetchUserData, fetchThreadCount, handleDeleteClick, handleEditClick } from "../components/DataMethods";
-// import { fetchUserData } from "../components/fetchUserID";
-// import { fetchThreadCount } from "../components/fetchThreadCount";
-// import { handleDeleteClick } from "../components/deleteData";
-// import { handleEditClick } from "../components/editData";
 import "./styles.css";
+
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Pagination } from "@mui/material";

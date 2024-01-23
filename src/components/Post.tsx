@@ -1,7 +1,8 @@
 import EditBox from "./EditBox";
 import { PostProps } from "../types/PostProps";
-import React, { useState } from "react";
 import "./post_styles.css";
+
+import React, { useState } from "react";
 import { DeleteOutline } from "@mui/icons-material";
 import { Button } from "@mui/material";
 
