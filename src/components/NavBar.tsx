@@ -1,19 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import Drawer from "@mui/material/Drawer";
+import MenuIcon from "@mui/icons-material/Menu";
 import { Button, Box, Stack } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 
-type NavBarProps = {
-    setWidth: number;
-};
+// type NavBarProps = {
+//     width: number;
+// };
 
-const NavBar: React.FC<NavBarProps> = ({ setWidth }) => {
+const NavBar: React.FC = () => {
     const navigate = useNavigate();
     const { name } = useParams();
+    const [drawerOpen, setDrawerOpen] = useState(false);
+    const handleDrawerOpen = () => {
+        setDrawerOpen(true);
+    };
+
+    const handleDrawerClose = () => {
+        setDrawerOpen(false);
+    };
+
     return (
-        <div>
-            <Drawer variant="permanent" anchor="left">
-                <Box sx={{ width: setWidth }}>
+        <div style={{ position: "absolute", top: "20px", left: "50px" }}>
+            <Button onClick={handleDrawerOpen} style={{ marginLeft: 0 }}>
+                <MenuIcon />
+            </Button>
+            <Drawer variant="temporary" anchor="left" open={drawerOpen} onClose={handleDrawerClose}>
+                <Box sx={{ width: 200 }}>
                     <Stack>
                         <Button onClick={() => navigate(`/home/${name}`)}> Home </Button>
                         <Button onClick={() => navigate(`/mythreads/${name}`)}> My Threads </Button>

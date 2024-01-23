@@ -9,7 +9,6 @@ import { useParams } from "react-router-dom";
 import { Pagination } from "@mui/material";
 
 const MyComments: React.FC = () => {
-    const navBarWidth = 200;
     const { name } = useParams();
     const [postListKey, setPostListKey] = useState(0);
     const [pageNumber, setPageNumber] = useState<number>(1);
@@ -31,8 +30,7 @@ const MyComments: React.FC = () => {
     return (
         <div className="background">
             <div className="main-container">
-                <NavBar setWidth={navBarWidth} />
-
+                <NavBar />
                 {userID !== null && (
                     <PostList
                         key={postListKey}
@@ -48,6 +46,7 @@ const MyComments: React.FC = () => {
             </div>
             <div>
                 <Pagination
+                    style={{ marginLeft: 150 }}
                     count={Math.ceil(numOfThreads / 5)}
                     className="pagination"
                     onChange={(e, page) => setPageNumber(page)}

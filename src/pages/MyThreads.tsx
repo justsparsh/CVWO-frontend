@@ -12,7 +12,6 @@ import { useParams } from "react-router-dom";
 import { Pagination } from "@mui/material";
 
 const MyThreads: React.FC = () => {
-    const navBarWidth = 200;
     const { name } = useParams();
     const [isAddingThread, setIsAddingThread] = useState(false);
     const [postListKey, setPostListKey] = useState(0);
@@ -89,7 +88,7 @@ const MyThreads: React.FC = () => {
     return (
         <div className="background">
             <div className="main-container">
-                {!isAddingThread && <NavBar setWidth={navBarWidth} />}
+                {!isAddingThread && <NavBar />}
 
                 {userID !== null && (
                     <PostList
@@ -112,6 +111,7 @@ const MyThreads: React.FC = () => {
             </div>
             <div>
                 <Pagination
+                    style={{ marginLeft: 150 }}
                     count={Math.ceil(numOfThreads / 5)}
                     className="pagination"
                     onChange={(e, page) => setPageNumber(page)}

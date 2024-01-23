@@ -11,7 +11,6 @@ import { useParams } from "react-router-dom";
 import { Pagination } from "@mui/material";
 
 const Thread: React.FC = () => {
-    const navBarWidth = 200;
     const { name, threadID } = useParams();
     const [isAddingPost, setIsAddingPost] = useState(false);
     const [postListKey, setPostListKey] = useState(0);
@@ -88,7 +87,7 @@ const Thread: React.FC = () => {
     return (
         <div className="background">
             <div className="main-container">
-                {!isAddingPost && <NavBar setWidth={navBarWidth} />}
+                {!isAddingPost && <NavBar />}
 
                 <div style={{ width: "50%" }}>
                     <PostList
@@ -121,6 +120,7 @@ const Thread: React.FC = () => {
             </div>
             <div>
                 <Pagination
+                    style={{ marginLeft: 150 }}
                     count={Math.ceil(numOfThreads / 5)}
                     className="pagination"
                     onChange={(e, page) => setPageNumber(page)}
