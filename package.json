@@ -1,7 +1,7 @@
 {
     "name": "sample",
     "version": "0.1.0",
-    "homepage": "https://justsparsh.github.io/CVWO-frontend",
+    //"homepage": "https://justsparsh.github.io/CVWO-frontend",
     "private": true,
     "dependencies": {
         "@emotion/react": "^11.11.1",
@@ -22,8 +22,8 @@
         "web-vitals": "^2.1.2"
     },
     "scripts": {
-	    "predeploy": "npm run build",
-        "deploy": "gh-pages -d build",
+	//"predeploy": "npm run build",
+        //"deploy": "gh-pages -d build",
         "start": "react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test",
