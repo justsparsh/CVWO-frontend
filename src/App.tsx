@@ -22,11 +22,11 @@ const App: React.FC = () => {
             <ThemeProvider theme={theme}>
                 <BrowserRouter>
                     <Routes>
-                        <Route path="/CVWO-frontend/home/:name" element={<HomePage />} />
+                        <Route path="/home/:name" element={<HomePage />} />
                         <Route path="/thread/:name/:threadID" element={<Thread />} />
                         <Route path="/mythreads/:name" element={<MyThreads />} />
                         <Route path="/myposts/:name" element={<MyComments />} />
-                        <Route path="/CVWO-frontend" element={<Login />} />
+                        <Route path="/" element={<Login />} />
                     </Routes>
                 </BrowserRouter>
             </ThemeProvider>
