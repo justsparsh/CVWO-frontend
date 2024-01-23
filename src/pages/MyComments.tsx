@@ -1,10 +1,9 @@
 import PostList from "../components/PostList";
 import NavBar from "../components/NavBar";
-import { fetchUserData } from "../components/fetchUserID";
-import { fetchThreadCount } from "../components/fetchThreadCount";
-import { handleDeleteClick } from "../components/deleteData";
-import { handleEditClick } from "../components/editData";
+import { fetchUserData, fetchThreadCount, handleDeleteClick, handleEditClick } from "../components/DataMethods";
+import { apiURL } from "../data/API_URL";
 import "./styles.css";
+
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Pagination } from "@mui/material";
@@ -16,7 +15,7 @@ const MyComments: React.FC = () => {
     const [pageNumber, setPageNumber] = useState<number>(1);
     const userID = fetchUserData(name).userID;
     const { numOfThreads, updateThreadCount } = fetchThreadCount(false, userID);
-    const postURL = `https://cvwo-backend-f3sl.onrender.com/posts?page=${pageNumber}&userID=${userID}`;
+    const postURL = `${apiURL}/posts?page=${pageNumber}&userID=${userID}`;
 
     const deleteFuncWrapper = async (ID: number) => {
         handleDeleteClick(ID, false);

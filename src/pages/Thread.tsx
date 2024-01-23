@@ -2,10 +2,8 @@ import PostList from "../components/PostList";
 import NavBar from "../components/NavBar";
 import StandardButton from "../components/StandardButton";
 import SubmitBox from "../components/SubmitBox";
-import { fetchUserData } from "../components/fetchUserID";
-import { fetchThreadCount } from "../components/fetchThreadCount";
-import { handleDeleteClick } from "../components/deleteData";
-import { handleEditClick } from "../components/editData";
+import { fetchUserData, fetchThreadCount, handleDeleteClick, handleEditClick } from "../components/DataMethods";
+import { apiURL } from "../data/API_URL";
 import "./styles.css";
 
 import React, { useState } from "react";
@@ -19,8 +17,8 @@ const Thread: React.FC = () => {
     const [postListKey, setPostListKey] = useState(0);
     const [threadKey, setThreadKey] = useState(0);
     const [pageNumber, setPageNumber] = useState<number>(1);
-    const threadURL = `http://localhost:3000/threads/${threadID}`;
-    const postURL = `http://localhost:3000/posts?page=${pageNumber}&threadID=${threadID}`;
+    const threadURL = `${apiURL}/threads/${threadID}`;
+    const postURL = `${apiURL}/posts?page=${pageNumber}&threadID=${threadID}`;
 
     const userID = fetchUserData(name).userID;
     const { numOfThreads, updateThreadCount } = fetchThreadCount(
@@ -40,7 +38,7 @@ const Thread: React.FC = () => {
     const handlePostSubmit = async (postText: string) => {
         try {
             if (userID) {
-                const response = await fetch("http://localhost:3000/posts", {
+                const response = await fetch(`${apiURL}/posts`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",

@@ -4,10 +4,8 @@ import StandardButton from "../components/StandardButton";
 import SubmitBox from "../components/SubmitBox";
 import TagFilter from "../components/TagFilter";
 import { StockProp, SentimentProp } from "../types/FilterDataProps";
-import { fetchUserData } from "../components/fetchUserID";
-import { fetchThreadCount } from "../components/fetchThreadCount";
-import { handleDeleteClick } from "../components/deleteData";
-import { handleEditClick } from "../components/editData";
+import { fetchUserData, fetchThreadCount, handleDeleteClick, handleEditClick } from "../components/DataMethods";
+import { apiURL } from "../data/API_URL";
 import "./styles.css";
 
 import React, { useState } from "react";
@@ -23,7 +21,7 @@ const HomePage: React.FC = () => {
     const [pageNumber, setPageNumber] = useState<number>(1);
     const [tickers, setTickers] = useState<string[]>([]);
     const [sentiments, setSentiments] = useState<string[]>([]);
-    const postURL = `https://cvwo-backend-f3sl.onrender.com/threads?page=${pageNumber}&tickers=${encodeURIComponent(
+    const postURL = `${apiURL}/threads?page=${pageNumber}&tickers=${encodeURIComponent(
         JSON.stringify(tickers),
     )}&sentiments=${encodeURIComponent(JSON.stringify(sentiments))}`;
 
@@ -46,7 +44,7 @@ const HomePage: React.FC = () => {
     ) => {
         try {
             if (userID) {
-                const response = await fetch("https://cvwo-backend-f3sl.onrender.com/threads", {
+                const response = await fetch(`${apiURL}/threads`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -69,6 +67,7 @@ const HomePage: React.FC = () => {
                 setPostListKey((prevKey) => prevKey + 1);
             }
         } catch (error) {
+            alert("Could not submit.");
             console.error("Error:", error);
         }
     };

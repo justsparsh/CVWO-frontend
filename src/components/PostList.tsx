@@ -1,8 +1,8 @@
 import Post from "./Post";
 import { PostProps } from "../types/PostProps";
-import { Stack } from "@mui/material";
 
 import React, { useState, useEffect } from "react";
+import { Stack } from "@mui/material";
 
 type PostListProp = {
     url: string;

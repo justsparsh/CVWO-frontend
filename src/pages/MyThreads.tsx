@@ -4,10 +4,7 @@ import StandardButton from "../components/StandardButton";
 import SubmitBox from "../components/SubmitBox";
 import TagFilter from "../components/TagFilter";
 import { StockProp, SentimentProp } from "../types/FilterDataProps";
-import { fetchUserData } from "../components/fetchUserID";
-import { fetchThreadCount } from "../components/fetchThreadCount";
-import { handleDeleteClick } from "../components/deleteData";
-import { handleEditClick } from "../components/editData";
+import { fetchUserData, fetchThreadCount, handleDeleteClick, handleEditClick } from "../components/DataMethods";
 import "./styles.css";
 
 import React, { useState } from "react";
@@ -24,7 +21,7 @@ const MyThreads: React.FC = () => {
     const { numOfThreads, updateThreadCount } = fetchThreadCount(true, userID);
     const [tickers, setTickers] = useState<string[]>([]);
     const [sentiments, setSentiments] = useState<string[]>([]);
-    const postURL = `http://localhost:3000/threads?page=${pageNumber}&&userID=${userID}&tickers=${encodeURIComponent(
+    const postURL = `https://cvwo-backend-f3sl.onrender.com/threads?page=${pageNumber}&&userID=${userID}&tickers=${encodeURIComponent(
         JSON.stringify(tickers),
     )}&sentiments=${encodeURIComponent(JSON.stringify(sentiments))}`;
 
@@ -44,7 +41,7 @@ const MyThreads: React.FC = () => {
     ) => {
         try {
             if (userID) {
-                const response = await fetch("http://localhost:3000/threads", {
+                const response = await fetch("https://cvwo-backend-f3sl.onrender.com/threads", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -67,6 +64,7 @@ const MyThreads: React.FC = () => {
                 setPostListKey((prevKey) => prevKey + 1);
             }
         } catch (error) {
+            alert("Could not submit.");
             console.error("Error:", error);
         }
     };
@@ -124,31 +122,3 @@ const MyThreads: React.FC = () => {
 };
 
 export default MyThreads;
-
-// const findUserID = async () => {
-//     try {
-//         const response = await fetch(`http://localhost:3000/users?name=${name}`);
-//         const data = await response.json();
-//         // console.log("User data:", data);
-//         return data[0]?.id || null;
-//     } catch (error) {
-//         console.error("Error:", error);
-//         return null;
-//     }
-// };
-
-// useEffect(() => {
-//     const fetchUserID = async () => {
-//         try {
-//             const id = await findUserID();
-//             console.log("Fetched userID:", id);
-//             setUserID(() => {
-//                 console.log("Updated userID:", id);
-//                 return id;
-//             });
-//         } catch (error) {
-//             console.error("Error fetching userID:", error);
-//         }
-//     };
-//     fetchUserID();
-// }, []);
