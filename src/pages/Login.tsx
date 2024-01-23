@@ -5,7 +5,6 @@ import { TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 const Login: React.FC = () => {
-    console.log("Login activated");
     const [inputValue, setInputValue] = useState<string>("");
     const navigate = useNavigate();
 
