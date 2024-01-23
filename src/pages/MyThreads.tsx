@@ -122,31 +122,3 @@ const MyThreads: React.FC = () => {
 };
 
 export default MyThreads;
-
-// const findUserID = async () => {
-//     try {
-//         const response = await fetch(`http://localhost:3000/users?name=${name}`);
-//         const data = await response.json();
-//         // console.log("User data:", data);
-//         return data[0]?.id || null;
-//     } catch (error) {
-//         console.error("Error:", error);
-//         return null;
-//     }
-// };
-
-// useEffect(() => {
-//     const fetchUserID = async () => {
-//         try {
-//             const id = await findUserID();
-//             console.log("Fetched userID:", id);
-//             setUserID(() => {
-//                 console.log("Updated userID:", id);
-//                 return id;
-//             });
-//         } catch (error) {
-//             console.error("Error fetching userID:", error);
-//         }
-//     };
-//     fetchUserID();
-// }, []);
