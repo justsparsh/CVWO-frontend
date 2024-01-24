@@ -34,6 +34,11 @@ const HomePage: React.FC = () => {
         sentiments ?? [],
     );
 
+    useEffect(() => {
+        // Call updateThreadCount after setting tickers and sentiments
+        updateThreadCount();
+    }, [tickers, sentiments]);
+
     const handleNewPostButtonClick = () => {
         setIsAddingThread(true);
     };
@@ -87,11 +92,7 @@ const HomePage: React.FC = () => {
     const handleTagFilter = (selectedStocks: StockProp[], selectedSentiments: SentimentProp[]) => {
         setTickers(selectedStocks.map((stock) => stock.name));
         setSentiments(selectedSentiments.map((sentiment) => sentiment.name));
-        useEffect(() => {
-            // Call updateThreadCount after setting tickers and sentiments
-            updateThreadCount();
-            setPostListKey((prevKey) => prevKey + 1);
-        }, [tickers, sentiments]);
+        setPostListKey((prevKey) => prevKey + 1);
         // updateThreadCount();
         // setPostListKey((prevKey) => prevKey + 1);
     };

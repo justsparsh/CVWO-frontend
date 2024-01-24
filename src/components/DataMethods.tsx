@@ -72,7 +72,7 @@ export const fetchThreadCount = (
 
     useEffect(() => {
         updateThreadCount();
-    }, [userID, token]);
+    }, []);
 
     return { numOfThreads, updateThreadCount };
 };
