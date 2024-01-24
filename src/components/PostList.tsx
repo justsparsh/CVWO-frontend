@@ -25,16 +25,26 @@ const PostList: React.FC<PostListProp> = ({
     deletePress,
     editPress,
 }) => {
+    const token = localStorage.getItem("access-token");
     const [posts, setPosts] = useState<PostProps[]>([]);
     useEffect(() => {
         // Fetch data when the component mounts or page changes
-        fetch(url)
+        fetch(url, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Name: name,
+                Authorization: `Bearer ${token} `,
+            } as HeadersInit,
+        })
             .then((response) => response.json())
-            .then((data) => setPosts(data))
+            .then((data) => {
+                setPosts(data);
+            })
             .catch((error) => {
                 console.log(error);
             });
-    }, [url]);
+    }, [url, token]);
 
     return (
         posts !== null &&

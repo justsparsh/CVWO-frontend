@@ -9,10 +9,12 @@ import { apiURL } from "../data/API_URL";
 import "./styles.css";
 
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Pagination } from "@mui/material";
 
 const HomePage: React.FC = () => {
+    const token = localStorage.getItem("access-token");
+    const navigate = useNavigate();
     const { name } = useParams();
     const [isAddingThread, setIsAddingThread] = useState<boolean>(false);
     const [postListKey, setPostListKey] = useState(0);
@@ -46,7 +48,9 @@ const HomePage: React.FC = () => {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
-                    },
+                        Name: name,
+                        Authorization: token ? `Bearer ${token}` : undefined,
+                    } as HeadersInit,
                     body: JSON.stringify({
                         userID: userID,
                         userName: name,
@@ -58,6 +62,10 @@ const HomePage: React.FC = () => {
                 });
 
                 const data = await response.json();
+                if (data.error == "Invalid user authentication") {
+                    alert("User authentication failed. Please sign in again");
+                    navigate("/");
+                }
                 console.log("Response from server:", data);
 
                 updateThreadCount();
@@ -77,13 +85,13 @@ const HomePage: React.FC = () => {
     };
 
     const deleteFuncWrapper = async (ID: number) => {
-        handleDeleteClick(ID, true);
+        handleDeleteClick(ID, true, name);
         updateThreadCount();
         setPostListKey((prevKey) => prevKey + 1);
     };
 
     const editFuncWrapper = async (ID: number, textInput: string) => {
-        handleEditClick(ID, textInput, true);
+        handleEditClick(ID, textInput, true, name);
         setPostListKey((prevKey) => prevKey + 1);
     };
 

@@ -22,15 +22,16 @@ const Login: React.FC = () => {
             })
                 .then((response) => response.json())
                 .then((data) => {
-                    console.log("User data:", data);
-                    if (data.length > 0) {
+                    if (data.user !== undefined && data.user.name == inputValue) {
+                        localStorage.setItem("access-token", data.token);
                         navigate(`/home/${inputValue}`);
-                    } else {
-                        alert("It seems you do not have an account. Please sign up.");
+                    } else if (data.error !== undefined) {
+                        alert(data.error);
                     }
+                    console.log(data);
                 })
                 .catch((error) => {
-                    alert("There was an error in retrieving your info. Please refresh and try again.");
+                    alert("There was an error retrieving your info. Please wait a few minutes and try again.");
                     console.error("Error:", error);
                 });
         } else {
@@ -56,6 +57,7 @@ const Login: React.FC = () => {
                     return response.json();
                 })
                 .then((data) => {
+                    localStorage.setItem("access-token", data.token);
                     console.log("Response from server:", data);
                     navigate(`/home/${inputValue}`);
                 })

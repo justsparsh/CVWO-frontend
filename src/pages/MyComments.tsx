@@ -17,13 +17,13 @@ const MyComments: React.FC = () => {
     const postURL = `${apiURL}/posts?page=${pageNumber}&userID=${userID}`;
 
     const deleteFuncWrapper = async (ID: number) => {
-        handleDeleteClick(ID, false);
+        handleDeleteClick(ID, false, name);
         updateThreadCount();
         setPostListKey((prevKey) => prevKey + 1);
     };
 
     const editFuncWrapper = async (ID: number, textInput: string) => {
-        handleEditClick(ID, textInput, false);
+        handleEditClick(ID, textInput, false, name);
         setPostListKey((prevKey) => prevKey + 1);
     };
 

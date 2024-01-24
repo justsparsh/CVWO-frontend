@@ -21,7 +21,7 @@ const NavBar: React.FC = () => {
     };
 
     return (
-        <div style={{ position: "absolute", top: "20px", left: "50px" }}>
+        <div style={{ position: "absolute", top: "20px", left: "40px" }}>
             <Button onClick={handleDrawerOpen} style={{ marginLeft: 0 }}>
                 <MenuIcon />
             </Button>
@@ -31,6 +31,15 @@ const NavBar: React.FC = () => {
                         <Button onClick={() => navigate(`/home/${name}`)}> Home </Button>
                         <Button onClick={() => navigate(`/mythreads/${name}`)}> My Threads </Button>
                         <Button onClick={() => navigate(`/myposts/${name}`)}> My Comments </Button>
+                        <Button
+                            onClick={() => {
+                                localStorage.setItem("access-token", "");
+                                navigate("/");
+                            }}
+                            style={{ color: "red" }}
+                        >
+                            Log Out
+                        </Button>
                     </Stack>
                 </Box>
             </Drawer>
