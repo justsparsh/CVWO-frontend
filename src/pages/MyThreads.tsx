@@ -22,7 +22,13 @@ const MyThreads: React.FC = () => {
     const userID = fetchUserData(name).userID;
     const [tickers, setTickers] = useState<string[]>([]);
     const [sentiments, setSentiments] = useState<string[]>([]);
-    const { numOfThreads, updateThreadCount } = fetchThreadCount(true, userID, undefined, tickers, sentiments);
+    const { numOfThreads, updateThreadCount } = fetchThreadCount(
+        true,
+        userID,
+        undefined,
+        tickers ?? [],
+        sentiments ?? [],
+    );
     const postURL = `${apiURL}/threads?page=${pageNumber}&&userID=${userID}&tickers=${encodeURIComponent(
         JSON.stringify(tickers),
     )}&sentiments=${encodeURIComponent(JSON.stringify(sentiments))}`;
