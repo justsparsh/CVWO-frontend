@@ -87,6 +87,7 @@ const HomePage: React.FC = () => {
     const handleTagFilter = (selectedStocks: StockProp[], selectedSentiments: SentimentProp[]) => {
         setTickers(selectedStocks.map((stock) => stock.name));
         setSentiments(selectedSentiments.map((sentiment) => sentiment.name));
+        updateThreadCount();
         setPostListKey((prevKey) => prevKey + 1);
     };
 
