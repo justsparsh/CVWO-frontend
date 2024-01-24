@@ -8,7 +8,7 @@ import { StockProp, SentimentProp } from "../types/FilterDataProps";
 import { fetchUserData, fetchThreadCount, handleDeleteClick, handleEditClick } from "../components/DataMethods";
 import "./styles.css";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Pagination } from "@mui/material";
 
@@ -29,6 +29,12 @@ const MyThreads: React.FC = () => {
         tickers ?? [],
         sentiments ?? [],
     );
+
+    useEffect(() => {
+        // Call updateThreadCount after setting tickers and sentiments
+        updateThreadCount();
+    }, [tickers, sentiments]);
+
     const postURL = `${apiURL}/threads?page=${pageNumber}&&userID=${userID}&tickers=${encodeURIComponent(
         JSON.stringify(tickers),
     )}&sentiments=${encodeURIComponent(JSON.stringify(sentiments))}`;
@@ -86,7 +92,6 @@ const MyThreads: React.FC = () => {
     const handleTagFilter = (selectedStocks: StockProp[], selectedSentiments: SentimentProp[]) => {
         setTickers(selectedStocks.map((stock) => stock.name));
         setSentiments(selectedSentiments.map((sentiment) => sentiment.name));
-        updateThreadCount();
         setPostListKey((prevKey) => prevKey + 1);
     };
 
