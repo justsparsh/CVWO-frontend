@@ -8,7 +8,7 @@ import { fetchUserData, fetchThreadCount, handleDeleteClick, handleEditClick } f
 import { apiURL } from "../data/API_URL";
 import "./styles.css";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Pagination } from "@mui/material";
 
@@ -87,8 +87,13 @@ const HomePage: React.FC = () => {
     const handleTagFilter = (selectedStocks: StockProp[], selectedSentiments: SentimentProp[]) => {
         setTickers(selectedStocks.map((stock) => stock.name));
         setSentiments(selectedSentiments.map((sentiment) => sentiment.name));
-        updateThreadCount();
-        setPostListKey((prevKey) => prevKey + 1);
+        useEffect(() => {
+            // Call updateThreadCount after setting tickers and sentiments
+            updateThreadCount();
+            setPostListKey((prevKey) => prevKey + 1);
+        }, [tickers, sentiments]);
+        // updateThreadCount();
+        // setPostListKey((prevKey) => prevKey + 1);
     };
 
     const deleteFuncWrapper = async (ID: number) => {
