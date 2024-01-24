@@ -25,7 +25,13 @@ export const fetchUserData = (name: string | undefined) => {
     return { userID };
 };
 
-export const fetchThreadCount = (isThread: boolean, userID?: number | null, threadID?: number) => {
+export const fetchThreadCount = (
+    isThread: boolean,
+    userID?: number | null,
+    threadID?: number,
+    tickers?: string[],
+    sentiments?: string[],
+) => {
     const token = localStorage.getItem("access-token");
     const { name } = useParams();
     const navigate = useNavigate();
@@ -36,7 +42,14 @@ export const fetchThreadCount = (isThread: boolean, userID?: number | null, thre
             const response = await fetch(
                 `${apiURL}/${isThread ? "threads" : "posts"}/count?userID=${userID}${
                     isThread ? "" : `&threadID=${threadID}`
-                }`,
+                }${
+                    isThread
+                        ? `&tickers=${encodeURIComponent(JSON.stringify(tickers))}&sentiments=${encodeURIComponent(
+                              JSON.stringify(sentiments),
+                          )}`
+                        : ""
+                }
+                `,
                 {
                     method: "GET",
                     headers: {
