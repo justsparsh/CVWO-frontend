@@ -3,16 +3,19 @@ import NavBar from "../components/NavBar";
 import StandardButton from "../components/StandardButton";
 import SubmitBox from "../components/SubmitBox";
 import TagFilter from "../components/TagFilter";
+import { apiURL } from "../data/API_URL";
 import { StockProp, SentimentProp } from "../types/FilterDataProps";
 import { fetchUserData, fetchThreadCount, handleDeleteClick, handleEditClick } from "../components/DataMethods";
 import "./styles.css";
 
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Pagination } from "@mui/material";
 
 const MyThreads: React.FC = () => {
+    const token = localStorage.getItem("access-token");
     const { name } = useParams();
+    const navigate = useNavigate();
     const [isAddingThread, setIsAddingThread] = useState(false);
     const [postListKey, setPostListKey] = useState(0);
     const [pageNumber, setPageNumber] = useState<number>(1);
@@ -20,7 +23,7 @@ const MyThreads: React.FC = () => {
     const { numOfThreads, updateThreadCount } = fetchThreadCount(true, userID);
     const [tickers, setTickers] = useState<string[]>([]);
     const [sentiments, setSentiments] = useState<string[]>([]);
-    const postURL = `https://cvwo-backend-f3sl.onrender.com/threads?page=${pageNumber}&&userID=${userID}&tickers=${encodeURIComponent(
+    const postURL = `${apiURL}/threads?page=${pageNumber}&&userID=${userID}&tickers=${encodeURIComponent(
         JSON.stringify(tickers),
     )}&sentiments=${encodeURIComponent(JSON.stringify(sentiments))}`;
 
@@ -44,7 +47,9 @@ const MyThreads: React.FC = () => {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
-                    },
+                        Name: name,
+                        Authorization: `Bearer ${token} `,
+                    } as HeadersInit,
                     body: JSON.stringify({
                         userID: userID,
                         userName: name,
@@ -56,6 +61,10 @@ const MyThreads: React.FC = () => {
                 });
 
                 const data = await response.json();
+                if (data.error == "Invalid user authentication") {
+                    alert("User authentication failed. Please sign in again");
+                    navigate("/");
+                }
                 console.log("Response from server:", data);
 
                 updateThreadCount();
@@ -75,13 +84,13 @@ const MyThreads: React.FC = () => {
     };
 
     const deleteFuncWrapper = async (ID: number) => {
-        handleDeleteClick(ID, true);
+        handleDeleteClick(ID, true, name);
         updateThreadCount();
         setPostListKey((prevKey) => prevKey + 1);
     };
 
     const editFuncWrapper = async (ID: number, textInput: string) => {
-        handleEditClick(ID, textInput, true);
+        handleEditClick(ID, textInput, true, name);
         setPostListKey((prevKey) => prevKey + 1);
     };
 

@@ -7,11 +7,13 @@ import { apiURL } from "../data/API_URL";
 import "./styles.css";
 
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Pagination } from "@mui/material";
 
 const Thread: React.FC = () => {
+    const token = localStorage.getItem("access-token");
     const { name, threadID } = useParams();
+    const navigate = useNavigate();
     const [isAddingPost, setIsAddingPost] = useState(false);
     const [postListKey, setPostListKey] = useState(0);
     const [threadKey, setThreadKey] = useState(0);
@@ -41,7 +43,9 @@ const Thread: React.FC = () => {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
-                    },
+                        Name: name,
+                        Authorization: `Bearer ${token} `,
+                    } as HeadersInit,
                     body: JSON.stringify({
                         userID: userID,
                         userName: name,
@@ -51,6 +55,10 @@ const Thread: React.FC = () => {
                 });
 
                 const data = await response.json();
+                if (data.error == "Invalid user authentication") {
+                    alert("User authentication failed. Please sign in again");
+                    navigate("/");
+                }
                 console.log("Response from server:", data);
 
                 updateThreadCount();
@@ -64,23 +72,23 @@ const Thread: React.FC = () => {
     };
 
     const deleteThread = async (ID: number) => {
-        handleDeleteClick(ID, true);
+        handleDeleteClick(ID, true, name);
         setThreadKey((prevKey) => prevKey + 1);
     };
 
     const deletePost = async (ID: number) => {
-        handleDeleteClick(ID, false);
+        handleDeleteClick(ID, false, name);
         updateThreadCount();
         setPostListKey((prevKey) => prevKey + 1);
     };
 
     const editThread = async (ID: number, textInput: string) => {
-        handleEditClick(ID, textInput, true);
+        handleEditClick(ID, textInput, true, name);
         setPostListKey((prevKey) => prevKey + 1);
     };
 
     const editPost = async (ID: number, textInput: string) => {
-        handleEditClick(ID, textInput, false);
+        handleEditClick(ID, textInput, false, name);
         setPostListKey((prevKey) => prevKey + 1);
     };
 
