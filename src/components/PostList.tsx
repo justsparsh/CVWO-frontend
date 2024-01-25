@@ -2,6 +2,7 @@ import Post from "./Post";
 import { PostProps } from "../types/PostProps";
 
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Stack } from "@mui/material";
 
 type PostListProp = {
@@ -25,6 +26,7 @@ const PostList: React.FC<PostListProp> = ({
     deletePress,
     editPress,
 }) => {
+    const navigate = useNavigate();
     const token = localStorage.getItem("access-token");
     const [posts, setPosts] = useState<PostProps[]>([]);
     useEffect(() => {
@@ -39,6 +41,10 @@ const PostList: React.FC<PostListProp> = ({
         })
             .then((response) => response.json())
             .then((data) => {
+                if (data.error == "Invalid user authentication") {
+                    alert("User authentication failed. Please sign in again");
+                    navigate("/");
+                }
                 setPosts(data);
             })
             .catch(() => {

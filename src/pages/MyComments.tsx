@@ -1,6 +1,6 @@
 import PostList from "../components/PostList";
 import NavBar from "../components/NavBar";
-import { fetchUserData, fetchThreadCount, handleDeleteClick, handleEditClick } from "../components/DataMethods";
+import { fetchThreadCount, handleDeleteClick, handleEditClick } from "../components/DataMethods";
 import { apiURL } from "../data/API_URL";
 import "./styles.css";
 
@@ -12,8 +12,9 @@ const MyComments: React.FC = () => {
     const { name } = useParams();
     const [postListKey, setPostListKey] = useState(0);
     const [pageNumber, setPageNumber] = useState<number>(1);
-    const userID = fetchUserData(name).userID;
-    const { numOfThreads, updateThreadCount } = fetchThreadCount(false, userID);
+    // const userID = fetchUserData(name).userID;
+    const userID = localStorage.getItem("user_id");
+    const { numOfThreads, updateThreadCount } = fetchThreadCount(false, Number(userID));
     const postURL = `${apiURL}/posts?page=${pageNumber}&userID=${userID}`;
 
     const deleteFuncWrapper = async (ID: number) => {

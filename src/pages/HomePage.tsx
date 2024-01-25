@@ -4,7 +4,7 @@ import StandardButton from "../components/StandardButton";
 import SubmitBox from "../components/SubmitBox";
 import TagFilter from "../components/TagFilter";
 import { StockProp, SentimentProp } from "../types/FilterDataProps";
-import { fetchUserData, fetchThreadCount, handleDeleteClick, handleEditClick } from "../components/DataMethods";
+import { fetchThreadCount, handleDeleteClick, handleEditClick } from "../components/DataMethods";
 import { apiURL } from "../data/API_URL";
 import "./styles.css";
 
@@ -25,7 +25,8 @@ const HomePage: React.FC = () => {
         JSON.stringify(tickers),
     )}&sentiments=${encodeURIComponent(JSON.stringify(sentiments))}`;
 
-    const userID = fetchUserData(name).userID;
+    // const userID = fetchUserData(name).userID;
+    const userID = localStorage.getItem("user_id");
     const { numOfThreads, updateThreadCount } = fetchThreadCount(
         true,
         undefined,

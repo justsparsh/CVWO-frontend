@@ -28,12 +28,13 @@ const Login: React.FC = () => {
                 .then((response) => response.json())
                 .then((data) => {
                     if (data.user !== undefined && data.user.name == inputValue) {
+                        localStorage.setItem("user_id", `${data.user.id}`);
                         localStorage.setItem("access-token", data.token);
                         navigate(`/home/${inputValue}`);
                     } else if (data.error !== undefined) {
                         alert(data.error);
                     }
-                    console.log(data);
+                    // console.log(data);
                 })
                 .catch(() => {
                     alert("There was an error retrieving your info. Please wait a few minutes and try again.");
@@ -63,6 +64,7 @@ const Login: React.FC = () => {
                     return response.json();
                 })
                 .then((data) => {
+                    localStorage.setItem("user_id", `${data.user.id}`);
                     localStorage.setItem("access-token", data.token);
                     // console.log("Response from server:", data);
                     navigate(`/home/${inputValue}`);

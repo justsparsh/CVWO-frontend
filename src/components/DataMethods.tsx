@@ -1,8 +1,6 @@
 import { apiURL } from "../data/API_URL";
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-
-// const { name } = useParams();
+import { useParams } from "react-router-dom";
 
 export const fetchUserData = (name: string | undefined) => {
     const [userID, setUserID] = useState<number | null>(null);
@@ -34,7 +32,7 @@ export const fetchThreadCount = (
 ) => {
     const token = localStorage.getItem("access-token");
     const { name } = useParams();
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const [numOfThreads, setNumOfThreads] = useState<number>(0);
 
     const updateThreadCount = async () => {
@@ -60,10 +58,10 @@ export const fetchThreadCount = (
                 },
             );
             const data = await response.json();
-            if (data.error == "Invalid user authentication") {
-                alert("User authentication failed. Please sign in again");
-                navigate("/");
-            }
+            // if (data.error == "Invalid user authentication") {
+            //     alert("User authentication failed. Please sign in again");
+            //     navigate("/");
+            // }
             setNumOfThreads(isThread ? data.total_threads : data.total_posts);
         } catch (error) {
             console.error("Error fetching thread count:", error);

@@ -5,7 +5,7 @@ import SubmitBox from "../components/SubmitBox";
 import TagFilter from "../components/TagFilter";
 import { apiURL } from "../data/API_URL";
 import { StockProp, SentimentProp } from "../types/FilterDataProps";
-import { fetchUserData, fetchThreadCount, handleDeleteClick, handleEditClick } from "../components/DataMethods";
+import { fetchThreadCount, handleDeleteClick, handleEditClick } from "../components/DataMethods";
 import "./styles.css";
 
 import React, { useState, useEffect } from "react";
@@ -19,12 +19,13 @@ const MyThreads: React.FC = () => {
     const [isAddingThread, setIsAddingThread] = useState(false);
     const [postListKey, setPostListKey] = useState(0);
     const [pageNumber, setPageNumber] = useState<number>(1);
-    const userID = fetchUserData(name).userID;
+    // const userID = fetchUserData(name).userID;
+    const userID = localStorage.getItem("user_id");
     const [tickers, setTickers] = useState<string[]>([]);
     const [sentiments, setSentiments] = useState<string[]>([]);
     const { numOfThreads, updateThreadCount } = fetchThreadCount(
         true,
-        userID,
+        Number(userID),
         undefined,
         tickers ?? [],
         sentiments ?? [],

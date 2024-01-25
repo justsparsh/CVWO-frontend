@@ -2,7 +2,7 @@ import PostList from "../components/PostList";
 import NavBar from "../components/NavBar";
 import StandardButton from "../components/StandardButton";
 import SubmitBox from "../components/SubmitBox";
-import { fetchUserData, fetchThreadCount, handleDeleteClick, handleEditClick } from "../components/DataMethods";
+import { fetchThreadCount, handleDeleteClick, handleEditClick } from "../components/DataMethods";
 import { apiURL } from "../data/API_URL";
 import "./styles.css";
 
@@ -21,7 +21,8 @@ const Thread: React.FC = () => {
     const threadURL = `${apiURL}/threads/${threadID}`;
     const postURL = `${apiURL}/posts?page=${pageNumber}&threadID=${threadID}`;
 
-    const userID = fetchUserData(name).userID;
+    // const userID = fetchUserData(name).userID;
+    const userID = localStorage.getItem("user_id");
     const { numOfThreads, updateThreadCount } = fetchThreadCount(
         false,
         undefined,
