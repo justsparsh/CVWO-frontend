@@ -30,24 +30,20 @@ const MyComments: React.FC = () => {
 
     return (
         <div className="background">
+            <NavBar />
             <div className="main-container">
-                <NavBar />
                 {userID !== null && (
                     <PostList
                         key={postListKey}
                         url={postURL}
                         name={name}
-                        boxWidth="50%"
                         linkToThread={true}
                         isThread={false}
                         deletePress={deleteFuncWrapper}
                         editPress={editFuncWrapper}
                     />
                 )}
-            </div>
-            <div>
                 <Pagination
-                    style={{ marginLeft: 150 }}
                     count={Math.ceil(numOfThreads / 5)}
                     className="pagination"
                     onChange={(e, page) => setPageNumber(page)}

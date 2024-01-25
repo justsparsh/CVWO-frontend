@@ -44,8 +44,8 @@ const SubmitBox: React.FC<submitBoxProps> = ({ submitPress, cancelPress, isThrea
             style={{
                 position: "absolute",
                 top: "20px",
-                left: "20%",
-                right: "20%",
+                left: "10%",
+                right: "10%",
                 bottom: 0,
                 zIndex: 1,
                 background: "rgba(255, 255, 255, 0.95)",

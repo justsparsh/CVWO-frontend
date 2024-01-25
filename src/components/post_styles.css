@@ -4,7 +4,6 @@
     border-radius: 5px;
     margin-bottom: 20px;
     padding: 5px;
-    width: auto;
 }
 
 .title{
@@ -30,7 +29,6 @@
     overflow: hidden;
 }
 .bottom-div {
-    /* text-align: left; */
     display: flex;
     align-items: center;
     font-size: small;

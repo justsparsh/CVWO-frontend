@@ -1,14 +1,11 @@
-.main-container {
+.background {
     display: flex;
     flex-direction: row;
     justify-content: center;
     margin-top: 20px;
 }
 
-/* .main-container, .pagination {
-    margin-left: 200px;
-} */
-
-.background {
-    background-color: "white";
+.main-container {
+    width: 65%;
 }
+

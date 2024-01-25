@@ -21,7 +21,7 @@ const NavBar: React.FC = () => {
     };
 
     return (
-        <div style={{ position: "absolute", top: "20px", left: "40px" }}>
+        <div>
             <Button onClick={handleDrawerOpen} style={{ marginLeft: 0 }}>
                 <MenuIcon />
             </Button>

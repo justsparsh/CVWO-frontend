@@ -8,7 +8,7 @@ interface ButtonProps {
 
 const StandardButton: React.FC<ButtonProps> = ({ label, onClick }) => {
     return (
-        <Button variant="contained" color="primary" onClick={onClick} style={{ margin: "10px", height: "35px" }}>
+        <Button variant="contained" color="primary" onClick={onClick} style={{ margin: "10px", height: "40px" }}>
             {label}
         </Button>
     );

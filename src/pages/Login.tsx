@@ -84,10 +84,10 @@ const Login: React.FC = () => {
 
     return (
         <div>
-            <div style={{ padding: "25px" }}>
+            <div style={{ paddingTop: "25px" }}>
                 <TextField value={inputValue} onChange={handleInputChange} label="Username" variant="outlined" />
             </div>
-            <div>
+            <div style={{ paddingTop: "25px", paddingBottom: "10px" }}>
                 <TextField
                     value={passwordValue}
                     onChange={handlePasswordChange}

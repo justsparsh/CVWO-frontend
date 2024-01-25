@@ -95,46 +95,42 @@ const Thread: React.FC = () => {
 
     return (
         <div className="background">
+            {!isAddingPost && <NavBar />}
+
             <div className="main-container">
-                {!isAddingPost && <NavBar />}
-
-                <div style={{ width: "50%" }}>
-                    <PostList
-                        key={threadKey}
-                        url={threadURL}
-                        name={name}
-                        // colorCode="#7FC7D9"
-                        colorCode="#d9e0a6"
-                        linkToThread={false}
-                        isThread={true}
-                        deletePress={deleteThread}
-                        editPress={editThread}
-                    />
-                    <PostList
-                        key={postListKey}
-                        url={postURL}
-                        name={name}
-                        linkToThread={false}
-                        isThread={false}
-                        deletePress={deletePost}
-                        editPress={editPost}
-                    />
-                </div>
-
-                <StandardButton label="Reply" onClick={handleNewPostButtonClick} />
-
-                {isAddingPost && (
-                    <SubmitBox submitPress={handlePostSubmit} cancelPress={handlePostCancel} isThread={false} />
-                )}
-            </div>
-            <div>
+                <PostList
+                    key={threadKey}
+                    url={threadURL}
+                    name={name}
+                    // colorCode="#7FC7D9"
+                    colorCode="#d9e0a6"
+                    linkToThread={false}
+                    isThread={true}
+                    deletePress={deleteThread}
+                    editPress={editThread}
+                />
+                <PostList
+                    key={postListKey}
+                    url={postURL}
+                    name={name}
+                    linkToThread={false}
+                    isThread={false}
+                    deletePress={deletePost}
+                    editPress={editPost}
+                />
                 <Pagination
-                    style={{ marginLeft: 150 }}
+                    // style={{ marginLeft: 150 }}
                     count={Math.ceil(numOfThreads / 5)}
                     className="pagination"
                     onChange={(e, page) => setPageNumber(page)}
                 />
             </div>
+
+            <StandardButton label="Reply" onClick={handleNewPostButtonClick} />
+
+            {isAddingPost && (
+                <SubmitBox submitPress={handlePostSubmit} cancelPress={handlePostCancel} isThread={false} />
+            )}
         </div>
     );
 };

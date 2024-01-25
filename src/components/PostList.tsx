@@ -8,7 +8,6 @@ import { Stack } from "@mui/material";
 type PostListProp = {
     url: string;
     name: string | undefined;
-    boxWidth?: string;
     colorCode?: string;
     linkToThread: boolean;
     isThread: boolean;
@@ -16,16 +15,7 @@ type PostListProp = {
     editPress: (ID: number, textInput: string) => void;
 };
 
-const PostList: React.FC<PostListProp> = ({
-    url,
-    name,
-    boxWidth,
-    colorCode,
-    linkToThread,
-    isThread,
-    deletePress,
-    editPress,
-}) => {
+const PostList: React.FC<PostListProp> = ({ url, name, colorCode, linkToThread, isThread, deletePress, editPress }) => {
     const navigate = useNavigate();
     const token = localStorage.getItem("access-token");
     const [posts, setPosts] = useState<PostProps[]>([]);
@@ -56,7 +46,7 @@ const PostList: React.FC<PostListProp> = ({
     return (
         posts !== null &&
         posts.length > 0 && (
-            <Stack style={{ width: boxWidth || "100%" }}>
+            <Stack>
                 {posts.map((post: PostProps) => (
                     <Post
                         key={post.id}

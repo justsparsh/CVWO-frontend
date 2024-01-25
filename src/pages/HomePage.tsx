@@ -109,35 +109,44 @@ const HomePage: React.FC = () => {
 
     return (
         <div className="background">
-            <div className="main-container" style={{ marginLeft: 0 }}>
-                {!isAddingThread && <NavBar />}
+            {!isAddingThread && <NavBar />}
+            <div className="main-container">
                 <PostList
                     key={postListKey}
                     url={postURL}
                     name={name}
-                    boxWidth="50%"
                     linkToThread={true}
                     isThread={true}
                     deletePress={deleteFuncWrapper}
                     editPress={editFuncWrapper}
                 />
-                <StandardButton label="New Thread" onClick={handleNewPostButtonClick} />
-
-                {isAddingThread && (
-                    <SubmitBox submitPress={handlePostSubmit} cancelPress={handlePostCancel} isThread={true} />
-                )}
-                {!isAddingThread && <TagFilter onTagFilter={handleTagFilter} />}
-            </div>
-            <div>
                 <Pagination
-                    style={{ marginLeft: 150 }}
                     count={Math.ceil(numOfThreads / 5)}
                     className="pagination"
                     onChange={(e, page) => setPageNumber(page)}
                 />
             </div>
+            <StandardButton label="New Thread" onClick={handleNewPostButtonClick} />
+
+            {isAddingThread && (
+                <SubmitBox submitPress={handlePostSubmit} cancelPress={handlePostCancel} isThread={true} />
+            )}
+            {!isAddingThread && <TagFilter onTagFilter={handleTagFilter} />}
         </div>
     );
 };
+{
+    /* <div>
+            <Pagination
+                style={{ marginLeft: 150 }}
+                count={Math.ceil(numOfThreads / 5)}
+                className="pagination"
+                onChange={(e, page) => setPageNumber(page)}
+            />
+        </div> */
+}
+// </div>
+//     );
+// };
 
 export default HomePage;

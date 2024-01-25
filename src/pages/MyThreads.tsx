@@ -109,36 +109,31 @@ const MyThreads: React.FC = () => {
 
     return (
         <div className="background">
+            {!isAddingThread && <NavBar />}
             <div className="main-container">
-                {!isAddingThread && <NavBar />}
-
                 {userID !== null && (
                     <PostList
                         key={postListKey}
                         url={postURL}
                         name={name}
-                        boxWidth="50%"
                         linkToThread={true}
                         isThread={true}
                         deletePress={deleteFuncWrapper}
                         editPress={editFuncWrapper}
                     />
                 )}
-                <StandardButton label="New Thread" onClick={handleNewPostButtonClick} />
-
-                {isAddingThread && (
-                    <SubmitBox submitPress={handlePostSubmit} cancelPress={handlePostCancel} isThread={true} />
-                )}
-                {!isAddingThread && <TagFilter onTagFilter={handleTagFilter} />}
-            </div>
-            <div>
                 <Pagination
-                    style={{ marginLeft: 150 }}
                     count={Math.ceil(numOfThreads / 5)}
                     className="pagination"
                     onChange={(e, page) => setPageNumber(page)}
                 />
             </div>
+            <StandardButton label="New Thread" onClick={handleNewPostButtonClick} />
+
+            {isAddingThread && (
+                <SubmitBox submitPress={handlePostSubmit} cancelPress={handlePostCancel} isThread={true} />
+            )}
+            {!isAddingThread && <TagFilter onTagFilter={handleTagFilter} />}
         </div>
     );
 };
