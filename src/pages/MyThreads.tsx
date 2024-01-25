@@ -77,7 +77,7 @@ const MyThreads: React.FC = () => {
                     alert("User authentication failed. Please sign in again");
                     navigate("/");
                 }
-                console.log("Response from server:", data);
+                // console.log("Response from server:", data);
 
                 updateThreadCount();
                 setIsAddingThread(false);
@@ -85,7 +85,7 @@ const MyThreads: React.FC = () => {
             }
         } catch (error) {
             alert("Could not submit.");
-            console.error("Error:", error);
+            // console.error("Error:", error);
         }
     };
 
@@ -96,13 +96,13 @@ const MyThreads: React.FC = () => {
     };
 
     const deleteFuncWrapper = async (ID: number) => {
-        handleDeleteClick(ID, true, name);
+        await handleDeleteClick(ID, true, name);
         updateThreadCount();
         setPostListKey((prevKey) => prevKey + 1);
     };
 
     const editFuncWrapper = async (ID: number, textInput: string) => {
-        handleEditClick(ID, textInput, true, name);
+        await handleEditClick(ID, textInput, true, name);
         setPostListKey((prevKey) => prevKey + 1);
     };
 

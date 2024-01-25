@@ -41,8 +41,9 @@ const PostList: React.FC<PostListProp> = ({
             .then((data) => {
                 setPosts(data);
             })
-            .catch((error) => {
-                console.log(error);
+            .catch(() => {
+                alert("Error in fetching data. It is possible that this thread has been deleted.");
+                // console.log(error);
             });
     }, [url, token]);
 

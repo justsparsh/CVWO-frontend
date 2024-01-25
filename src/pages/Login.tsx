@@ -30,9 +30,9 @@ const Login: React.FC = () => {
                     }
                     console.log(data);
                 })
-                .catch((error) => {
+                .catch(() => {
                     alert("There was an error retrieving your info. Please wait a few minutes and try again.");
-                    console.error("Error:", error);
+                    // console.error("Error:", error);
                 });
         } else {
             alert("Please enter a valid name.");
@@ -58,7 +58,7 @@ const Login: React.FC = () => {
                 })
                 .then((data) => {
                     localStorage.setItem("access-token", data.token);
-                    console.log("Response from server:", data);
+                    // console.log("Response from server:", data);
                     navigate(`/home/${inputValue}`);
                 })
                 .catch((error) => {

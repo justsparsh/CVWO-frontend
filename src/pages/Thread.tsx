@@ -59,7 +59,7 @@ const Thread: React.FC = () => {
                     alert("User authentication failed. Please sign in again");
                     navigate("/");
                 }
-                console.log("Response from server:", data);
+                // console.log("Response from server:", data);
 
                 updateThreadCount();
                 setIsAddingPost(false);
@@ -67,28 +67,28 @@ const Thread: React.FC = () => {
             }
         } catch (error) {
             alert("Unable to post to this thread.");
-            console.error("Error:", error);
+            // console.error("Error:", error);
         }
     };
 
     const deleteThread = async (ID: number) => {
-        handleDeleteClick(ID, true, name);
-        setThreadKey((prevKey) => prevKey + 1);
+        await handleDeleteClick(ID, true, name);
+        navigate(`/home/${name}`);
     };
 
     const deletePost = async (ID: number) => {
-        handleDeleteClick(ID, false, name);
+        await handleDeleteClick(ID, false, name);
         updateThreadCount();
         setPostListKey((prevKey) => prevKey + 1);
     };
 
     const editThread = async (ID: number, textInput: string) => {
-        handleEditClick(ID, textInput, true, name);
-        setPostListKey((prevKey) => prevKey + 1);
+        await handleEditClick(ID, textInput, true, name);
+        setThreadKey((prevKey) => prevKey + 1);
     };
 
     const editPost = async (ID: number, textInput: string) => {
-        handleEditClick(ID, textInput, false, name);
+        await handleEditClick(ID, textInput, false, name);
         setPostListKey((prevKey) => prevKey + 1);
     };
 
