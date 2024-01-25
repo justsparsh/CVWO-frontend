@@ -6,15 +6,20 @@ import { useNavigate } from "react-router-dom";
 
 const Login: React.FC = () => {
     const [inputValue, setInputValue] = useState<string>("");
+    const [passwordValue, setPasswordValue] = useState<string>("");
     const navigate = useNavigate();
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setInputValue(event.target.value);
     };
 
+    const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setPasswordValue(event.target.value);
+    };
+
     const handleLoginButtonClick = () => {
-        if (inputValue !== "") {
-            fetch(`${apiURL}/users?name=${inputValue}`, {
+        if (inputValue !== "" && passwordValue !== "") {
+            fetch(`${apiURL}/users?name=${inputValue}&password=${passwordValue}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -35,12 +40,12 @@ const Login: React.FC = () => {
                     // console.error("Error:", error);
                 });
         } else {
-            alert("Please enter a valid name.");
+            alert("Fields cannot be empty.");
         }
     };
 
     const handleSignupButtonClick = () => {
-        if (inputValue !== "") {
+        if (inputValue !== "" && passwordValue !== "") {
             fetch(`${apiURL}/users`, {
                 method: "POST",
                 headers: {
@@ -48,6 +53,7 @@ const Login: React.FC = () => {
                 },
                 body: JSON.stringify({
                     name: inputValue,
+                    password: passwordValue,
                 }),
             })
                 .then((response) => {
@@ -70,7 +76,7 @@ const Login: React.FC = () => {
                     }
                 });
         } else {
-            alert("Please enter a valid name.");
+            alert("Fields cannot be empty");
         }
     };
 
@@ -79,7 +85,15 @@ const Login: React.FC = () => {
             <div style={{ padding: "25px" }}>
                 <TextField value={inputValue} onChange={handleInputChange} label="Username" variant="outlined" />
             </div>
-
+            <div>
+                <TextField
+                    value={passwordValue}
+                    onChange={handlePasswordChange}
+                    label="Password"
+                    variant="outlined"
+                    hidden
+                />
+            </div>
             <div>
                 <StandardButton label="Login" onClick={handleLoginButtonClick} />
             </div>
