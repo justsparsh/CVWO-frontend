@@ -12,7 +12,7 @@ export const fetchUserData = (name: string | undefined) => {
             try {
                 const response = await fetch(`${apiURL}/users?name=${name}`);
                 const data = await response.json();
-                const fetchedUserID = data.user.id || null;
+                const fetchedUserID = data.user?.id || data.id || null;
                 setUserID(fetchedUserID);
             } catch (error) {
                 console.error("Error fetching userID:", error);
