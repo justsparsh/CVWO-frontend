@@ -13,20 +13,21 @@ import { useParams, useNavigate } from "react-router-dom";
 import { Pagination } from "@mui/material";
 
 const HomePage: React.FC = () => {
-    const token = localStorage.getItem("access-token");
-    const navigate = useNavigate();
+    const token = localStorage.getItem("access-token"); //Retrieve auth token from cache
+    const navigate = useNavigate(); //Retrieve params for API calls
     const { name } = useParams();
-    const [isAddingThread, setIsAddingThread] = useState<boolean>(false);
-    const [postListKey, setPostListKey] = useState(0);
-    const [pageNumber, setPageNumber] = useState<number>(1);
-    const [tickers, setTickers] = useState<string[]>([]);
-    const [sentiments, setSentiments] = useState<string[]>([]);
+    const [isAddingThread, setIsAddingThread] = useState<boolean>(false); //Controlling visibility of submit box
+    const [postListKey, setPostListKey] = useState(0); // used to refresh threads without refreshing page
+    const [pageNumber, setPageNumber] = useState<number>(1); //page number for API calls
+    const [tickers, setTickers] = useState<string[]>([]); //filter tags for API calls
+    const [sentiments, setSentiments] = useState<string[]>([]); //filter tags for API calls
     const postURL = `${apiURL}/threads?page=${pageNumber}&tickers=${encodeURIComponent(
         JSON.stringify(tickers),
     )}&sentiments=${encodeURIComponent(JSON.stringify(sentiments))}`;
 
-    // const userID = fetchUserData(name).userID;
-    const userID = localStorage.getItem("user_id");
+    const userID = localStorage.getItem("user_id"); //Retrieve user ID from cache
+
+    //Fetch number of threads for pagination
     const { numOfThreads, updateThreadCount } = fetchThreadCount(
         true,
         undefined,
@@ -48,6 +49,7 @@ const HomePage: React.FC = () => {
         setIsAddingThread(false);
     };
 
+    // API call for submitting post
     const handlePostSubmit = async (
         threadText: string,
         threadTitle: string | undefined,
@@ -78,7 +80,6 @@ const HomePage: React.FC = () => {
                     alert("User authentication failed. Please sign in again");
                     navigate("/");
                 }
-                // console.log("Response from server:", data);
 
                 updateThreadCount();
                 setIsAddingThread(false);
@@ -86,7 +87,6 @@ const HomePage: React.FC = () => {
             }
         } catch (error) {
             alert("Could not submit.");
-            // console.error("Error:", error);
         }
     };
 
@@ -135,18 +135,5 @@ const HomePage: React.FC = () => {
         </div>
     );
 };
-{
-    /* <div>
-            <Pagination
-                style={{ marginLeft: 150 }}
-                count={Math.ceil(numOfThreads / 5)}
-                className="pagination"
-                onChange={(e, page) => setPageNumber(page)}
-            />
-        </div> */
-}
-// </div>
-//     );
-// };
 
 export default HomePage;

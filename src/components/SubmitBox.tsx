@@ -74,6 +74,7 @@ const SubmitBox: React.FC<submitBoxProps> = ({ submitPress, cancelPress, isThrea
                 inputProps={{ maxLength: 1000 }}
             />
             {isThread && (
+                //Inserts tags
                 <div>
                     <div style={{ width: "250px", margin: "10px" }}>
                         <Autocomplete

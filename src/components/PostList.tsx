@@ -39,15 +39,15 @@ const PostList: React.FC<PostListProp> = ({ url, name, colorCode, linkToThread, 
             })
             .catch(() => {
                 alert("Error in fetching data. It is possible that this thread has been deleted.");
-                // console.log(error);
             });
-    }, [url, token]);
+    }, [url]);
 
     return (
         posts !== null &&
         posts.length > 0 && (
             <Stack>
                 {posts.map((post: PostProps) => (
+                    //Inserts all retrieved posts according to styling in Post.tsx
                     <Post
                         key={post.id}
                         id={post.id}

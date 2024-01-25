@@ -24,7 +24,7 @@ const TagFilter: React.FC<tagFilterProps> = ({ onTagFilter }) => {
 
     return (
         <div>
-            <div style={{ width: "250px", margin: "10px" }}>
+            <div style={{ width: "200px", margin: "10px" }}>
                 <Autocomplete
                     multiple
                     options={optionList}
@@ -43,7 +43,7 @@ const TagFilter: React.FC<tagFilterProps> = ({ onTagFilter }) => {
                     noOptionsText=""
                 />
             </div>
-            <div style={{ width: "250px", margin: "10px" }}>
+            <div style={{ width: "200px", margin: "10px" }}>
                 <Autocomplete
                     multiple
                     options={sentiments}

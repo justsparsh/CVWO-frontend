@@ -17,12 +17,10 @@ const EditBox: React.FC<EditBoxProps> = ({ initialText, submitEdit, cancelEdit }
             style={{
                 position: "absolute",
                 top: "20px",
-                left: "10%",
-                right: "10%",
                 bottom: 0,
                 zIndex: 2,
                 background: "rgba(255, 255, 255, 0.97)",
-                width: "80%",
+                width: "92%",
             }}
         >
             <TextField

@@ -13,17 +13,17 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Pagination } from "@mui/material";
 
 const MyThreads: React.FC = () => {
-    const token = localStorage.getItem("access-token");
+    const token = localStorage.getItem("access-token"); //Retrieve auth token from cache
     const { name } = useParams();
     const navigate = useNavigate();
-    const [isAddingThread, setIsAddingThread] = useState(false);
-    const [postListKey, setPostListKey] = useState(0);
-    const [pageNumber, setPageNumber] = useState<number>(1);
-    // const userID = fetchUserData(name).userID;
-    const userID = localStorage.getItem("user_id");
-    const [tickers, setTickers] = useState<string[]>([]);
-    const [sentiments, setSentiments] = useState<string[]>([]);
+    const [isAddingThread, setIsAddingThread] = useState(false); //Controlling visibility of submit box
+    const [postListKey, setPostListKey] = useState(0); // used to refresh threads without refreshing page
+    const [pageNumber, setPageNumber] = useState<number>(1); //page number for API calls
+    const userID = localStorage.getItem("user_id"); //Retrieve user ID from cache
+    const [tickers, setTickers] = useState<string[]>([]); //filter tags for API calls
+    const [sentiments, setSentiments] = useState<string[]>([]); //filter tags for API calls
     const { numOfThreads, updateThreadCount } = fetchThreadCount(
+        //Fetch number of threads for pagination
         true,
         Number(userID),
         undefined,
@@ -48,6 +48,7 @@ const MyThreads: React.FC = () => {
         setIsAddingThread(false);
     };
 
+    // API call for submitting post
     const handlePostSubmit = async (
         threadText: string,
         threadTitle: string | undefined,

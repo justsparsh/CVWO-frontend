@@ -11,24 +11,26 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Pagination } from "@mui/material";
 
 const Thread: React.FC = () => {
-    const token = localStorage.getItem("access-token");
-    const { name, threadID } = useParams();
+    const token = localStorage.getItem("access-token"); //Retrieve auth token from cache
+    const { name, threadID } = useParams(); //Retrieve params for API calls
     const navigate = useNavigate();
-    const [isAddingPost, setIsAddingPost] = useState(false);
-    const [postListKey, setPostListKey] = useState(0);
-    const [threadKey, setThreadKey] = useState(0);
-    const [pageNumber, setPageNumber] = useState<number>(1);
-    const threadURL = `${apiURL}/threads/${threadID}`;
-    const postURL = `${apiURL}/posts?page=${pageNumber}&threadID=${threadID}`;
+    const [isAddingPost, setIsAddingPost] = useState(false); //Controlling visibility of submit box
+    const [postListKey, setPostListKey] = useState(0); // used to refresh posts without refreshing page
+    const [threadKey, setThreadKey] = useState(0); // used to refresh thread without refreshing page
+    const [pageNumber, setPageNumber] = useState<number>(1); //page number for API calls
+    const threadURL = `${apiURL}/threads/${threadID}`; // API url for thread retrieval
+    const postURL = `${apiURL}/posts?page=${pageNumber}&threadID=${threadID}`; // API url for post retrieval
 
-    // const userID = fetchUserData(name).userID;
-    const userID = localStorage.getItem("user_id");
+    const userID = localStorage.getItem("user_id"); //Retrieve user ID from cache
+
+    //Fetch number of posts for pagination
     const { numOfThreads, updateThreadCount } = fetchThreadCount(
         false,
         undefined,
         threadID ? parseInt(threadID) : undefined,
     );
 
+    // Control submit box
     const handleNewPostButtonClick = () => {
         setIsAddingPost(true);
     };
@@ -37,6 +39,7 @@ const Thread: React.FC = () => {
         setIsAddingPost(false);
     };
 
+    // API call for submitting post
     const handlePostSubmit = async (postText: string) => {
         try {
             if (userID) {
@@ -60,15 +63,13 @@ const Thread: React.FC = () => {
                     alert("User authentication failed. Please sign in again");
                     navigate("/");
                 }
-                // console.log("Response from server:", data);
 
                 updateThreadCount();
-                setIsAddingPost(false);
-                setPostListKey((prevKey) => prevKey + 1);
+                setIsAddingPost(false); // Returns page to original view
+                setPostListKey((prevKey) => prevKey + 1); // Refreshes posts
             }
         } catch (error) {
             alert("Unable to post to this thread.");
-            // console.error("Error:", error);
         }
     };
 
@@ -102,7 +103,6 @@ const Thread: React.FC = () => {
                     key={threadKey}
                     url={threadURL}
                     name={name}
-                    // colorCode="#7FC7D9"
                     colorCode="#d9e0a6"
                     linkToThread={false}
                     isThread={true}
@@ -119,7 +119,6 @@ const Thread: React.FC = () => {
                     editPress={editPost}
                 />
                 <Pagination
-                    // style={{ marginLeft: 150 }}
                     count={Math.ceil(numOfThreads / 5)}
                     className="pagination"
                     onChange={(e, page) => setPageNumber(page)}

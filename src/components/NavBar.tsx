@@ -4,10 +4,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { Button, Box, Stack } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 
-// type NavBarProps = {
-//     width: number;
-// };
-
 const NavBar: React.FC = () => {
     const navigate = useNavigate();
     const { name } = useParams();
